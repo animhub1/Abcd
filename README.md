@@ -1,1 +1,1104 @@
-# Abcd
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animhub</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#050507;--card:#14141a;--red:#e50914;--tx:#f4f4f7;--mut:#9a9aa8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;line-height:1.5}
+:focus-visible{outline:3px solid #fff;outline-offset:2px}
+[hidden]{display:none!important}
+nav{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:16px;padding:12px 20px;background:rgba(5,5,7,.92);backdrop-filter:blur(8px);border-bottom:1px solid #1d1d26}
+.logo{display:flex;font-weight:900;font-size:1.7rem;letter-spacing:-.04em;text-decoration:none;color:#fff}
+.logosvg{height:34px;width:auto;display:block}
+.logo b{background:var(--red);border-radius:6px;padding:0 7px;margin-left:3px}
+nav form{flex:1;max-width:520px;margin-left:auto}
+nav input{width:100%;padding:10px 14px;border-radius:10px;border:1px solid #2a2a35;background:var(--card);color:var(--tx);font:inherit}
+.mw{position:relative;flex:none}
+.mbtn{width:42px;height:42px;display:grid;place-items:center;padding:0;border-radius:10px;border:1px solid #2a2a35;background:var(--card);color:var(--tx);cursor:pointer;transition:background .2s,border-color .2s}
+.mbtn:hover,.mbtn[aria-expanded=true]{background:#1c1c25;border-color:#3a3a48}
+.mbtn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.mmenu{position:absolute;right:0;top:50px;min-width:190px;padding:6px;border-radius:12px;background:#14141a;border:1px solid #2a2a35;box-shadow:0 12px 32px rgba(0,0,0,.55)}
+.mmenu[hidden]{display:none}
+.mmenu a{display:block;padding:11px 14px;border-radius:8px;color:#e8e8ee;text-decoration:none;font-weight:600;font-size:.95rem}
+.mmenu a:hover{background:rgba(255,255,255,.07)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:4px 0 14px}
+.chip{padding:8px 16px;border-radius:999px;border:1px solid #2a2a35;background:#14141a;color:#cfcfd8;font:inherit;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.chip:hover{border-color:#3a3a48;color:#fff}
+.chip.on{background:var(--red);border-color:var(--red);color:#fff}
+.amore{display:block;margin:28px auto 0;padding:10px 22px;border-radius:999px;background:#1c1c25;border:1px solid #2a2a35;color:#e8e8ee;font:inherit;font-weight:600;cursor:pointer}
+.hero{position:relative;min-height:78vh;display:flex;align-items:flex-end;overflow:hidden}
+.hero .bg{position:absolute;inset:0;background-size:cover;background-position:right center;opacity:0;transition:opacity .9s ease}.hero .bg.on{opacity:.9}
+.hero .dim{position:absolute;inset:0;background:#050507;opacity:0;pointer-events:none;transition:opacity .6s ease}
+.hero .in{animation:hin .6s ease-out}@keyframes hin{from{opacity:0;transform:translateY(10px)}}
+.hdots{position:absolute;right:20px;bottom:16px;z-index:2;display:flex;gap:8px}.hdots button{width:8px;height:8px;padding:0;border:0;border-radius:4px;background:rgba(255,255,255,.4);cursor:pointer;transition:width .3s,background .3s}.hdots button.on{width:26px;background:#ff4b55}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,5,7,.85) 0%,rgba(5,5,7,.35) 35%,transparent 65%),linear-gradient(0deg,var(--bg),transparent 40%)}
+.hero .in{position:relative;z-index:1;padding:20px;max-width:640px;margin-bottom:40px}
+.hero h1{font-size:clamp(2rem,6vw,3.8rem);line-height:1;margin:0 0 12px;font-weight:900;letter-spacing:-.03em}
+.hero p{color:#c9c9d4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:0 0 14px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.pills span{background:#1c1c25;color:#ddd;border-radius:8px;padding:3px 12px;font-size:.85rem}
+.btn{background:var(--red);color:#fff;border:0;border-radius:8px;padding:12px 26px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}
+section{max-width:1300px;margin:0 auto;padding:36px 20px 0}
+h2{text-transform:uppercase;margin:0 0 4px;font-size:1.8rem;font-style:italic;font-weight:900;letter-spacing:-.02em;padding-left:14px;border-left:5px solid var(--red)}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.all{background:none;border:0;color:var(--red);font:inherit;font-weight:800;text-transform:uppercase;cursor:pointer;padding:8px 0}.sub{color:var(--mut);margin:0 0 18px 19px;font-size:.92rem}
+.row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
+.row.wide{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.c{background:none;border:0;color:inherit;text-align:left;padding:0;cursor:pointer;font:inherit}
+.c .p{position:relative;border-radius:12px;overflow:hidden;background:var(--card)}
+.c img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block}
+.c .t{margin:8px 2px 0;font-weight:600;font-size:.92rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tag{position:absolute;top:8px;right:8px;background:#ffc400;color:#111;font-weight:900;font-size:.8rem;border-radius:6px;padding:1px 8px}
+.ep{position:relative;height:130px;border-radius:14px;overflow:hidden;background:var(--card);display:flex;align-items:center;padding:16px;text-align:left;border:0;color:inherit;cursor:pointer;width:100%}
+.ep img{position:absolute;right:0;top:0;height:100%;width:55%;object-fit:cover;opacity:.55;mask-image:linear-gradient(90deg,transparent,#000)}
+.ep div{position:relative;max-width:60%}
+.ep b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:1.05rem}
+.ep small{color:var(--mut)}
+.live{position:absolute;right:10px;bottom:10px;background:var(--red);font-size:.75rem;font-weight:800;border-radius:4px;padding:1px 8px}
+.msg{color:var(--mut);padding:10px 0}.pad{padding:40px 20px;max-width:1300px;margin:0 auto}
+footer{text-align:center;color:var(--mut);padding:60px 20px 40px;font-size:.85rem}
+
+/* ---- Detay sayfası ---- */
+.dh{position:relative;min-height:72vh;display:flex;align-items:flex-end;overflow:hidden}
+.dh .bgi{position:absolute;inset:0;background-size:cover;background-position:right center}
+.dh::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 20%,rgba(5,5,7,.4) 65%,transparent),linear-gradient(0deg,var(--bg),transparent 35%)}
+.home{position:absolute;top:18px;left:20px;z-index:2;display:inline-flex;align-items:center;gap:6px;padding:8px 14px 8px 10px;border-radius:999px;background:rgba(10,10,14,.45);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#e8e8ee;font-size:.88rem;font-weight:600;text-decoration:none;transition:background .2s,border-color .2s,transform .2s}
+.home svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.home:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.28)}.home:hover svg{transform:translateX(-2px)}
+.home:active{transform:scale(.97)}
+.navrow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.navrow .home{position:static;background:rgba(255,255,255,.06);max-width:100%}
+.navrow .hl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:50vw}
+.dhin{position:relative;z-index:1;padding:24px 20px;max-width:760px;margin-bottom:28px}
+.tlogo{display:block;max-width:min(440px,85%);max-height:150px;object-fit:contain;margin:0 0 16px}
+.dh h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1;margin:0 0 14px;font-weight:900}
+.mt{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.imdb{background:#ffc400;color:#111;font-weight:900;border-radius:6px;padding:2px 10px}.imdb small{font-weight:800;font-size:.7rem}
+.gen{color:var(--mut);font-weight:600;font-size:.92rem;display:flex;flex-wrap:wrap;gap:2px 14px}
+.yr{margin:12px 0 10px;font-size:1.05rem}.yr span{color:var(--mut)}
+.ov{color:#c9c9d4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:0 0 18px}
+.play{border-radius:999px;padding:15px 32px;letter-spacing:.05em;text-transform:uppercase;box-shadow:0 6px 24px rgba(229,9,20,.35)}
+.grp{color:var(--mut);font-size:.9rem;margin-top:12px}.grp b{color:#ddd;margin-left:10px;font-weight:600}
+.alt{background:#1c1c25;color:#fff;border:1px solid #2a2a35;border-radius:10px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+.alt.dis{opacity:.35;pointer-events:none}
+.sel{background:#14141a;color:var(--tx);border:1px solid #2a2a35;border-radius:10px;padding:12px 40px 12px 16px;font:inherit;font-weight:800;font-size:1.1rem}
+.sech{font-size:2rem;margin:20px 0 16px;font-weight:900;letter-spacing:-.02em;text-transform:none;font-style:normal;border:0;padding:0}
+.egrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.ec{color:inherit;text-decoration:none;display:block}
+.ec .th{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:var(--card);outline:2px solid transparent}
+.ec.on .th{outline-color:var(--red)}
+.ec img{width:100%;height:100%;object-fit:cover;display:block}
+.ec .th::after{content:"";position:absolute;inset:auto 0 0 0;height:45%;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent)}
+.ec .b1,.ec .b2,.ec .b3{position:absolute;z-index:1;font-weight:800;font-size:.8rem}
+.ec .b1{top:8px;left:8px;background:var(--red);border-radius:6px;padding:1px 9px;font-size:.75rem}
+.ec .b2{left:8px;bottom:8px;background:var(--red);border-radius:6px;padding:1px 9px}
+.ec .b3{right:10px;bottom:8px;color:#e8e8ee;font-weight:600}
+.ec .et{margin-top:8px;font-weight:800;font-size:1.05rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trbox iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#000}
+
+/* ---- İzleme sayfası ---- */
+.wp{max-width:1300px;margin:0 auto;padding:20px}
+.back{color:var(--mut);text-decoration:none;font-weight:600;display:inline-block;margin-bottom:12px}
+.vwrap{aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;display:grid;place-items:center;position:relative}
+.ldr{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:rgba(0,0,0,.72);color:#fff;font-weight:600;pointer-events:none;transition:opacity .25s}
+.ldr.off{opacity:0;visibility:hidden}
+.ptoast{position:absolute;left:12px;top:12px;z-index:8;max-width:calc(100% - 24px);background:rgba(0,0,0,.78);color:#fff;padding:8px 12px;border-radius:8px;font-size:.9rem;pointer-events:none}
+.spin{width:54px;height:54px;border-radius:50%;border:4px solid rgba(255,255,255,.18);border-top-color:#ff4b55;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+/* ---- Özel oynatıcı ---- */
+.pl:fullscreen{aspect-ratio:auto;border-radius:0}
+.plsub{position:absolute;left:6%;right:6%;bottom:96px;z-index:3;text-align:center;pointer-events:none;font-weight:700;font-size:min(var(--sf,28px),6.2vw);line-height:1.35;color:#fff;transition:bottom .25s}
+.plsub span{text-shadow:0 0 4px #000,0 0 4px #000,1px 1px 3px #000}
+.plsub.bx span{background:rgba(0,0,0,.7);padding:1px 8px;border-radius:4px;text-shadow:none;box-decoration-break:clone}
+.pl.idle .plsub{bottom:28px}
+.plc{position:absolute;left:0;right:0;bottom:0;z-index:6;padding:34px 14px 8px;background:linear-gradient(transparent,rgba(0,0,0,.85));transition:opacity .25s;color:#fff}
+.pl.idle .plc{opacity:0;pointer-events:none}.pl.idle{cursor:none}
+.plprog{position:relative;height:18px;cursor:pointer;touch-action:none;display:flex;align-items:center}
+.plprog::before{content:"";position:absolute;left:0;right:0;height:4px;border-radius:2px;background:rgba(255,255,255,.25)}
+.plbuf,.plplay{position:absolute;left:0;height:4px;border-radius:2px}
+.plbuf{background:rgba(255,255,255,.35)}.plplay{background:#ff4b55}
+.plplay::after{content:"";position:absolute;right:-6px;top:-4px;width:12px;height:12px;border-radius:50%;background:#ff4b55}
+.plrow{display:flex;align-items:center;gap:4px}
+.plrow button{background:none;border:0;color:#fff;cursor:pointer;padding:8px;display:grid;place-items:center;font-size:24px;line-height:1}
+.pltime{font-size:.9rem;margin-left:8px;white-space:nowrap}
+.plvol{width:70px;accent-color:#ff4b55}
+.plmenu{position:absolute;right:12px;bottom:84px;z-index:7;width:340px;max-width:calc(100% - 24px);max-height:calc(100% - 110px);overflow:auto;background:rgba(32,26,24,.94);backdrop-filter:blur(8px);border-radius:12px;color:#fff;padding:4px}
+.pmi,.pmh{display:flex;align-items:center;gap:10px;padding:13px 14px;cursor:pointer;border-radius:8px}
+.pmi:hover,.pmh:hover{background:rgba(255,255,255,.08)}
+.pmi span{flex:1}.pmi em{font-style:normal;color:#b9b0ab;font-size:.9rem}.pmi.on{color:#ff4b55;font-weight:700}.pmh{font-weight:700}
+.pmi .ck{flex:0 0 20px;font-style:normal}.pmi>span:first-child:not(:last-child){flex:1}
+.sw{flex:none;width:42px;height:24px;border-radius:12px;background:#555;position:relative;transition:background .2s}.sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .2s}.sw.on{background:#ff4b55}.sw.on::after{left:21px}
+.pms input{width:40%;accent-color:#ff4b55}
+@media(max-width:700px){.plvol{display:none}}
+/* Mobil: oynatıcı kontrolleri sığsın */
+@media(max-width:700px),(pointer:coarse) and (max-width:900px){
+  .plc{padding:22px 8px 4px}
+  .plprog{height:22px}
+  .plrow{flex-wrap:wrap;gap:0;row-gap:0}
+  .plrow button{padding:5px;font-size:19px}
+  .plrow button svg{width:20px;height:20px}
+  .pltime{font-size:.72rem;margin:0 2px 0 4px}
+  .plsub{bottom:78px}
+  .plmenu{right:8px;bottom:70px;max-height:calc(100% - 90px)}
+}
+@media(max-width:360px){
+  .plrow button{padding:3px}
+  .plrow button svg{width:18px;height:18px}
+  .pltime{font-size:.66rem}
+}
+
+.vwrap video,.vwrap iframe{width:100%;height:100%;border:0;background:#000}
+.wbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin:16px 0 6px}
+.wt{margin:0;font-size:1.5rem;text-transform:none;font-style:normal;border:0;padding:0}
+.ws{color:var(--mut)}
+.wctl{display:flex;gap:10px;align-items:center}
+.nbtn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:128px;padding:11px 20px;border-radius:999px;font:inherit;font-weight:700;font-size:.95rem;letter-spacing:.2px;color:#fff;text-decoration:none;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;transition:transform .18s ease,box-shadow .25s ease,background .25s ease,border-color .25s ease}
+.nbtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s ease}
+.nprev{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.nprev:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28)}
+.nprev:hover svg{transform:translateX(-3px)}
+.nnext{background:linear-gradient(135deg,#ff4b55,#d1111d);border:1px solid rgba(255,255,255,.12);box-shadow:0 6px 20px rgba(229,9,20,.35),inset 0 1px 0 rgba(255,255,255,.25)}
+.nnext:hover{box-shadow:0 8px 26px rgba(229,9,20,.55),inset 0 1px 0 rgba(255,255,255,.3);transform:translateY(-1px)}
+.nnext:hover svg{transform:translateX(3px)}
+.nbtn:active{transform:scale(.95)}
+.nbtn.dis{opacity:.35;pointer-events:none;box-shadow:none;filter:grayscale(.6)}
+@media(max-width:700px){.wbar{flex-direction:column;align-items:stretch}.wctl{width:100%}.nbtn{flex:1;min-width:0;padding:13px 12px}}
+
+@media(max-width:1000px),(max-aspect-ratio:1/1){.hero .bg,.dh .bgi{background-position:center 20%}.hero::after{background:linear-gradient(0deg,var(--bg) 6%,rgba(5,5,7,.6) 38%,transparent 72%)}.dh::after{background:linear-gradient(0deg,var(--bg) 6%,rgba(5,5,7,.6) 38%,transparent 72%)}}
+@media(max-width:600px){.hero{min-height:70vh}.dh{min-height:64vh}.sech{font-size:1.5rem}}
+@media(prefers-reduced-motion:no-preference){.hero .bg{animation:z 1.2s ease-out}@keyframes z{from{opacity:0}}}
+
+/* ===== Modern üst bar, arama, menü ve yazılar ===== */
+nav{gap:14px;padding:12px 20px;background:linear-gradient(180deg,rgba(10,10,14,.9),rgba(5,5,7,.78));backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-bottom:1px solid rgba(255,255,255,.06)}
+nav form{position:relative;flex:1;max-width:460px;margin-left:auto}
+nav form .sico{position:absolute;left:15px;top:50%;width:18px;height:18px;transform:translateY(-50%);fill:none;stroke:#8d8d9c;stroke-width:2.2;stroke-linecap:round;pointer-events:none;transition:stroke .25s}
+nav form:focus-within .sico{stroke:#ff4b55}
+nav input{height:44px;padding:0 16px 0 44px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.05);font-size:.95rem;font-weight:500;letter-spacing:.1px;outline:0;transition:background .25s,border-color .25s,box-shadow .25s}
+nav input::placeholder{color:#7f7f8e;font-weight:500}
+nav input:hover{background:rgba(255,255,255,.08)}
+nav input:focus,nav input:focus-visible{outline:0;background:rgba(255,255,255,.09);border-color:rgba(255,75,85,.7);box-shadow:0 0 0 4px rgba(255,75,85,.15),0 6px 24px rgba(0,0,0,.4)}
+nav input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;cursor:pointer;background:rgba(255,255,255,.25) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='M7 7l10 10M17 7L7 17'/%3E%3C/svg%3E") center/10px no-repeat}
+.mbtn{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.05);transition:background .25s,border-color .25s,transform .15s}
+.mbtn:hover,.mbtn[aria-expanded=true]{background:rgba(255,255,255,.1);border-color:rgba(255,75,85,.55)}
+.mbtn:active{transform:scale(.92)}
+.hb{position:relative;display:block;width:20px;height:14px}
+.hb i{position:absolute;left:0;height:2.2px;border-radius:2px;background:#fff;transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .2s,width .25s,top .3s,background .25s}
+.hb i:nth-child(1){top:0;width:20px}.hb i:nth-child(2){top:6px;width:14px}.hb i:nth-child(3){top:12px;width:20px}
+.mbtn:hover .hb i:nth-child(2){width:20px}
+.mbtn[aria-expanded=true] .hb i{background:#ff4b55}
+.mbtn[aria-expanded=true] .hb i:nth-child(1){top:6px;transform:rotate(45deg)}
+.mbtn[aria-expanded=true] .hb i:nth-child(2){opacity:0;width:0}
+.mbtn[aria-expanded=true] .hb i:nth-child(3){top:6px;transform:rotate(-45deg)}
+.mmenu{top:54px;min-width:210px;padding:8px;border-radius:18px;background:rgba(20,20,27,.82);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border:1px solid rgba(255,255,255,.09);box-shadow:0 20px 50px rgba(0,0,0,.65);transform-origin:top right;animation:mpop .22s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes mpop{from{opacity:0;transform:translateY(-6px) scale(.94)}}
+.mmenu a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;font-weight:600;font-size:.96rem;letter-spacing:.1px;color:#e8e8ee;transition:background .2s,color .2s,transform .15s}
+.mmenu a svg{width:20px;height:20px;flex:none;fill:none;stroke:#ff4b55;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mmenu a:hover{background:rgba(255,75,85,.12);color:#fff}
+.mmenu a:active{transform:scale(.97)}
+/* Başlıklar ve yazılar */
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h2{text-transform:none;font-style:normal;font-weight:800;font-size:1.65rem;letter-spacing:-.025em;padding-left:16px;border-left:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.18em;bottom:.18em;width:5px;border-radius:4px;background:linear-gradient(180deg,#ff4b55,#b0000c)}
+.sub{color:#8f8fa0;font-size:.9rem;margin:0 0 18px 16px;letter-spacing:.1px}
+.all{display:inline-flex;align-items:center;gap:4px;text-transform:none;font-size:.85rem;font-weight:700;letter-spacing:.2px;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:7px 14px;white-space:nowrap;transition:background .2s,border-color .2s,transform .15s}
+.all::after{content:"›";font-size:1.15em;line-height:1;transition:transform .2s}
+.all:hover{background:rgba(255,75,85,.16);border-color:rgba(255,75,85,.5)}.all:hover::after{transform:translateX(3px)}
+.all:active{transform:scale(.95)}
+.chip{padding:9px 18px;font-weight:600;letter-spacing:.1px;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)}
+.chip.on{background:linear-gradient(135deg,#ff4b55,#d1111d);border-color:transparent;box-shadow:0 4px 16px rgba(229,9,20,.35)}
+.c .t{font-weight:600;letter-spacing:.1px}
+.c .p{transition:transform .25s ease,box-shadow .25s ease}.c:hover .p{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.55)}
+@media(max-width:700px){
+  nav{gap:10px;padding:10px 12px}
+  .logosvg{height:28px}
+  nav input{height:42px;font-size:.9rem}
+  .mbtn{width:42px;height:42px}
+  h2{font-size:1.35rem}
+  .sub{font-size:.85rem}
+}
+
+/* ===== Site geneli modern görünüm ===== */
+html{scroll-behavior:smooth;color-scheme:dark}
+::selection{background:rgba(255,75,85,.4);color:#fff}
+body{background:radial-gradient(1100px 520px at 85% -8%,rgba(229,9,20,.08),transparent 60%),radial-gradient(900px 500px at -10% 30%,rgba(90,60,255,.05),transparent 60%),var(--bg);background-attachment:fixed}
+*{scrollbar-width:thin;scrollbar-color:#2e2e3b transparent}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:#2a2a36;border-radius:10px;border:2px solid var(--bg)}::-webkit-scrollbar-thumb:hover{background:#3a3a4a}
+#main>*,#page>*{animation:fin .45s ease both}@keyframes fin{from{opacity:0;transform:translateY(8px)}}
+/* Bölüm başlıkları */
+section{padding-top:44px}
+.hd{align-items:center;margin-bottom:4px}
+h2.h2i{display:flex;align-items:center;gap:12px;padding-left:0;font-size:1.6rem;font-weight:800;letter-spacing:-.03em;background:linear-gradient(180deg,#fff,#c9c9d6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h2.h2i::before{display:none}
+.hi{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(255,75,85,.25),rgba(229,9,20,.08));border:1px solid rgba(255,75,85,.35);box-shadow:0 6px 18px rgba(229,9,20,.18);-webkit-text-fill-color:initial}
+.hi svg{width:21px;height:21px;fill:#ff6b74;color:#ff6b74}
+.hd .sub{margin:0 0 18px 52px}
+/* Tümünü gör */
+.all{position:relative;flex:none;overflow:hidden;gap:6px;padding:9px 16px 9px 18px;border-radius:999px;font-size:.84rem;font-weight:700;letter-spacing:.3px;color:#fff;background:linear-gradient(#14141a,#14141a) padding-box,linear-gradient(135deg,rgba(255,75,85,.9),rgba(255,255,255,.12) 55%,rgba(255,75,85,.5)) border-box;border:1px solid transparent;transition:box-shadow .25s,transform .15s,background .25s}
+.all::after{content:"";width:16px;height:16px;flex:none;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;transition:transform .25s}
+.all:hover{background:linear-gradient(#1d1417,#1d1417) padding-box,linear-gradient(135deg,#ff4b55,rgba(255,255,255,.2) 55%,#ff4b55) border-box;box-shadow:0 6px 22px rgba(229,9,20,.3)}
+.all:hover::after{transform:translateX(4px)}
+/* Kartlar */
+.row{gap:18px}
+.c{transition:transform .25s ease}
+.c .p{border-radius:16px;box-shadow:0 4px 14px rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.06);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s}
+.c .p::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent 55%);opacity:0;transition:opacity .3s}
+.c .p::before{content:"";position:absolute;z-index:2;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(229,9,20,.92) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 6.5v11l9-5.5z'/%3E%3C/svg%3E") center/24px no-repeat;box-shadow:0 8px 24px rgba(229,9,20,.55);opacity:0;transform:scale(.7);transition:opacity .3s,transform .3s}
+.c:hover .p{transform:translateY(-5px);border-color:rgba(255,75,85,.45);box-shadow:0 16px 34px rgba(0,0,0,.6),0 0 0 1px rgba(255,75,85,.2)}
+.c:hover .p::after{opacity:1}.c:hover .p::before{opacity:1;transform:scale(1)}
+.c img{transition:transform .5s ease}.c:hover img{transform:scale(1.06)}
+.c .t{margin:10px 4px 0;font-weight:600;font-size:.92rem;letter-spacing:.1px;color:#e9e9f0;transition:color .2s}
+.c:hover .t{color:#fff}
+.tag{z-index:3;top:10px;right:10px;background:rgba(255,196,0,.95);backdrop-filter:blur(6px);border-radius:8px;padding:2px 9px;font-size:.74rem;letter-spacing:.3px;box-shadow:0 3px 10px rgba(0,0,0,.4)}
+/* Yeni bölüm / geniş kartlar */
+.ep{border-radius:18px;height:136px;padding:18px 20px;background:linear-gradient(135deg,#1a1a22,#111116);border:1px solid rgba(255,255,255,.07);transition:transform .3s,border-color .3s,box-shadow .3s}
+.ep:hover{transform:translateY(-3px);border-color:rgba(255,75,85,.45);box-shadow:0 14px 30px rgba(0,0,0,.5)}
+.ep b{font-size:1.05rem;font-weight:700;letter-spacing:-.01em}
+.ep small{font-weight:500;letter-spacing:.2px}
+.live{display:inline-flex;align-items:center;gap:6px;right:12px;bottom:12px;border-radius:999px;padding:3px 11px;font-size:.7rem;letter-spacing:.8px;background:linear-gradient(135deg,#ff4b55,#d1111d);box-shadow:0 4px 14px rgba(229,9,20,.45)}
+.live::before{content:"";width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse 1.4s infinite}@keyframes pulse{50%{opacity:.25}}
+/* Hero */
+.hero .in{max-width:680px}
+.hero h1{font-size:clamp(2.1rem,6.5vw,4rem);font-weight:900;letter-spacing:-.04em;line-height:1.02;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.pills{gap:8px}
+.pills span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#f0f0f5;border-radius:999px;padding:4px 13px;font-size:.8rem;font-weight:600;letter-spacing:.2px}
+.pills span:last-child:not(:only-child){background:rgba(255,196,0,.16);border-color:rgba(255,196,0,.4);color:#ffd84d}
+.hero p,.ov{color:#cfcfda;font-size:1rem;line-height:1.6}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:13px 28px;font-weight:700;letter-spacing:.3px;background:linear-gradient(135deg,#ff4b55,#d1111d);box-shadow:0 8px 26px rgba(229,9,20,.4),inset 0 1px 0 rgba(255,255,255,.25);transition:transform .2s,box-shadow .25s}
+.btn svg{width:20px;height:20px;fill:currentColor;flex:none}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(229,9,20,.6),inset 0 1px 0 rgba(255,255,255,.3)}
+.btn:active{transform:scale(.96)}
+.play{text-transform:none;font-size:1rem;padding:15px 30px;letter-spacing:.3px}
+.hdots{gap:6px;padding:7px 10px;border-radius:999px;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);bottom:18px}
+.hdots button{height:6px;width:6px;border-radius:6px}.hdots button.on{width:22px}
+/* Detay sayfası */
+.dh h1{font-weight:900;letter-spacing:-.04em;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.imdb{display:inline-flex;align-items:center;gap:4px;background:rgba(255,196,0,.15);border:1px solid rgba(255,196,0,.45);color:#ffd84d;border-radius:999px;padding:3px 12px;font-size:.88rem}
+.gen{gap:6px}
+.yr{font-weight:600;letter-spacing:.2px}
+.grp{font-size:.88rem}.grp b{color:#e8e8ee}
+.sech{font-size:1.7rem;font-weight:800;letter-spacing:-.03em;margin:28px 0 18px;display:flex;align-items:center;gap:12px}
+.sech::before{content:"";width:5px;height:1.1em;border-radius:4px;background:linear-gradient(180deg,#ff4b55,#b0000c)}
+.egrid{gap:22px 18px}
+.ec{transition:transform .3s}
+.ec .th{border-radius:16px;outline:0;border:1px solid rgba(255,255,255,.07);transition:transform .3s,border-color .3s,box-shadow .3s}
+.ec:hover .th{transform:translateY(-4px);border-color:rgba(255,75,85,.5);box-shadow:0 14px 30px rgba(0,0,0,.55)}
+.ec.on .th{border-color:#ff4b55;box-shadow:0 0 0 2px rgba(255,75,85,.45),0 10px 28px rgba(229,9,20,.25)}
+.ec img{transition:transform .5s}.ec:hover img{transform:scale(1.06)}
+.ec .b1,.ec .b2{background:linear-gradient(135deg,#ff4b55,#d1111d);border-radius:999px;padding:2px 11px;box-shadow:0 3px 10px rgba(0,0,0,.4)}
+.ec .b3{background:rgba(0,0,0,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:999px;padding:1px 9px;font-size:.74rem}
+.ec .et{font-weight:700;font-size:1rem;letter-spacing:-.01em;margin-top:10px}
+.wt{font-weight:800;letter-spacing:-.03em;font-size:1.6rem}
+.ws{font-size:.92rem;letter-spacing:.1px}
+.wp{padding-top:16px}
+.vwrap{border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.06)}
+/* Diğer butonlar */
+.amore{padding:12px 26px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);transition:background .2s,border-color .2s,transform .15s}
+.amore:hover{background:rgba(255,75,85,.15);border-color:rgba(255,75,85,.5)}.amore:active{transform:scale(.96)}
+.msg{color:#a0a0b0;font-weight:500}
+.chips{gap:10px}
+/* Footer */
+footer{margin-top:70px;border-top:1px solid rgba(255,255,255,.06);background:linear-gradient(180deg,transparent,rgba(229,9,20,.05))}
+footer .fl{font-weight:900;font-size:1.3rem;letter-spacing:-.04em;margin-bottom:6px;color:#fff}
+footer .fl b{background:var(--red);border-radius:5px;padding:0 6px;margin-left:3px}
+footer p{margin:0;color:#8a8a9a}
+@media(max-width:700px){
+  section{padding-top:34px}
+  h2.h2i{font-size:1.3rem;gap:10px}
+  .hi{width:34px;height:34px;border-radius:10px}.hi svg{width:18px;height:18px}
+  .hd .sub{margin-left:44px;font-size:.82rem}
+  .all{padding:8px 12px 8px 14px;font-size:.78rem}
+  .row{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px}
+  .hero h1{font-size:2.2rem}
+  .btn{padding:12px 24px}
+  .sech{font-size:1.35rem}
+  .vwrap{border-radius:14px}
+}
+@media(hover:none){.c:hover .p,.ec:hover .th,.ep:hover{transform:none}.c .p::before{display:none}}
+
+/* ===== Detay sayfası taşma + başlık düzeltmeleri ===== */
+.dh{width:100%;max-width:100vw}
+.dhin{width:100%;min-width:0;box-sizing:border-box}
+.dhin>*{max-width:100%;min-width:0}
+.tlogo{width:auto;height:auto;max-width:min(440px,85%);max-height:130px}
+.dh h1,.gen,.yr,.ov,.grp{overflow-wrap:anywhere;word-break:normal}
+.sech::before{position:static;flex:none;width:5px;height:1.05em;margin:0;border-radius:4px;background:linear-gradient(180deg,#ff4b55,#b0000c)}
+.sech[style*="center"]{justify-content:center}
+.sech{padding-left:0}
+.mt{margin-bottom:14px}
+.gen{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.gen span{padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-size:.8rem;font-weight:600;color:#e6e6ee;line-height:1.4}
+.yr{margin:12px 0 8px;font-size:.95rem;font-weight:600;color:#d8d8e2}
+.dhin .play{margin:4px 10px 4px 0}
+.dhin .alt{display:inline-flex;align-items:center;gap:8px;vertical-align:top;margin:4px 0;padding:14px 24px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-weight:700;transition:background .2s,border-color .2s,transform .15s}
+.dhin .alt:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3)}.dhin .alt:active{transform:scale(.96)}
+.grp{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:14px;font-size:.8rem;font-weight:600;letter-spacing:.3px;color:#a8a8b8}
+.grp b{margin:0;padding:3px 11px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);font-size:.78rem;font-weight:600;color:#e8e8ee}
+.sel{appearance:none;-webkit-appearance:none;cursor:pointer;padding:12px 44px 12px 18px;border-radius:14px;background:#14141a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff6b74' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") right 14px center/18px no-repeat;border:1px solid rgba(255,255,255,.12);font-weight:700;font-size:1.02rem;transition:border-color .2s,box-shadow .2s}
+.sel:hover{border-color:rgba(255,75,85,.5)}.sel:focus-visible{outline:0;border-color:#ff4b55;box-shadow:0 0 0 4px rgba(255,75,85,.15)}
+@media(max-width:700px){
+  .dhin{padding:20px 16px;margin-bottom:20px}
+  .home{left:16px}
+  .tlogo{max-height:96px;max-width:80%}
+  .dh h1{font-size:2.2rem}
+  .gen span{font-size:.74rem;padding:3px 10px}
+  .ov{font-size:.95rem}
+  .dhin .play,.dhin .alt{padding:13px 22px;font-size:.95rem}
+  .sech{font-size:1.3rem;gap:10px}
+  .sel{font-size:.95rem;padding:11px 40px 11px 16px}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="#/" id="logo" aria-label="Animhub"><svg class="logosvg" viewBox="0 0 316 64" aria-hidden="true">  <defs><linearGradient id="ah-red" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff2b3a"/><stop offset="1" stop-color="#d4000f"/></linearGradient></defs><g transform="translate(11 0) skewX(-10)"><!-- hub kutusu --><path d="M154 0H292L304 12V64H166L154 52Z" fill="url(#ah-red)"/><!-- ANIM --><g fill="#fff" fill-rule="evenodd" transform="translate(0 10)"><path d="M0 44V10L10 0H24L34 10V44H26V28H8V44ZM8 20H26V13L21 8H13L8 13Z"/><path d="M44 44V0H53L69 30V0H78V44H69L53 14V44Z"/><path d="M88 0H96V44H88Z"/><path d="M106 44V0H116L123 14L130 0H140V44H132V16L125 30H121L114 16V44Z"/></g><!-- HUB --><g fill="#fff" fill-rule="evenodd" transform="translate(168 10)"><path d="M0 0H8V18H26V0H34V44H26V26H8V44H0Z"/><path d="M44 0H52V34H70V0H78V36L70 44H52L44 36Z"/><path d="M88 0H112L120 8V17L116 22L122 27V36L114 44H88ZM96 8H109L112 11V15L109 18H96ZM96 26H111L114 29V33L111 36H96Z"/></g></g></svg></a>
+  <form id="sf"><svg class="sico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Anime ara…" aria-label="Anime ara" autocomplete="off" enterkeyhint="search"></form>
+  <div class="mw">
+    <button class="mbtn" id="mbtn" type="button" aria-label="Menü" aria-expanded="false"><span class="hb" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <div class="mmenu" id="mmenu" hidden><a href="#/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span>Ana sayfa</span></a><a href="#/animes"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="3"/><path d="M10 9l5 3-5 3z"/><path d="M8 21h8"/></svg><span>Animeler</span></a></div>
+  </div>
+</nav>
+
+<div id="main">
+  <div class="hero" id="hero"><div class="bg"></div><div class="in"><h1>Yükleniyor…</h1></div></div>
+  <div id="search" hidden><section><h2>Arama sonuçları</h2><p class="sub" id="ssub"></p><div class="row" id="sres"></div></section></div>
+  <div id="home">
+    <section><div class="hd"><div><h2 class="h2i"><span class="hi"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg></span>Yeni eklenen animeler</h2><p class="sub">Kataloğa en son eklenen seriler ve filmler</p></div><button class="all" data-all="new"><span>Tümünü gör</span></button></div><div class="row" id="new"></div></section>
+    <section><div class="hd"><div><h2 class="h2i"><span class="hi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M8 9v3.5h3M11 9v6M14.5 9l2.5 3m0 0l-2.5 3m2.5-3h-2.5" stroke-linecap="round"/></svg></span>4K anime</h2><p class="sub">2160p 4K kaynaktan yayınlanan seriler</p></div><button class="all" data-all="k4"><span>Tümünü gör</span></button></div><div class="row" id="k4"></div></section>
+    <section><div class="hd"><div><h2 class="h2i"><span class="hi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></span>Türkçe dublaj</h2><p class="sub">Türkçe seslendirmeli animeler</p></div><button class="all" data-all="dub"><span>Tümünü gör</span></button></div><div class="row" id="dub"></div></section>
+  </div>
+</div>
+
+<div id="page" hidden></div>
+<footer><div class="fl">ANIM<b>HUB</b></div><p>Animeyi keşfet, izle, hayran ol.</p></footer>
+
+<script>
+/* ===== Animland API istemcisi (Cloudflare Worker üzerinden) ===== */
+const ANIM = {
+  base: "https://animeapi123.ishakaydin445.workers.dev/api",   // Worker -> api.animland.net
+  site: "https://animeapi123.ishakaydin445.workers.dev/site",  // Worker -> www.animland.net
+  vid:  "https://animeapi123.ishakaydin445.workers.dev/video", // Worker -> video.animland.net (yeni)
+  ttl: 5 * 60e3,
+  timeout: 12e3,
+};
+const EP = {
+  top:      (p = "imdb", pg = 1) => `/page/top?platform=${encodeURIComponent(p)}&page=${pg}`,
+  newAnime: ()    => "/page/new-anime",
+  calendar: ()    => "/page/calendar",
+  seo:      (s)   => `/seo-data/${encodeURIComponent(s)}.json`,
+  info:     (id)  => `/anime/get?id=${encodeURIComponent(id)}`,
+  similar:  (id)  => `/anime/similar?id=${encodeURIComponent(id)}`,
+  all:      (pg = 1) => `/page/top?platform=all&page=${pg}&pages=5`,
+  search:   (q, pg = 1) => `/search?q=${encodeURIComponent(q)}&page=${pg}`,   // ⚠ doğrulanmadı
+  source:   (id, se = 1, ep = 1, sv = 2) => `/anime/source?id=${encodeURIComponent(id)}&season=${se}&episode=${ep}&server=${sv}`,   // ⚠ URL kesikti
+};
+const _cache = new Map();
+async function animGet(path, { retries = 2, base = ANIM.base, force = false } = {}) {
+  const url = base + path, c = _cache.get(url);
+  if (!force && c && Date.now() - c.t < ANIM.ttl) return c.d;
+  for (let i = 0; i <= retries; i++) {
+    const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), ANIM.timeout);
+    try {
+      const r = await fetch(url, { signal: ctl.signal, headers: { Accept: "application/json" } });
+      clearTimeout(tm);
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const d = await r.json();
+      _cache.set(url, { t: Date.now(), d });
+      return d;
+    } catch (e) {
+      clearTimeout(tm);
+      if (i === retries) throw e;
+      await new Promise(res => setTimeout(res, 600 * (i + 1)));
+    }
+  }
+}
+const Animland = {
+  top:      (p, pg) => animGet(EP.top(p, pg)),
+  newAnime: ()      => animGet(EP.newAnime()),
+  calendar: ()      => animGet(EP.calendar()),
+  seo:      (s)     => animGet(EP.seo(s), { base: ANIM.site }),
+  info:     (id)    => animGet(EP.info(id)),
+  similar:  (id)    => animGet(EP.similar(id)),
+  all:      (pg)    => animGet(EP.all(pg)),
+  search:   (q, pg) => animGet(EP.search(q, pg)),
+  source:   (id, se, ep, sv) => animGet(EP.source(id, se, ep, sv), { force: true, retries: 0 }),
+};
+
+/* ===== Alan adları (gerçek Animland yapısına göre) ===== */
+const pick = (o, ...k) => k.map(x => o?.[x]).find(v => v != null && v !== "");
+const fixTxt = s => (s == null ? s : String(s).replace(/rnrn/g, "\n\n"));
+const names = l => (Array.isArray(l) ? l : []).map(g => (typeof g === "string" ? g : g?.name || g?.title || "").trim()).filter(Boolean);
+function normAnime(a) {
+  const pts = [a.imdb_point, a.tmdb_point, a.mal_point, a.anilist_point, a.score, a.rating].find(v => Number(v) > 0);
+  const st = pick(a, "status");
+  return {
+    id:      pick(a, "ID", "id", "slug", "_id"),
+    title:   pick(a, "name", "title", "name_jp"),
+    img:     pick(a, "poster", "image", "cover", "thumbnail", "img"),
+    banner:  pick(a, "banner", "details_banner", "backdrop", "poster"),
+    wide:    pick(a, "details_banner", "banner", "backdrop", "poster"),
+    logo:    pick(a, "logo"),
+    score:   pts,
+    like:    a.like, dislike: a.dislike,
+    year:    pick(a, "release_year", "year"),
+    eps:     pick(a, "episodes", "episodeCount", "totalEpisodes"),
+    status:  st && st !== "Durum bulunamadı" ? st : "",
+    type:    { series: "Dizi", movie: "Film" }[a.type] || a.type,
+    quality: a.quality,
+    genres:  names(a.genre || a.genres || a.tags),
+    sounds:  names(a.sound_group),
+    subs:    names(a.subtitle_group),
+    trdub:   (a.sound_group || []).some(x => x?.value === "trdub"),
+    seasons: a.total_season || (a.seasons || []).length || 0,
+    trailer: pick(a, "youtube_video"),
+    seasonData: (Array.isArray(a.seasons) ? a.seasons : []).filter(x => x && x.number != null).map(x => ({
+      n: x.number, name: x.name,
+      eps: (Array.isArray(x.episodes) ? x.episodes : []).map(e => ({ n: e.number, name: e.name, img: e.banner_link, min: e.run_time, sounds: e.sound_group || [] })),
+    })),
+    desc:    fixTxt(pick(a, "overview", "description", "synopsis")),
+    time:    pick(a, "time", "airTime", "broadcast"),
+  };
+}
+/* Yanıt dizi, {data:[...]} ya da gün gün gruplanmış nesne olabilir: hepsini düz listeye çevir */
+function flatList(d) {
+  if (Array.isArray(d)) return d;
+  if (!d || typeof d !== "object") return [];
+  const k = ["data", "results", "animes", "items", "list"].find(x => Array.isArray(d[x]));
+  if (k) return d[k];
+  const inner = d.data && typeof d.data === "object" ? d.data : d;
+  return Object.values(inner).flatMap(v => (Array.isArray(v) ? v : []));
+}
+const asList = d => flatList(d).map(normAnime).filter(a => a.id != null && a.title);
+
+/* ===== Yardımcılar ===== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const ph = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="2" height="3"><rect width="2" height="3" fill="#14141a"/></svg>');
+const fmt = n => Number(n).toLocaleString('tr-TR');
+const detail = id => { location.hash = '#/anime/' + encodeURIComponent(id); };
+
+/* ===== Ana sayfa ===== */
+const autoBadge = (a, fb) => (a.quality === '4k' ? '4K' : a.trdub ? 'TR DUB' : fb);
+function poster(a, badge) {
+  badge = autoBadge(a, badge);
+  const b = document.createElement('button'); b.className = 'c';
+  b.innerHTML = `<div class="p"><img loading="lazy" referrerpolicy="no-referrer" alt="" src="${esc(a.img || ph)}" onerror="this.src='${ph}'">${badge ? `<span class="tag">${esc(badge)}</span>` : ''}</div><div class="t">${esc(a.title)}</div>`;
+  b.onclick = () => detail(a.id); return b;
+}
+function epCard(a) {
+  const b = document.createElement('button'); b.className = 'ep';
+  const t = a.time ? String(a.time) : 'Yeni bölüm';
+  b.innerHTML = `<img alt="" referrerpolicy="no-referrer" src="${esc(a.banner || a.img || ph)}" onerror="this.style.display='none'"><div><b>${esc(a.title)}</b><small>${esc(t)}</small></div><span class="live">YAYINDA</span>`;
+  b.onclick = () => detail(a.id); return b;
+}
+function fill(id, list, fn) { const el = $(id); el.innerHTML = ''; list.forEach(a => el.append(fn(a))); }
+function fail(id) { $(id).innerHTML = '<div class="msg">Bu bölüm yüklenemedi. Sayfayı yenileyip tekrar dene.</div>'; }
+
+let _ht = null;
+function hero(list) {   // üstteki büyük poster: birkaç animeyi otomatik değiştirir
+  list = [].concat(list);
+  const h = $('#hero'); clearInterval(_ht);
+  h.innerHTML = list.map(a => `<div class="bg" style="background-image:url('${esc(a.banner || a.img || '')}')"></div>`).join('')
+    + '<div class="dim"></div><div class="in"></div>' + (list.length > 1 ? `<div class="hdots">${list.map((_, i) => `<button aria-label="${i + 1}. poster"></button>`).join('')}</div>` : '');
+  let i = 0;
+  const dim = h.querySelector('.dim');
+  const show = (n, first) => {
+    i = (n + list.length) % list.length; const a = list[i];
+    if (!first) { dim.style.opacity = .4; setTimeout(() => { dim.style.opacity = 0; }, 450); }   // çok hafif kararma
+    const tags = [a.type, a.quality === '4k' ? '4K' : '', ...a.genres.filter(g => !/Alt Yazı|Dublaj|Donghua/i.test(g)).slice(0, 3)].filter(Boolean);
+    h.querySelectorAll('.bg').forEach((e, k) => e.classList.toggle('on', k === i));
+    h.querySelectorAll('.hdots button').forEach((e, k) => e.classList.toggle('on', k === i));
+    const old = h.querySelector('.in'), nw = document.createElement('div'); nw.className = 'in';
+    nw.innerHTML = `<h1>${esc(a.title)}</h1><div class="pills">${tags.map(t => `<span>${esc(t)}</span>`).join('')}${a.score ? `<span>★ ${esc(a.score)}</span>` : ''}</div>
+      <p>${esc(a.desc || '')}</p><button class="btn hbtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span>Hemen izle</span></button>`;
+    nw.querySelector('.btn').onclick = () => detail(a.id);
+    old.replaceWith(nw);
+  };
+  const start = () => { clearInterval(_ht); if (list.length > 1) _ht = setInterval(() => { if (!document.hidden && h.offsetParent) show(i + 1); }, 5000); };
+  h.querySelectorAll('.hdots button').forEach((e, k) => e.onclick = () => { show(k); start(); });
+  let x0 = null;   // dokunmatik kaydırma
+  h.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+  h.addEventListener('touchend', e => { if (x0 == null) return; const d = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(d) > 50) { show(i + (d < 0 ? 1 : -1)); start(); } });
+  h.onmouseenter = () => clearInterval(_ht); h.onmouseleave = start;
+  show(0, true); start();
+}
+
+const SEO = { k4: '4k-anime-izle', dub: 'turkce-dublaj-anime-izle' };
+const badge = { k4: '4K', dub: 'DUBLAJ', new: 'YENİ' };
+
+async function section(id, loader, fn, limit = 12) {
+  try {
+    const l = asList(await loader()).slice(0, limit);
+    l.length ? fill(id, l, fn) : fail(id);
+    return l;
+  } catch (e) { console.error(id, e); fail(id); return []; }
+}
+async function init() {
+  const [newL, k4L] = await Promise.all([
+    section('#new', Animland.newAnime, a => poster(a, badge.new)),
+    section('#k4', () => Animland.seo(SEO.k4), a => poster(a, badge.k4)),
+    section('#dub', () => Animland.seo(SEO.dub), a => poster(a, badge.dub)),
+  ]);
+  try {
+    let pool = k4L.filter(a => a.banner || a.img).sort((x, y) => !!y.desc - !!x.desc).slice(0, 6);   // 4K animelerden
+    if (!pool.length) { const t = asList(await Animland.top('imdb', 1)); pool = t.filter(a => a.desc && (a.banner || a.img)).slice(0, 6); }
+    const h = pool.length ? pool : [newL[0]].filter(Boolean);
+    h.length ? hero(h) : (() => { throw 0; })();
+  } catch (e) {
+    $('#hero').innerHTML = '<div class="in"><h1>Animhub</h1><p>Veriler alınamadı. İnternet bağlantını kontrol edip sayfayı yenile.</p></div>';
+  }
+}
+
+document.addEventListener('click', async e => {
+  const t = e.target.closest('[data-all]'); if (!t) return;
+  const k = t.dataset.all;
+  $('#home').hidden = true; $('#search').hidden = false;
+  $('#search h2').textContent = t.closest('section').querySelector('h2').textContent;
+  $('#ssub').textContent = 'Yükleniyor…'; $('#sres').innerHTML = ''; scrollTo({ top: 0 });
+  try {
+    const l = asList(await (k === 'new' ? Animland.newAnime() : Animland.seo(SEO[k])));
+    $('#ssub').textContent = l.length + ' anime'; fill('#sres', l, a => poster(a, badge[k]));
+  } catch (err) { $('#ssub').textContent = 'Liste alınamadı. Biraz bekleyip tekrar dene.'; }
+});
+
+/* ===== Arama: API ucu doğrulanmadığı için olası uçları dener, olmazsa yüklü listelerde arar ===== */
+const nrm = s => String(s ?? '').toLocaleLowerCase('tr').replace(/ı/g, 'i').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const SEARCH_EPS = e => [`/search?q=${e}`, `/anime/search?q=${e}`, `/anime/search?query=${e}`, `/search?query=${e}`, `/page/search?q=${e}`, `/anime/list?search=${e}`];
+let _sPath = null;
+async function searchAnime(q) {
+  const eps = SEARCH_EPS(encodeURIComponent(q)).sort((a, b) => (b.split('?')[0] === _sPath) - (a.split('?')[0] === _sPath));
+  for (const path of eps) {
+    try {
+      const l = asList(await animGet(path, { retries: 0 }));
+      _sPath = path.split('?')[0];
+      console.log('Arama ucu çalıştı:', _sPath, '→', l.length, 'sonuç');
+      if (l.length) return l;
+      break;   // uç doğru ama sonuç yok: yerel aramaya geç
+    } catch (e) { /* sıradaki ucu dene */ }
+  }
+  console.log('Yerel arama kullanılıyor (API araması sonuç vermedi)');
+  const pools = await Promise.all([Animland.top('imdb', 1), Animland.top('imdb', 2), Animland.top('imdb', 3), Animland.newAnime(), Animland.seo(SEO.k4), Animland.seo(SEO.dub)].map(p => p.catch(() => null)));
+  const cached = [..._cache.entries()].filter(([k]) => !/\/anime\/(get|source)|\/comment\//.test(k)).map(([, c]) => c.d);
+  const words = nrm(q).split(/\s+/).filter(Boolean), seen = new Set();
+  return [...pools, ...cached].flatMap(d => (d ? asList(d) : []))
+    .filter(a => { if (seen.has(a.id)) return false; seen.add(a.id); const t = nrm(a.title); return words.every(w => t.includes(w)); });
+}
+
+$('#sf').onsubmit = async e => {
+  e.preventDefault(); const q = $('#q').value.trim();
+  if (allSearch) { allSearch(q); $('#q').blur(); return; }
+  if (location.hash && location.hash !== '#/') { lastY = 0; location.hash = '#/'; }
+  if (!q) { $('#search').hidden = true; $('#home').hidden = false; return; }
+  $('#home').hidden = true; $('#search').hidden = false; $('#search h2').textContent = 'Arama sonuçları'; $('#ssub').textContent = 'Aranıyor…'; $('#sres').innerHTML = '';
+  try {
+    const l = await searchAnime(q);
+    $('#ssub').textContent = l.length ? `"${q}" için ${l.length} sonuç` : 'Sonuç bulunamadı. Başka bir arama dene.';
+    fill('#sres', l, a => poster(a));
+  } catch (err) { console.error(err); $('#ssub').textContent = 'Arama yapılamadı. Biraz bekleyip tekrar dene.'; }
+  scrollTo({ top: 0 });
+};
+$('#q').addEventListener('input', () => { if (allSearch) allSearch($('#q').value); });
+$('#logo').addEventListener('click', () => { $('#search').hidden = true; $('#home').hidden = false; $('#q').value = ''; });
+
+/* ===== Site içi oynatıcı ===== */
+const API_ORIGIN = 'https://api.animland.net', VIDEO_ORIGIN = 'https://video.animland.net';
+function collectUrls(o, out = []) {   // yanıttaki tüm bağlantıları topla (göreli /videos/... dahil)
+  if (typeof o === 'string') { if (/^https?:\/\//.test(o)) out.push(o); else if (/^\/videos\//.test(o)) out.push(API_ORIGIN + o); else if (/^\/video\/.+\/play/.test(o)) out.push(VIDEO_ORIGIN + o); }
+  else if (Array.isArray(o)) o.forEach(x => collectUrls(x, out));
+  else if (o && typeof o === 'object') Object.values(o).forEach(x => collectUrls(x, out));
+  return out;
+}
+const isVtt = u => /\.vtt(\?|$)/i.test(u);
+const isImg = u => /\.(jpe?g|png|webp|gif|svg)(\?|$)/i.test(u);
+function pickMedia(urls) {   // altyazı ve görselleri ele, video bağlantısını seç
+  const ok = urls.filter(u => !isVtt(u) && !isImg(u));
+  return ok.find(u => /video\.animland\.net\/video\/.+\/play/i.test(u))   // video.animland.net/.../play?playback=...
+    || ok.find(u => /\.m3u8(\?|$)/i.test(u)) || ok.find(u => /\.(mp4|webm)(\?|$)/i.test(u)) || ok.find(u => /\/videos\//.test(u)) || ok[0] || null;
+}
+const viaWorker = u => u.replace('https://api.animland.net', ANIM.base).replace('https://www.animland.net', ANIM.site).replace('https://video.animland.net', ANIM.vid);
+const LANGS = { tr: 'Türkçe', en: 'İngilizce', de: 'Almanca', ar: 'Arapça', fr: 'Fransızca', es: 'İspanyolca', it: 'İtalyanca' };
+function trackTags(urls) {   // .../subtitles/tr-1.vtt gibi altyazıları <track> yap
+  const list = urls.filter(isVtt);
+  const langs = list.map(u => (u.match(/\/([a-z]{2,3})(?:-\d+)?\.vtt/i)?.[1] || 'tr').toLowerCase());
+  const def = Math.max(0, langs.indexOf('tr'));
+  return list.map((u, i) => `<track kind="subtitles" src="${esc(viaWorker(u))}" srclang="${esc(langs[i])}" label="${esc(LANGS[langs[i]] || langs[i].toUpperCase())}"${i === def ? ' default' : ''}>`).join('');
+}
+/* ===== Ses/kalite varyantları: .../1080_original/play  ve  .../1080_trdub/play ===== */
+const CUR = { urls: [], vars: [], cur: null, tried: new Set(), from: '' };
+const SNAME = { original: 'Japonca', trdub: 'Türkçe Dublaj' };
+const SN = k => SNAME[k] || String(k || '').toUpperCase();
+function parseVar(u) {   // /video/anz/<id>/<sezon>/<bölüm>/<kalite>_<ses>/play
+  const m = u.match(/\/video\/[^/]+\/[^/]+\/[^/]+\/[^/]+\/(\d+)p?_([a-z0-9]+)\/play/i);
+  return m ? { url: u, q: +m[1], snd: m[2].toLowerCase() } : null;
+}
+function pickVar(sn, q) {
+  const a = CUR.vars.filter(x => x.snd === sn), o = CUR.vars.filter(x => x.snd === 'original');
+  const l = a.length ? a : o.length ? o : CUR.vars;
+  return l.find(x => x.q === q) || l.slice().sort((x, y) => y.q - x.q)[0];
+}
+async function switchVar(x, auto) {   // auto: otomatik yedek geçiş, tercihi değiştirmez   // ses/kalite değişince aynı saniyeden devam et
+  if (!x) return;
+  const old = $('#wplayer video'), t = old ? old.currentTime : 0;
+  CUR.cur = x; if (!auto) PS.snd = x.snd;
+  await play(viaWorker(x.url), CUR.urls);
+  const nv = $('#wplayer video');
+  if (nv && t > 1) nv.addEventListener('loadedmetadata', () => { nv.currentTime = t; }, { once: true });
+}
+/* ===== Özel oynatıcı arayüzü ===== */
+const IC = { play: 'M8 5v14l11-7z', pause: 'M6 5h4v14H6zm8 0h4v14h-4z', rw: 'M11 18V6l-8.5 6zm.5-6l8.5 6V6z', fw: 'M4 18l8.5-6L4 6zm9-12v12l8.5-6z', vol: 'M3 9v6h4l5 5V4L7 9zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z', prev: 'M6 6h2v12H6zm3.5 6l8.5 6V6z', next: 'M6 18l8.5-6L6 6zm10-12v12h2V6z', fs: 'M7 14H5v5h5v-2H7zm-2-4h2V7h3V5H5zm12 7h-3v2h5v-5h-2zM14 5v2h3v3h2V5z' };
+const svg = (d, s = 26) => `<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="currentColor"><path d="${d}"/></svg>`;
+const fmtT = t => { if (!isFinite(t)) return '0:00'; t = Math.floor(t); const h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60); return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(t % 60).padStart(2, '0'); };
+const PS = { ar: 'Default', sp: 1, px: 28, col: 'Beyaz', font: 'Verdana', bold: false, bg: 0, ft: 'Normal', sub: null, subOn: true, dl: 0 };   // ayarlar bölümler arasında korunur
+const ARS = ['Default', '4:3', '16:9', 'Doldur', 'Uzat'];
+const FT = { Normal: 'none', Parlak: 'brightness(1.15)', Koyu: 'brightness(.85)', 'Canlı': 'saturate(1.4)', Kontrast: 'contrast(1.2)' };
+const COL = { Beyaz: '#fff', 'Sarı': '#ffe14d', 'Yeşil': '#6dff8a', 'Camgöbeği': '#5ee7ff', Pembe: '#ff8ad8' };
+const FONTS = ['Verdana', 'Arial', 'Tahoma', 'Georgia', 'Trebuchet MS', 'Courier New'];
+const BG = ['Gölge', 'Siyah kutu'];
+const DLY = [-5, -2, -1, -.5, 0, .5, 1, 2, 5];
+const dlName = d => d === 0 ? 'Normal' : (d > 0 ? '+' : '') + d + ' sn';
+function mountControls(box) {
+  const v = box.querySelector('video'); if (!v) return;
+  box.classList.add('pl');
+  box.insertAdjacentHTML('beforeend', `<div class="plsub"></div><div class="plmenu" hidden></div>
+    <div class="plc"><div class="plprog"><div class="plbuf"></div><div class="plplay"></div></div>
+    <div class="plrow"><button data-a="rw" aria-label="10 sn geri">${svg(IC.rw)}</button><button data-a="pp" aria-label="Oynat/Duraklat"></button><button data-a="fw" aria-label="10 sn ileri">${svg(IC.fw)}</button>
+    <button data-a="mute" aria-label="Ses">${svg(IC.vol)}</button><input class="plvol" type="range" min="0" max="1" step="0.05" value="1"><span class="pltime"></span><i style="flex:1"></i>
+    <button data-a="prev" aria-label="Önceki bölüm">${svg(IC.prev)}</button><button data-a="next" aria-label="Sonraki bölüm">${svg(IC.next)}</button><button data-a="set" aria-label="Ayarlar">⚙</button><button data-a="fs" aria-label="Tam ekran">${svg(IC.fs)}</button></div></div>`);
+  const q = s => box.querySelector(s), sub = q('.plsub'), menu = q('.plmenu'), prog = q('.plprog'), pbuf = q('.plbuf'), ppl = q('.plplay'), tm = q('.pltime'), pp = q('[data-a=pp]'), mute = q('[data-a=mute]'), vol = q('.plvol');
+  const els = [...v.querySelectorAll('track')], trk = els.map(e => e.track);
+  let cur = null;
+  const draw = () => { sub.innerHTML = cur && PS.subOn ? [...(cur.activeCues || [])].map(c => c.text.replace(/<[^>]+>/g, '').split('\n').map(l => `<span>${esc(l)}</span>`).join('<br>')).join('<br>') : ''; };
+  const pick = i => { cur = trk[i] || null; trk.forEach(t => t.mode = t === cur ? 'hidden' : 'disabled'); PS.sub = cur ? cur.language : null; shift(); draw(); };
+  const shift = () => trk.forEach(t => [...(t.cues || [])].forEach(c => { if (c._s == null) { c._s = c.startTime; c._e = c.endTime; } c.startTime = Math.max(0, c._s + PS.dl); c.endTime = Math.max(0, c._e + PS.dl); }));   // altyazı zamanlaması
+  trk.forEach(t => t.addEventListener('cuechange', draw));
+  els.forEach(e => e.addEventListener('load', () => { shift(); draw(); }));
+  const dflt = Math.max(0, els.findIndex(e => e.default)), li = trk.findIndex(t => t.language === PS.sub);
+  pick(PS.sub && li >= 0 ? li : dflt);
+  const applyAR = () => {
+    const t = { '4:3': 4 / 3, '16:9': 16 / 9 }[PS.ar];
+    v.style.objectFit = t || PS.ar === 'Uzat' ? 'fill' : PS.ar === 'Doldur' ? 'cover' : 'contain';
+    v.style.width = v.style.height = '100%';
+    if (t && box.clientHeight) { const ca = box.clientWidth / box.clientHeight; if (t < ca) v.style.width = (t / ca * 100) + '%'; else v.style.height = (ca / t * 100) + '%'; }
+  };
+  const apply = () => {
+    v.playbackRate = PS.sp; v.style.filter = FT[PS.ft]; applyAR();
+    box.style.setProperty('--sf', PS.px + 'px');
+    sub.style.color = COL[PS.col]; sub.style.fontFamily = PS.font + ', sans-serif'; sub.style.fontWeight = PS.bold ? 900 : 600;
+    sub.classList.toggle('bx', PS.bg === 1);
+  };
+  apply(); v.addEventListener('loadedmetadata', apply);
+  if (window.ResizeObserver) new ResizeObserver(applyAR).observe(box);
+  const upd = () => {
+    pp.innerHTML = svg(v.paused ? IC.play : IC.pause, 32); mute.style.opacity = v.muted || !v.volume ? .4 : 1;
+    const d = v.duration; tm.textContent = fmtT(v.currentTime) + ' / ' + fmtT(d);
+    ppl.style.width = (d ? v.currentTime / d * 100 : 0) + '%';
+    try { pbuf.style.width = (d && v.buffered.length ? v.buffered.end(v.buffered.length - 1) / d * 100 : 0) + '%'; } catch (e) {}
+  };
+  ['timeupdate', 'play', 'pause', 'progress', 'durationchange', 'volumechange', 'loadedmetadata'].forEach(ev => v.addEventListener(ev, upd)); upd();
+  vol.oninput = () => { v.volume = +vol.value; v.muted = false; };
+  /* ===== ayar menüsü: ana sayfa + alt sayfalar ===== */
+  const opt = (n, on, fn) => ({ k: 'opt', n, on, fn });
+  const mnav = (n, val, to) => ({ k: 'nav', n, v: val, to });
+  const tog = (n, on, fn) => ({ k: 'tog', n, on, fn });
+  const list = (n, items) => () => ({ n, items: items() });
+  const pgAR = list('Aspect Ratio', () => ARS.map(k => opt(k, PS.ar === k, () => { PS.ar = k; applyAR(); })));
+  const pgSpeed = list('Hız', () => [.5, .75, 1, 1.25, 1.5, 2, 3].map(x => opt(x === 1 ? 'Normal' : x + 'x', PS.sp === x, () => { PS.sp = x; apply(); })));
+  const pgFilter = list('Ekran Filtreleri', () => Object.keys(FT).map(k => opt(k, PS.ft === k, () => { PS.ft = k; apply(); })));
+  const pgDelay = list('Zamanlama', () => DLY.map(d => opt(dlName(d), PS.dl === d, () => { PS.dl = d; shift(); draw(); })));
+  const pgColor = list('Yazı Rengi', () => Object.keys(COL).map(k => opt(k, PS.col === k, () => { PS.col = k; apply(); })));
+  const pgFont = list('Yazı Tipi', () => FONTS.map(f => opt(f, PS.font === f, () => { PS.font = f; apply(); })));
+  const pgBg = list('Arka Plan', () => BG.map((b, i) => opt(b, PS.bg === i, () => { PS.bg = i; apply(); })));
+  const pgSubSet = list('Altyazı Ayarları', () => [
+    mnav('Zamanlama', dlName(PS.dl), pgDelay),
+    { k: 'sld', n: 'Yazı Boyutu', min: 12, max: 60, val: PS.px, unit: 'px', fn: x => { PS.px = x; apply(); } },
+    mnav('Yazı Rengi', PS.col, pgColor), mnav('Yazı Tipi', PS.font, pgFont),
+    tog('Kalın Metin', PS.bold, () => { PS.bold = !PS.bold; apply(); }), mnav('Arka Plan', BG[PS.bg], pgBg)]);
+  const pgSubGroup = list('Altyazı Grubu', () => [
+    tog('Görünüm', PS.subOn, () => { PS.subOn = !PS.subOn; draw(); }),
+    ...trk.map((t, i) => opt(t.label || t.language, cur === t, () => { PS.subOn = true; pick(i); }))]);
+  const rootPage = () => {
+    const L = (_hls && _hls.levels) || [], A = (_hls && _hls.audioTracks) || [], R = [];
+    R.push(mnav('Aspect Ratio', PS.ar, pgAR), mnav('Hız', PS.sp === 1 ? 'Normal' : PS.sp + 'x', pgSpeed));
+    const qv = CUR.vars.filter(x => x.snd === CUR.cur?.snd);
+    if (L.length > 1) R.push(mnav('Kalite', _hls.autoLevelEnabled ? 'Otomatik' : (L[_hls.currentLevel]?.height || '?') + 'p', list('Kalite', () =>
+      [opt('Otomatik', _hls.autoLevelEnabled, () => { _hls.currentLevel = -1; }), ...L.map((l, i) => opt(l.height + 'p', !_hls.autoLevelEnabled && _hls.currentLevel === i, () => { _hls.currentLevel = i; })).reverse()])));
+    else if (qv.length) R.push(mnav('Kalite', CUR.cur.q + 'p', list('Kalite', () => qv.slice().sort((x, y) => y.q - x.q).map(x => opt(x.q + 'p', x === CUR.cur, () => switchVar(x))))));
+    const sn = [...new Set(CUR.vars.map(x => x.snd))];
+    if (A.length > 1) R.push(mnav('Ses Dublajı', A[_hls.audioTrack]?.name || '', list('Ses Dublajı', () => A.map((a, i) => opt(a.name || a.lang || 'Ses ' + (i + 1), _hls.audioTrack === i, () => { _hls.audioTrack = i; })))));
+    else if (sn.length) R.push(mnav('Ses Dublajı', SN(CUR.cur?.snd), list('Ses Dublajı', () => sn.map(k => opt(SN(k), CUR.cur?.snd === k, () => switchVar(pickVar(k, CUR.cur?.q)))))));
+    if (trk.length) R.push(mnav('Altyazı Grubu', cur && PS.subOn ? (cur.label || cur.language) : 'Kapalı', pgSubGroup), mnav('Altyazı Ayarları', 'Metni Düzenle', pgSubSet));
+    R.push(mnav('Ekran Filtreleri', PS.ft, pgFilter));
+    return { items: R };
+  };
+  let stack = [], items = [];
+  const drawMenu = () => {
+    const pg = stack.length ? stack[stack.length - 1]() : rootPage(); items = pg.items;
+    menu.innerHTML = (stack.length ? `<div class="pmh" data-i="back">‹ ${esc(pg.n)}</div>` : '') + items.map((it, i) =>
+      it.k === 'nav' ? `<div class="pmi" data-i="${i}"><span>${esc(it.n)}</span><em>${esc(it.v ?? '')}</em>›</div>`
+      : it.k === 'opt' ? `<div class="pmi${it.on ? ' on' : ''}" data-i="${i}"><i class="ck">${it.on ? '✓' : ''}</i><span>${esc(it.n)}</span></div>`
+      : it.k === 'tog' ? `<div class="pmi" data-i="${i}"><span>${esc(it.n)}</span><em>${it.on ? 'Açık' : 'Kapalı'}</em><b class="sw${it.on ? ' on' : ''}"></b></div>`
+      : `<div class="pmi"><span>${esc(it.n)}</span><em>${it.val}${it.unit}</em><input type="range" data-s="${i}" min="${it.min}" max="${it.max}" value="${it.val}"></div>`).join('');
+    menu.querySelectorAll('input[data-s]').forEach(inp => inp.oninput = () => { const it = items[+inp.dataset.s]; it.fn(+inp.value); inp.previousElementSibling.textContent = inp.value + it.unit; });
+  };
+  menu.onclick = e => {
+    e.stopPropagation();   // menü yeniden çizilince hedef DOM'dan düşüyor; kutunun tıklama işleyicisi menüyü kapatmasın
+    const d = e.target.closest('[data-i]'); if (!d) return; const i = d.dataset.i;
+    if (i === 'back') stack.pop();
+    else { const it = items[+i]; if (it.k === 'nav') stack.push(it.to); else if (it.k === 'opt') { it.fn(); stack.pop(); } else if (it.k === 'tog') it.fn(); }
+    drawMenu();
+  };
+  /* kontroller */
+  const nav = i => { const a = document.querySelectorAll('.wctl a')[i]; if (a && !a.classList.contains('dis')) location.hash = a.getAttribute('href'); };
+  const act = {
+    pp: () => v.paused ? v.play() : v.pause(), rw: () => { v.currentTime -= 10; }, fw: () => { v.currentTime += 10; },
+    mute: () => { v.muted = !v.muted; }, prev: () => nav(0), next: () => nav(1),
+    set: () => { menu.hidden = !menu.hidden; stack = []; drawMenu(); },
+    fs: () => document.fullscreenElement ? document.exitFullscreen() : (box.requestFullscreen ? box.requestFullscreen() : v.webkitEnterFullscreen?.()),
+  };
+  box.addEventListener('click', e => {
+    const b = e.target.closest('[data-a]'); if (b) return act[b.dataset.a]();
+    if (e.composedPath().some(n => n.classList && (n.classList.contains('plmenu') || n.classList.contains('plc')))) return;
+    if (!menu.hidden) { menu.hidden = true; return; }
+    if (box._wi) return;
+    if (e.target === box || e.target === v) act.pp();
+  });
+  const seekTo = e => { const r = prog.getBoundingClientRect(); if (isFinite(v.duration)) v.currentTime = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * v.duration; };
+  prog.onpointerdown = e => { prog.setPointerCapture(e.pointerId); seekTo(e); prog.onpointermove = seekTo; };
+  prog.onpointerup = prog.onpointercancel = () => { prog.onpointermove = null; };
+  let it; const wake = () => { box.classList.remove('idle'); clearTimeout(it); it = setTimeout(() => { if (!v.paused && menu.hidden) box.classList.add('idle'); }, 3000); };
+  box.addEventListener('pointerdown', () => { box._wi = box.classList.contains('idle'); wake(); }, true);
+  box.addEventListener('pointermove', wake); v.addEventListener('pause', wake); wake();
+  const kd = e => {
+    if (!box.isConnected) return document.removeEventListener('keydown', kd);
+    if (/INPUT|SELECT|TEXTAREA/.test(e.target.tagName) && e.key !== ' ') return;
+    const k = { ' ': 'pp', k: 'pp', ArrowLeft: 'rw', ArrowRight: 'fw', f: 'fs', m: 'mute' }[e.key];
+    if (k) { e.preventDefault(); act[k](); wake(); }
+  };
+  document.addEventListener('keydown', kd);
+}
+const LDR = '<div class="ldr"><div class="spin"></div><span>Video yükleniyor…</span></div>';
+function toast(t) { const b = $('#wplayer'); if (!b) return; const d = document.createElement('div'); d.className = 'ptoast'; d.textContent = t; b.append(d); setTimeout(() => d.remove(), 5000); }
+const hideLoader = box => box.querySelector('.ldr')?.classList.add('off');
+function attachLoader(box) {   // yükleme ekranı: video oynamaya başlayınca kapanır, takılınca tekrar açılır
+  const v = box.querySelector('video'); if (!v) return;
+  mountControls(box);
+  box.insertAdjacentHTML('beforeend', LDR);
+  const l = box.querySelector('.ldr');
+  const on = () => l.classList.remove('off'), off = () => l.classList.add('off');
+  ['playing', 'canplay', 'loadeddata'].forEach(ev => v.addEventListener(ev, off));
+  ['waiting', 'seeking', 'stalled'].forEach(ev => v.addEventListener(ev, () => { if (!v.paused || !v.readyState) on(); }));
+  v.addEventListener('seeked', off);
+  v.addEventListener('error', off);
+}
+let _hls = null;
+const stopPlayer = () => { if (_hls) { _hls.destroy(); _hls = null; } };
+const loadHls = () => window.Hls ? Promise.resolve() : new Promise((ok, no) => {
+  const sc = document.createElement('script');
+  sc.src = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js'; sc.onload = ok; sc.onerror = no; document.head.append(sc);
+});
+function hlsPlay(url, v, box) {
+  if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = url; return; }
+  return loadHls().then(() => {
+    if (!window.Hls || !Hls.isSupported()) throw new Error('hls desteklenmiyor');
+    // playlist/segment içindeki mutlak Animland adresleri de Worker üzerinden gitsin
+    _hls = new Hls({ xhrSetup: (xhr, u) => xhr.open('GET', viaWorker(u), true) });
+    _hls.loadSource(url); _hls.attachMedia(v);
+    _hls.on(Hls.Events.ERROR, (e, d) => { console.warn('HLS hata:', d); if (d.fatal) { hideLoader(box); box.insertAdjacentHTML('beforeend', '<div class="msg">Yayın yüklenemedi. Başka bir sunucu dene.</div>'); } });
+  });
+}
+async function play(url, urls = []) {
+  const box = $('#wplayer');
+  stopPlayer();
+  const vid = `<video autoplay playsinline crossorigin="anonymous">${trackTags(urls)}</video>`;
+  // video.animland.net/.../play?playback=... : uzantı yok, içeriğe bakıp HLS mi MP4 mü anla
+  if (url.startsWith(ANIM.vid + '/')) {
+    box.innerHTML = vid; attachLoader(box);
+    const v = box.firstChild;
+    let isHls = false;
+    const ctl = new AbortController();
+    try {
+      let r = null, tries = 0;
+      for (;;) {   // geçici 5xx / ağ hatalarında Range'siz olarak 2 kez daha dene
+        try { r = await fetch(url, { headers: tries ? {} : { Range: 'bytes=0-511' }, signal: ctl.signal }); } catch (e) { r = null; }
+        if (r && r.ok) break;
+        if (++tries > 2 || (r && [401, 403, 404, 410].includes(r.status))) break;
+        await new Promise(res => setTimeout(res, 700 * tries));
+      }
+      if (!r || !r.ok) {
+        const st = r ? r.status : 'ağ hatası', body = r ? (await r.text().catch(() => '')).slice(0, 160) : '';
+        console.warn('Video isteği başarısız:', st, body, url.replace(/playback=.*/, 'playback=…'));
+        if (CUR.cur) {   // bu ses/kalite açılmadıysa sıradaki varyanta otomatik geç (örn. dublaj → Japonca)
+          CUR.tried.add(CUR.cur); CUR.from = CUR.from || SN(CUR.cur.snd) + ' ' + CUR.cur.q + 'p';
+          const nx = CUR.vars.filter(x => !CUR.tried.has(x)).sort((a, b) => ((b.q === CUR.cur.q) - (a.q === CUR.cur.q)) || b.q - a.q)[0];
+          if (nx) { await switchVar(nx, true); if ($('#wplayer video')) toast(`${CUR.from} yüklenemedi, ${SN(CUR.cur.snd)} ${CUR.cur.q}p ile açıldı`); return; }
+        }
+        const gone = r && [401, 403, 410].includes(r.status);
+        const alts = CUR.vars.map((x, i) => [x, i]).filter(([x]) => x !== CUR.cur).map(([x, i]) => `<button class="btn" style="margin:6px 4px 0" onclick="switchVar(CUR.vars[${i}])">${esc(SN(x.snd))} ${x.q}p ile dene</button>`).join('');
+        box.innerHTML = `<div class="msg" style="text-align:center;padding:20px">${gone ? 'Video bağlantısı reddedildi (HTTP ' + st + '). Süresi dolmuş olabilir.' : 'Video sunucusu şu an yanıt vermiyor (HTTP ' + st + '). Bu bölüm kaynakta geçici olarak sorunlu olabilir.'}<br>
+          <button class="btn" style="margin:10px 4px 0" onclick="$('#wsv').onchange()">Tekrar dene</button>${alts}</div>`;
+        return;
+      }
+      const ct = (r.headers.get('content-type') || '').toLowerCase();
+      const first = (await r.body.getReader().read()).value || new Uint8Array();
+      isHls = /mpegurl/.test(ct) || new TextDecoder().decode(first).trimStart().startsWith('#EXTM3U');
+      console.log('Video türü:', ct, isHls ? '(HLS)' : '(doğrudan dosya)');
+    } catch (e) { console.warn('Tür tespiti başarısız, doğrudan deneniyor:', e); }
+    ctl.abort();
+    if (isHls) await hlsPlay(url, v, box); else v.src = url;
+    return;
+  }
+  if (/\.(mp4|webm)(\?|$)/i.test(url)) { box.innerHTML = vid; attachLoader(box); box.firstChild.src = url; return; }
+  if (/\.m3u8|\/videos\//i.test(url)) {
+    box.innerHTML = vid; attachLoader(box);
+    await hlsPlay(url, box.firstChild, box);
+    return;
+  }
+  box.innerHTML = `<iframe src="${esc(url)}" allowfullscreen></iframe>`;
+}
+async function watch(id, se, ep) {
+  const box = $('#wplayer');
+  box.innerHTML = LDR.replace('Video yükleniyor…', 'Kaynak alınıyor…');
+  try {
+    const r = await Animland.source(id, se, ep, $('#wsv').value);
+    const urls = [...new Set(collectUrls(r))];
+    console.log('Kaynak yanıtı:', r, 'Bulunan bağlantılar:', urls);
+    CUR.urls = urls; CUR.vars = urls.map(parseVar).filter(Boolean);
+    CUR.cur = CUR.vars.length ? pickVar(PS.snd || 'original') : null; CUR.tried = new Set(); CUR.from = '';
+    console.log('Ses/kalite varyantları:', CUR.vars.map(x => x.q + 'p ' + x.snd));
+    const media = CUR.cur ? CUR.cur.url : pickMedia(urls);
+    if (!media) throw new Error('video bağlantısı bulunamadı');
+    await play(viaWorker(media), urls);
+  } catch (e) { console.error(e); box.innerHTML = '<div class="msg">Bu bölüm açılamadı. Başka bir bölüm ya da sunucu dene.</div>'; }
+}
+
+/* ===== Sayfalar (hash yönlendirme): #/anime/ID  ve  #/watch/ID/SEZON/BÖLÜM ===== */
+let rt = 0, lastY = 0, homeLoaded = false;
+const seasonsOf = a => a.seasonData.length ? a.seasonData : [{ n: 1, name: '1. Sezon', eps: [{ n: 1, name: a.title, img: a.banner, min: a.runtime, sounds: [] }] }];
+
+function epc(id, sn, e, on) {
+  return `<a class="ec${on ? ' on' : ''}" href="#/watch/${encodeURIComponent(id)}/${sn}/${e.n}">
+    <div class="th">${e.img ? `<img loading="lazy" referrerpolicy="no-referrer" alt="" src="${esc(e.img)}" onerror="this.style.display='none'">` : ''}
+    ${e.sounds.includes('trdub') ? '<span class="b1">TÜRKÇE DUBLAJ</span>' : ''}<span class="b2">Bölüm ${esc(e.n)}</span>${e.min ? `<span class="b3">${esc(e.min)} dakika</span>` : ''}</div>
+    <div class="et">${esc(e.name || '')}</div></a>`;
+}
+function enterPage() {
+  if (!$('#main').hidden) lastY = scrollY;
+  $('#main').hidden = true; $('#page').hidden = false; scrollTo(0, 0); stopPlayer();
+}
+function showHome() {
+  rt++; stopPlayer();
+  $('#page').hidden = true; $('#page').innerHTML = ''; $('#main').hidden = false;
+  document.title = 'Animhub'; scrollTo(0, lastY);
+  if (!homeLoaded) { homeLoaded = true; init(); }
+}
+/* Yanıtın şekli ne olursa olsun içindeki anime nesnelerini bul */
+function deepAnimes(d, out = [], depth = 0) {
+  if (!d || typeof d !== 'object' || depth > 6) return out;
+  const isA = o => o && typeof o === 'object' && !Array.isArray(o) && pick(o, 'ID', 'id', 'slug', '_id') != null && pick(o, 'name', 'title', 'name_jp') != null;
+  if (Array.isArray(d)) {
+    d.forEach(x => { const u = isA(x) ? x : (x && isA(x.anime) ? x.anime : null); if (u) out.push(u); else deepAnimes(x, out, depth + 1); });
+  } else Object.values(d).forEach(v => deepAnimes(v, out, depth + 1));
+  return out;
+}
+const shape = (d, dep = 0) => d && typeof d === 'object' ? (Array.isArray(d) ? `[${d.length}]${d.length && dep < 2 ? ' of ' + shape(d[0], dep + 1) : ''}` : '{' + Object.keys(d).slice(0, 8).map(k => k + (dep < 2 ? ':' + shape(d[k], dep + 1) : '')).join(', ') + '}') : typeof d;
+let allSearch = null;   // Animeler sayfasındayken arama kutusu bu fonksiyona bağlanır
+async function showAll() {
+  const my = ++rt; enterPage(); document.title = 'Animeler – Animhub';
+  const pg = $('#page'), qi = $('#q');
+  const groups = [['all', 'Tümü'], ['k4', '4K'], ['dub', 'Türkçe Dublaj']];
+  const titles = { all: 'Tüm Animeler', k4: '4K Animeler', dub: 'Türkçe Dublaj Animeler' };
+  pg.innerHTML = `<section>
+    <div class="navrow"><a class="home" href="#/" aria-label="Ana sayfaya dön"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>Ana sayfa</a></div>
+    <h2 class="sech" id="atitle" style="margin-top:6px;text-align:center">Tüm Animeler</h2>
+    <div class="chips" id="chips">${groups.map(([k, n]) => `<button type="button" class="chip" data-g="${k}">${n}</button>`).join('')}</div>
+    <p class="sub" id="asub" style="margin-left:0;text-align:center"></p>
+    <div class="row" id="agrid"></div><div class="msg" id="amsg" style="text-align:center"></div><div id="asent" style="height:1px"></div></section>`;
+  const grid = $('#agrid'), msg = $('#amsg'), sent = $('#asent'), sub = $('#asub');
+  let io = null, gen = 0, q = '', cur = null;
+  const alive = g => my === rt && g === gen;
+  qi.value = ''; qi.placeholder = 'Animelerde ara…';
+  const match = a => !q || q.split(' ').every(w => nrm(a.title).includes(w));
+  const count = () => { const n = cur ? cur.items.filter(match).length : 0; sub.textContent = q ? `"${qi.value.trim()}" için ${n} sonuç` : n + ' anime'; };
+  const retry = (fn) => {
+    msg.innerHTML = 'Liste yüklenemedi. <button class="amore" style="display:inline-block;margin:0 0 0 8px;padding:6px 14px">Tekrar dene</button>';
+    msg.querySelector('button').onclick = fn;
+  };
+
+  async function loadGroup(key) {
+    const g = ++gen;
+    if (io) { io.disconnect(); io = null; }
+    pg.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.g === key));
+    $('#atitle').textContent = titles[key];
+    grid.innerHTML = ''; msg.textContent = 'Yükleniyor…'; sub.textContent = '';
+    const seen = new Set();
+    const c = cur = { key, items: [], done: key !== 'all', more: null };
+    const add = l => {
+      l.forEach(a => { if (a.id == null || !a.title || seen.has(a.id)) return; seen.add(a.id); c.items.push(a); if (match(a)) grid.append(poster(a)); });
+      count();
+    };
+    const empty = () => { if (!grid.children.length) msg.textContent = q ? 'Sonuç bulunamadı. Başka bir arama dene.' : (c.items.length ? '' : 'Liste boş geldi.'); else msg.textContent = ''; };
+
+    if (key !== 'all') {   // 4K / Türkçe dublaj: hazır tam liste
+      try {
+        const l = asList(await Animland.seo(SEO[key]));
+        if (!alive(g)) return;
+        add(l); empty();
+      } catch (e) { console.error(e); if (alive(g)) retry(() => loadGroup(key)); }
+      return;
+    }
+
+    let p = 1, busy = false;
+    c.more = async () => {
+      if (busy || c.done || !alive(g)) return;
+      busy = true; msg.textContent = q ? 'Aranıyor…' : 'Yükleniyor…';
+      try {
+        const raw = await Animland.all(p);
+        const l = deepAnimes(raw).map(normAnime).filter(a => a.id != null && a.title && !seen.has(a.id));
+        if (!alive(g)) return;
+        console.log('Tüm animeler: page=' + p, '→', l.length, 'yeni');
+        if (!l.length) { c.done = true; if (!c.items.length) sub.textContent = 'Yanıt şekli: ' + shape(raw); }
+        else { add(l); p += 10; }
+        empty();
+      } catch (e) { console.error(e); if (alive(g)) retry(() => c.more()); }
+      finally { busy = false; }
+    };
+    await c.more();
+    if (!alive(g) || c.done) return;
+    io = new IntersectionObserver(es => {
+      if (!alive(g) || c.done) { io.disconnect(); return; }
+      if (es[0].isIntersecting && !q) c.more().then(() => { if (alive(g) && !c.done) { io.unobserve(sent); io.observe(sent); } else io.disconnect(); });
+    }, { rootMargin: '700px' });
+    io.observe(sent);
+  }
+
+  // Arama: bu sayfadaki listeden filtreler (Tümü'nde önce listenin tamamını yükler)
+  allSearch = async text => {
+    q = nrm(text).trim();
+    const c = cur, g = gen; if (!c) return;
+    grid.innerHTML = ''; c.items.filter(match).forEach(a => grid.append(poster(a))); count();
+    if (q && !c.done && c.more) {
+      while (!c.done && alive(g) && q) {
+        const before = c.items.length; await c.more();
+        if (c.items.length === before && !c.done) break;   // hata: dur
+      }
+      if (!alive(g)) return;
+      grid.innerHTML = ''; c.items.filter(match).forEach(a => grid.append(poster(a))); count();
+    }
+    msg.textContent = grid.children.length ? '' : (q ? 'Sonuç bulunamadı. Başka bir arama dene.' : '');
+  };
+  $('#chips').onclick = e => { const b = e.target.closest('.chip'); if (b && !b.classList.contains('on')) loadGroup(b.dataset.g); };
+  loadGroup('all');
+}
+async function loadInfo(id) {
+  const raw = await Animland.info(id);
+  console.log('Detay yanıtı:', raw);
+  const d0 = raw.data || raw;
+  return normAnime(Array.isArray(d0) ? d0[0] : d0);
+}
+
+async function showDetail(id) {
+  const my = ++rt; enterPage();
+  const pg = $('#page'); pg.innerHTML = '<div class="msg pad">Yükleniyor…</div>';
+  try {
+    const a = await loadInfo(id);
+    if (my !== rt) return;
+    const seasons = seasonsOf(a), first = seasons.find(s => s.eps.length) || seasons[0];
+    const hid = encodeURIComponent(id);
+    document.title = a.title + ' – Animhub';
+    const yr = [a.seasons > 0 ? `<b>${a.seasons} Sezon</b>` : esc(a.type || ''), a.year ? esc(a.year) : ''].filter(Boolean).join(' <span>-</span> ');
+    pg.innerHTML = `
+    <div class="dh"><div class="bgi" style="background-image:url('${esc(a.wide || a.img || '')}')"></div>
+      <a class="home" href="#/" aria-label="Ana sayfaya dön"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>Ana sayfa</a>
+      <div class="dhin">
+        ${a.logo ? `<img class="tlogo" referrerpolicy="no-referrer" alt="${esc(a.title)}" src="${esc(a.logo)}">` : `<h1>${esc(a.title)}</h1>`}
+        <div class="mt">${a.score ? `<span class="imdb">${esc(a.score)} <small>IMDb</small></span>` : ''}</div>
+        <div class="gen">${a.genres.map(g => `<span>${esc(g)}</span>`).join('')}</div>
+        <div class="yr">${yr}</div>
+        <p class="ov">${esc(a.desc || 'Özet yok.')}</p>
+        <a class="btn play" href="#/watch/${hid}/${first.n}/${first.eps[0]?.n ?? 1}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span>İlk bölümü izle</span></a>
+        ${a.trailer ? ' <button class="alt" id="tr">Fragman</button>' : ''}
+        ${a.subs.length ? `<div class="grp">Altyazı Grupları:${a.subs.map(x => `<b>${esc(x)}</b>`).join('')}</div>` : ''}
+        ${a.sounds.length ? `<div class="grp">Ses Grupları:${a.sounds.map(x => `<b>${esc(x)}</b>`).join('')}</div>` : ''}
+      </div></div>
+    <div class="trbox" id="trbox" hidden style="max-width:1300px;margin:20px auto 0;padding:0 20px"></div>
+    <section>
+      <select class="sel" id="se" aria-label="Sezon">${seasons.map(s => `<option value="${esc(s.n)}"${s === first ? ' selected' : ''}>${esc(s.name || s.n + '. Sezon')}</option>`).join('')}</select>
+      <h2 class="sech" id="seh"></h2><div class="egrid" id="eg"></div>
+    </section>
+    <section><h2 class="sech" id="simh">Benzer animeler</h2><div class="row" id="sim"></div></section>
+    <div style="height:20px"></div>`;
+    const lg = pg.querySelector('.tlogo');
+    if (lg) lg.onerror = () => { const h = document.createElement('h1'); h.textContent = a.title; lg.replaceWith(h); };
+    const draw = () => {
+      const s = seasons.find(x => String(x.n) === $('#se').value) || first;
+      $('#seh').textContent = `${s.name || s.n + '. Sezon'} - ${s.eps.length} Bölüm`;
+      $('#eg').innerHTML = s.eps.map(e => epc(id, s.n, e)).join('');
+    };
+    $('#se').onchange = draw; draw();
+    if (a.trailer) $('#tr').onclick = () => { const b = $('#trbox'); b.hidden = false; b.innerHTML = `<iframe src="${esc(a.trailer)}" allowfullscreen></iframe>`; b.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+    const simEl = $('#sim'), simHd = $('#simh');
+    Animland.similar(id).then(r => {
+      if (!simEl.isConnected) return;
+      const l = asList(r).filter(x => String(x.id) !== String(id)).slice(0, 12);
+      l.length ? l.forEach(x => simEl.append(poster(x))) : (simEl.remove(), simHd.remove());
+    }).catch(() => { simEl.remove(); simHd.remove(); });
+  } catch (e) {
+    console.error(e);
+    if (my === rt) pg.innerHTML = '<div class="msg pad">Detay alınamadı. <a href="#/" style="color:#ff4b55">Ana sayfaya dön</a></div>';
+  }
+}
+
+async function showWatch(id, sn, en) {
+  const my = ++rt; enterPage();
+  const pg = $('#page'); pg.innerHTML = '<div class="msg pad">Yükleniyor…</div>';
+  try {
+    const a = await loadInfo(id);
+    if (my !== rt) return;
+    const seasons = seasonsOf(a);
+    const flat = seasons.flatMap(s => s.eps.map(e => ({ s: s.n, e: e.n })));
+    const idx = flat.findIndex(x => x.s == sn && x.e == en);
+    const season = seasons.find(s => s.n == sn) || seasons[0];
+    const ep = season.eps.find(e => e.n == en) || season.eps[0] || {};
+    const hid = encodeURIComponent(id);
+    const link = x => (x ? `href="#/watch/${hid}/${x.s}/${x.e}"` : '');
+    const prev = idx > 0 ? flat[idx - 1] : null, next = idx >= 0 && idx < flat.length - 1 ? flat[idx + 1] : null;
+    document.title = `${a.title} S${sn} B${en} – Animhub`;
+    pg.innerHTML = `<div class="wp">
+      <div class="navrow">
+        <a class="home" href="#/" aria-label="Ana sayfaya dön"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>Ana sayfa</a>
+        <a class="home" href="#/anime/${hid}" aria-label="Anime sayfasına dön"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg><span class="hl">${esc(a.title)}</span></a>
+      </div>
+      <div class="vwrap" id="wplayer"></div>
+      <div class="wbar"><div><h2 class="wt">${esc(a.title)}</h2><div class="ws">${esc(season.name || 'Sezon ' + sn)} · Bölüm ${esc(en)}${ep.name ? ' — ' + esc(ep.name) : ''}</div></div>
+        <div class="wctl"><input type="hidden" id="wsv" value="2"><a class="nbtn nprev${prev ? '' : ' dis'}" ${link(prev)}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Önceki</span></a><a class="nbtn nnext${next ? '' : ' dis'}" ${link(next)}><span>Sonraki</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a></div></div>
+      <h2 class="sech">${esc(season.name || 'Sezon ' + sn)} bölümleri</h2>
+      <div class="egrid">${season.eps.map(e => epc(id, season.n, e, e.n == en)).join('')}</div></div>`;
+    $('#wsv').onchange = () => watch(id, sn, en);
+    watch(id, sn, en);
+  } catch (e) {
+    console.error(e);
+    if (my === rt) pg.innerHTML = '<div class="msg pad">Bölüm bilgisi alınamadı. <a href="#/" style="color:#ff4b55">Ana sayfaya dön</a></div>';
+  }
+}
+
+function route() {
+  const h = location.hash; let m;
+  allSearch = null; $('#q').placeholder = 'Anime ara…';
+  if (h === '#/animes') return showAll();
+  if ((m = h.match(/^#\/anime\/([^/]+)$/))) return showDetail(decodeURIComponent(m[1]));
+  if ((m = h.match(/^#\/watch\/([^/]+)\/(\d+)\/(\d+)$/))) return showWatch(decodeURIComponent(m[1]), +m[2], +m[3]);
+  showHome();
+}
+const mbtn = $('#mbtn'), mmenu = $('#mmenu');
+const mclose = () => { mmenu.hidden = true; mbtn.setAttribute('aria-expanded', 'false'); };
+mbtn.onclick = e => { e.stopPropagation(); mmenu.hidden = !mmenu.hidden; mbtn.setAttribute('aria-expanded', String(!mmenu.hidden)); };
+mmenu.addEventListener('click', () => { mclose(); if (location.hash === '#/' || !location.hash) { $('#search').hidden = true; $('#home').hidden = false; $('#q').value = ''; } });
+document.addEventListener('click', mclose);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') mclose(); });
+addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
