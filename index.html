@@ -525,11 +525,56 @@ footer::before{display:none}
 <footer><div class="fl">ANIM<b>HUB</b></div><p>Animeyi keşfet, izle, hayran ol.</p></footer>
 
 <script>
+/* Kısayol koruması: F12, Ctrl+U, Ctrl+Shift+I/J/C/K, Ctrl+S, sağ tık */
+(() => {
+  const stop = e => { e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); return false; };
+  const yasak = e => {
+    const k = (e.key || '').toLowerCase(), c = e.ctrlKey, m = e.metaKey, sh = e.shiftKey, alt = e.altKey;
+    return e.key === 'F12' || e.keyCode === 123 ||
+      (c && sh && ['i', 'j', 'c', 'k'].includes(k)) ||
+      (c && ['u', 's'].includes(k)) ||
+      (m && alt && ['i', 'j', 'c', 'u'].includes(k)) ||
+      (m && ['u', 's'].includes(k));
+  };
+  ['keydown', 'keyup', 'keypress'].forEach(t => {
+    addEventListener(t, e => { if (yasak(e)) return stop(e); }, true);
+    document.addEventListener(t, e => { if (yasak(e)) return stop(e); }, true);
+  });
+  // sağ tık menüsü (arama kutusunda yapıştırma için açık kalır)
+  addEventListener('contextmenu', e => { if (!e.target.closest('input,textarea')) return stop(e); }, true);
+
+  // Konsol / geliştirici araçları açılırsa siteyi kapat
+  let kapali = false;
+  const kapat = () => {
+    if (kapali) return; kapali = true;
+    try { document.querySelectorAll('video,audio').forEach(v => { v.pause(); v.removeAttribute('src'); v.load(); }); } catch (_) {}
+    try { document.documentElement.innerHTML = '<body style="margin:0;background:#000"></body>'; } catch (_) {}
+    try { window.close(); } catch (_) {}
+    location.replace('about:blank');
+  };
+  const kontrol = () => {
+    if (kapali) return;
+    // 1) Konsol açıkken console.log, elemanın id özelliğini okur
+    let acik = false;
+    const el = new Image();
+    Object.defineProperty(el, 'id', { get() { acik = true; return ''; } });
+    console.log(el);
+    if (acik) return kapat();
+    // 2) debugger ifadesi, araçlar açıkken kodu duraklatır; süre uzarsa açık demektir
+    const t = Date.now();
+    new Function('debugger')();
+    if (Date.now() - t > 120) kapat();
+  };
+  kontrol();
+  setInterval(kontrol, 700);
+})();
+</script>
+<script>
 /* ===== Animland API istemcisi (Cloudflare Worker üzerinden) ===== */
 const ANIM = {
-  base: "https://animeapi123.ishakaydin445.workers.dev/api",   // Worker -> api.animland.net
-  site: "https://animeapi123.ishakaydin445.workers.dev/site",  // Worker -> www.animland.net
-  vid:  "https://animeapi123.ishakaydin445.workers.dev/video", // Worker -> video.animland.net (yeni)
+  base: "https://animeapi123.ishakaydin445.workers.dev/api",   // Worker -> api.anizium.co
+  site: "https://animeapi123.ishakaydin445.workers.dev/site",  // Worker -> www.anizium.co
+  vid:  "https://animeapi123.ishakaydin445.workers.dev/video", // Worker -> video.anizium.co (yeni)
   ttl: 5 * 60e3,
   timeout: 12e3,
 };
@@ -868,7 +913,7 @@ document.addEventListener('click', e => { if (!e.target.closest('#sf') && !e.tar
 
 
 /* ===== Site içi oynatıcı ===== */
-const API_ORIGIN = 'https://api.animland.net', VIDEO_ORIGIN = 'https://video.animland.net';
+const API_ORIGIN = 'https://api.anizium.co', VIDEO_ORIGIN = 'https://video.anizium.co';  // animland.net de viaWorker'da destekleniyor
 function collectUrls(o, out = []) {   // yanıttaki tüm bağlantıları topla (göreli /videos/... dahil)
   if (typeof o === 'string') { if (/^https?:\/\//.test(o)) out.push(o); else if (/^\/videos\//.test(o)) out.push(API_ORIGIN + o); else if (/^\/video\/.+\/play/.test(o)) out.push(VIDEO_ORIGIN + o); }
   else if (Array.isArray(o)) o.forEach(x => collectUrls(x, out));
@@ -879,10 +924,13 @@ const isVtt = u => /\.vtt(\?|$)/i.test(u);
 const isImg = u => /\.(jpe?g|png|webp|gif|svg)(\?|$)/i.test(u);
 function pickMedia(urls) {   // altyazı ve görselleri ele, video bağlantısını seç
   const ok = urls.filter(u => !isVtt(u) && !isImg(u));
-  return ok.find(u => /video\.animland\.net\/video\/.+\/play/i.test(u))   // video.animland.net/.../play?playback=...
+  return ok.find(u => /video\.(anizium\.co|animland\.net)\/video\/.+\/play/i.test(u))   // video.anizium.co/.../play?playback=...
     || ok.find(u => /\.m3u8(\?|$)/i.test(u)) || ok.find(u => /\.(mp4|webm)(\?|$)/i.test(u)) || ok.find(u => /\/videos\//.test(u)) || ok[0] || null;
 }
-const viaWorker = u => u.replace('https://api.animland.net', ANIM.base).replace('https://www.animland.net', ANIM.site).replace('https://video.animland.net', ANIM.vid);
+const viaWorker = u => u
+  .replace(/^https:\/\/api\.(anizium\.co|animland\.net)/, ANIM.base)
+  .replace(/^https:\/\/www\.(anizium\.co|animland\.net)/, ANIM.site)
+  .replace(/^https:\/\/video\.(anizium\.co|animland\.net)/, ANIM.vid);
 const LANGS = { tr: 'Türkçe', en: 'İngilizce', de: 'Almanca', ar: 'Arapça', fr: 'Fransızca', es: 'İspanyolca', it: 'İtalyanca' };
 function trackTags(urls) {   // .../subtitles/tr-1.vtt gibi altyazıları <track> yap
   const list = urls.filter(isVtt);
@@ -1112,7 +1160,7 @@ async function play(url, urls = []) {
   const box = $('#wplayer');
   stopPlayer();
   const vid = `<video autoplay playsinline crossorigin="anonymous">${trackTags(urls)}</video>`;
-  // video.animland.net/.../play?playback=... : uzantı yok, içeriğe bakıp HLS mi MP4 mü anla
+  // video.anizium.co/.../play?playback=... : uzantı yok, içeriğe bakıp HLS mi MP4 mü anla
   if (url.startsWith(ANIM.vid + '/')) {
     box.innerHTML = vid; attachLoader(box);
     const v = box.firstChild;
