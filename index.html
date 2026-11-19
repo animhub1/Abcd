@@ -525,14 +525,18 @@ footer::before{display:none}
 <footer><div class="fl">ANIM<b>HUB</b></div><p>Animeyi keşfet, izle, hayran ol.</p></footer>
 
 <script>
-/* Kısayol koruması: F12, Ctrl+U, Ctrl+Shift+I/J/C/K, Ctrl+S, sağ tık */
 (() => {
+  /* ---- Ayarlar ---- */
+  const KICK_URL = 'about:blank';          // Atılınca gidilecek adres
+  const LOCAL_SERBEST = true;              // true: localhost'ta koruma kapalı (test için). Yayında istersen false yap
+  if (LOCAL_SERBEST && /^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return;
+
   const stop = e => { e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); return false; };
   const yasak = e => {
     const k = (e.key || '').toLowerCase(), c = e.ctrlKey, m = e.metaKey, sh = e.shiftKey, alt = e.altKey;
     return e.key === 'F12' || e.keyCode === 123 ||
-      (c && sh && ['i', 'j', 'c', 'k'].includes(k)) ||
-      (c && ['u', 's'].includes(k)) ||
+      (c && sh && ['i', 'j', 'c', 'k', 'e', 'm'].includes(k)) ||
+      (c && ['u', 's', 'p'].includes(k)) ||
       (m && alt && ['i', 'j', 'c', 'u'].includes(k)) ||
       (m && ['u', 's'].includes(k));
   };
@@ -540,33 +544,88 @@ footer::before{display:none}
     addEventListener(t, e => { if (yasak(e)) return stop(e); }, true);
     document.addEventListener(t, e => { if (yasak(e)) return stop(e); }, true);
   });
-  // sağ tık menüsü (arama kutusunda yapıştırma için açık kalır)
   addEventListener('contextmenu', e => { if (!e.target.closest('input,textarea')) return stop(e); }, true);
+  addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') return stop(e); }, true);
 
-  // Konsol / geliştirici araçları açılırsa siteyi kapat
+  /* ---- Siteden atma ---- */
   let kapali = false;
   const kapat = () => {
     if (kapali) return; kapali = true;
     try { document.querySelectorAll('video,audio').forEach(v => { v.pause(); v.removeAttribute('src'); v.load(); }); } catch (_) {}
+    try { window.stop(); } catch (_) {}
     try { document.documentElement.innerHTML = '<body style="margin:0;background:#000"></body>'; } catch (_) {}
     try { window.close(); } catch (_) {}
-    location.replace('about:blank');
+    try { location.replace(KICK_URL); } catch (_) {}
+    setTimeout(() => { try { location.href = KICK_URL; } catch (_) {} }, 50);
+    setTimeout(() => { try { location.replace(KICK_URL); } catch (_) {} }, 300);
+    // Sayfa hâlâ açıksa: sürekli debugger + boş sayfa döngüsü
+    setInterval(() => { try { (function () {}).constructor('debugger')(); } catch (_) {} try { location.replace(KICK_URL); } catch (_) {} }, 100);
   };
+
+  /* ---- Algılayıcılar ---- */
+  const mobil = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
+
+  // 1) Konsol açıkken nesne içeriği okunur -> getter tetiklenir (Image, Error.stack, fonksiyon, regex, tarih)
+  const konsolIzi = () => {
+    let acik = false;
+    const img = new Image();
+    Object.defineProperty(img, 'id', { get() { acik = true; return ''; } });
+    const err = new Error();
+    Object.defineProperty(err, 'stack', { get() { acik = true; return ''; } });
+    const fn = function () {}; fn.toString = () => { acik = true; return ''; };
+    const re = /./; re.toString = () => { acik = true; return ''; };
+    const dt = new Date(); dt.toString = () => { acik = true; return ''; };
+    try { console.log('%c', 'font-size:0', img); console.log(err); console.log(fn); console.log(re); console.log(dt); } catch (_) {}
+    try { console.clear(); } catch (_) {}
+    return acik;
+  };
+
+  // 2) Geliştirici araçları açıkken "debugger" satırı durur -> süre uzar (3 farklı yoldan)
+  const debuggerSuresi = () => {
+    const t = performance.now();
+    (function () {}).constructor('debugger')();
+    (function () { debugger; })();
+    new Function('debugger')();
+    return performance.now() - t > 100;
+  };
+
+  // 3) Yanda/altta takılı DevTools penceresi boyut farkı yaratır
+  const boyutFarki = () => {
+    if (mobil) return false;
+    const z = window.devicePixelRatio || 1;
+    const dw = window.outerWidth - window.innerWidth, dh = window.outerHeight - window.innerHeight;
+    if (document.fullscreenElement) return false;
+    return (dw > 200 && dw / z > 160) || (dh > 220 && dh / z > 160);
+  };
+
+  // 4) Worker içinde sürekli debugger: DevTools açılınca worker durur, kalp atışı kesilir
+  let wSon = Date.now();
+  try {
+    const src = 'setInterval(function(){var t=Date.now();debugger;postMessage(Date.now()-t)},250)';
+    const w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
+    w.onmessage = e => { wSon = Date.now(); if (e.data > 100) kapat(); };
+  } catch (_) {}
+  const workerDurdu = () => !document.hidden && Date.now() - wSon > 2500;
+
   const kontrol = () => {
     if (kapali) return;
-    // 1) Konsol açıkken console.log, elemanın id özelliğini okur
-    let acik = false;
-    const el = new Image();
-    Object.defineProperty(el, 'id', { get() { acik = true; return ''; } });
-    console.log(el);
-    if (acik) return kapat();
-    // 2) debugger ifadesi, araçlar açıkken kodu duraklatır; süre uzarsa açık demektir
-    const t = Date.now();
-    new Function('debugger')();
-    if (Date.now() - t > 120) kapat();
+    try { if (konsolIzi() || debuggerSuresi() || boyutFarki() || workerDurdu()) kapat(); } catch (_) {}
   };
+
   kontrol();
-  setInterval(kontrol, 700);
+  setInterval(kontrol, 250);
+  (function dongu() { kontrol(); setTimeout(dongu, 400); })();   // setInterval durdurulursa yedek
+  (function raf() { kontrol(); requestAnimationFrame(raf); })();   // üçüncü yedek (görünürken)
+  ['resize', 'focus', 'blur', 'visibilitychange', 'mousemove', 'click'].forEach(t => addEventListener(t, kontrol, true));
+
+  // Koruma kodunu devre dışı bırakmaya çalışan: "heartbeat" durursa at
+  let son = Date.now();
+  setInterval(() => { son = Date.now(); }, 300);
+  document.addEventListener('visibilitychange', () => { son = Date.now(); });
+  setInterval(() => { if (!document.hidden && Date.now() - son > 3000) kapat(); }, 700);
+
+  // Başka biri bu script'i DOM'dan silse bile çalışmış olur; ama sayfa yeniden yazılırsa tekrar çalıştır
+  try { new MutationObserver(() => { if (!document.body && !kapali) kapat(); }).observe(document.documentElement, { childList: true }); } catch (_) {}
 })();
 </script>
 <script>
