@@ -1230,4 +1230,180 @@ async function showAll() {
     const g = ++gen;
     if (io) { io.disconnect(); io = null; }
     pg.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.g === key));
-   
+    $('#atitle').textContent = titles[key];
+    grid.innerHTML = ''; msg.textContent = 'Yükleniyor…'; sub.textContent = '';
+    const seen = new Set();
+    const c = cur = { key, items: [], done: key !== 'all', more: null };
+    const add = l => {
+      l.forEach(a => { if (a.id == null || !a.title || seen.has(a.id)) return; seen.add(a.id); c.items.push(a); if (match(a)) grid.append(poster(a)); });
+      count();
+    };
+    const empty = () => { if (!grid.children.length) msg.textContent = q ? 'Sonuç bulunamadı. Başka bir arama dene.' : (c.items.length ? '' : 'Liste boş geldi.'); else msg.textContent = ''; };
+
+    if (key !== 'all') {   // 4K / Türkçe dublaj: hazır tam liste
+      try {
+        const l = asList(await Animland.seo(SEO[key]));
+        if (!alive(g)) return;
+        add(l); empty();
+      } catch (e) { console.error(e); if (alive(g)) retry(() => loadGroup(key)); }
+      return;
+    }
+
+    let p = 1, busy = false;
+    c.more = async () => {
+      if (busy || c.done || !alive(g)) return;
+      busy = true; msg.textContent = q ? 'Aranıyor…' : 'Yükleniyor…';
+      try {
+        const raw = await Animland.all(p);
+        const l = deepAnimes(raw).map(normAnime).filter(a => a.id != null && a.title && !seen.has(a.id));
+        if (!alive(g)) return;
+        console.log('Tüm animeler: page=' + p, '→', l.length, 'yeni');
+        if (!l.length) { c.done = true; if (!c.items.length) sub.textContent = 'Yanıt şekli: ' + shape(raw); }
+        else { add(l); p += 10; }
+        empty();
+      } catch (e) { console.error(e); if (alive(g)) retry(() => c.more()); }
+      finally { busy = false; }
+    };
+    await c.more();
+    if (!alive(g) || c.done) return;
+    io = new IntersectionObserver(es => {
+      if (!alive(g) || c.done) { io.disconnect(); return; }
+      if (es[0].isIntersecting && !q) c.more().then(() => { if (alive(g) && !c.done) { io.unobserve(sent); io.observe(sent); } else io.disconnect(); });
+    }, { rootMargin: '700px' });
+    io.observe(sent);
+  }
+
+  // Arama: bu sayfadaki listeden filtreler (Tümü'nde önce listenin tamamını yükler)
+  allSearch = async text => {
+    q = nrm(text).trim();
+    const c = cur, g = gen; if (!c) return;
+    grid.innerHTML = ''; c.items.filter(match).forEach(a => grid.append(poster(a))); count();
+    if (q && !c.done && c.more) {
+      while (!c.done && alive(g) && q) {
+        const before = c.items.length; await c.more();
+        if (c.items.length === before && !c.done) break;   // hata: dur
+      }
+      if (!alive(g)) return;
+      grid.innerHTML = ''; c.items.filter(match).forEach(a => grid.append(poster(a))); count();
+    }
+    msg.textContent = grid.children.length ? '' : (q ? 'Sonuç bulunamadı. Başka bir arama dene.' : '');
+  };
+  $('#chips').onclick = e => { const b = e.target.closest('.chip'); if (b && !b.classList.contains('on')) loadGroup(b.dataset.g); };
+  loadGroup('all');
+}
+async function loadInfo(id) {
+  const raw = await Animland.info(id);
+  console.log('Detay yanıtı:', raw);
+  const d0 = raw.data || raw;
+  return normAnime(Array.isArray(d0) ? d0[0] : d0);
+}
+
+async function showDetail(id) {
+  const my = ++rt; enterPage();
+  const pg = $('#page'); pg.innerHTML = '<div class="msg pad">Yükleniyor…</div>';
+  try {
+    const a = await loadInfo(id);
+    if (my !== rt) return;
+    const seasons = seasonsOf(a), first = seasons.find(s => s.eps.length) || seasons[0];
+    const hid = encodeURIComponent(id);
+    document.title = a.title + ' – Animhub';
+    const yr = [a.seasons > 0 ? `<b>${a.seasons} Sezon</b>` : esc(a.type || ''), a.year ? esc(a.year) : ''].filter(Boolean).join(' <span>-</span> ');
+    pg.innerHTML = `
+    <div class="dh"><div class="bgi" style="background-image:url('${esc(a.wide || a.img || '')}')"></div>
+      <a class="home" href="#/" aria-label="Ana sayfaya dön"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>Ana sayfa</a>
+      <div class="dhin">
+        ${a.logo ? `<img class="tlogo" referrerpolicy="no-referrer" alt="${esc(a.title)}" src="${esc(a.logo)}">` : `<h1>${esc(a.title)}</h1>`}
+        <div class="mt">${a.score ? `<span class="imdb">${esc(a.score)} <small>IMDb</small></span>` : ''}</div>
+        <div class="gen">${a.genres.map(g => `<span>${esc(g)}</span>`).join('')}</div>
+        <div class="yr">${yr}</div>
+        <p class="ov">${esc(a.desc || 'Özet yok.')}</p>
+        <a class="btn play" href="#/watch/${hid}/${first.n}/${first.eps[0]?.n ?? 1}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span>İlk bölümü izle</span></a>
+        ${a.trailer ? ' <button class="alt" id="tr">Fragman</button>' : ''}
+        <button class="alt favbtn${Fav.has(a.id) ? ' on' : ''}" id="favb" type="button" data-id="${esc(a.id)}" data-title="${esc(a.title)}" data-img="${esc(a.img || a.wide || '')}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span>${Fav.has(a.id) ? 'Listemde' : 'Listeme ekle'}</span></button>
+        ${a.subs.length ? `<div class="grp">Altyazı Grupları:${a.subs.map(x => `<b>${esc(x)}</b>`).join('')}</div>` : ''}
+        ${a.sounds.length ? `<div class="grp">Ses Grupları:${a.sounds.map(x => `<b>${esc(x)}</b>`).join('')}</div>` : ''}
+      </div></div>
+    <div class="trbox" id="trbox" hidden style="max-width:1300px;margin:20px auto 0;padding:0 20px"></div>
+    <section>
+      <select class="sel" id="se" aria-label="Sezon">${seasons.map(s => `<option value="${esc(s.n)}"${s === first ? ' selected' : ''}>${esc(s.name || s.n + '. Sezon')}</option>`).join('')}</select>
+      <h2 class="sech" id="seh"></h2><div class="egrid" id="eg"></div>
+    </section>
+    <section><h2 class="sech" id="simh">Benzer animeler</h2><div class="row" id="sim"></div></section>
+    <div style="height:20px"></div>`;
+    const lg = pg.querySelector('.tlogo');
+    if (lg) lg.onerror = () => { const h = document.createElement('h1'); h.textContent = a.title; lg.replaceWith(h); };
+    const draw = () => {
+      const s = seasons.find(x => String(x.n) === $('#se').value) || first;
+      $('#seh').textContent = `${s.name || s.n + '. Sezon'} - ${s.eps.length} Bölüm`;
+      $('#eg').innerHTML = s.eps.map(e => epc(id, s.n, e)).join('');
+    };
+    $('#se').onchange = draw; draw();
+    if (a.trailer) $('#tr').onclick = () => { const b = $('#trbox'); b.hidden = false; b.innerHTML = `<iframe src="${esc(a.trailer)}" allowfullscreen></iframe>`; b.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+    const simEl = $('#sim'), simHd = $('#simh');
+    Animland.similar(id).then(r => {
+      if (!simEl.isConnected) return;
+      const l = asList(r).filter(x => String(x.id) !== String(id)).slice(0, 12);
+      l.length ? l.forEach(x => simEl.append(poster(x))) : (simEl.remove(), simHd.remove());
+    }).catch(() => { simEl.remove(); simHd.remove(); });
+  } catch (e) {
+    console.error(e);
+    if (my === rt) pg.innerHTML = '<div class="msg pad">Detay alınamadı. <a href="#/" style="color:#ff4b55">Ana sayfaya dön</a></div>';
+  }
+}
+
+async function showWatch(id, sn, en) {
+  const my = ++rt; enterPage();
+  const pg = $('#page'); pg.innerHTML = '<div class="msg pad">Yükleniyor…</div>';
+  try {
+    const a = await loadInfo(id);
+    if (my !== rt) return;
+    const seasons = seasonsOf(a);
+    const flat = seasons.flatMap(s => s.eps.map(e => ({ s: s.n, e: e.n })));
+    const idx = flat.findIndex(x => x.s == sn && x.e == en);
+    const season = seasons.find(s => s.n == sn) || seasons[0];
+    const ep = season.eps.find(e => e.n == en) || season.eps[0] || {};
+    const hid = encodeURIComponent(id);
+    const link = x => (x ? `href="#/watch/${hid}/${x.s}/${x.e}"` : '');
+    const prev = idx > 0 ? flat[idx - 1] : null, next = idx >= 0 && idx < flat.length - 1 ? flat[idx + 1] : null;
+    window.CURW = { id, sn, en, title: a.title, img: ep.img || a.banner || a.wide || a.img || '', next, resumed: false };
+    document.title = `${a.title} S${sn} B${en} – Animhub`;
+    pg.innerHTML = `<div class="wp">
+      <div class="navrow">
+        <a class="home" href="#/" aria-label="Ana sayfaya dön"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>Ana sayfa</a>
+        <a class="home" href="#/anime/${hid}" aria-label="Anime sayfasına dön"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg><span class="hl">${esc(a.title)}</span></a>
+      </div>
+      <div class="vwrap" id="wplayer"></div>
+      <div class="wbar"><div><h2 class="wt">${esc(a.title)}</h2><div class="ws">${esc(season.name || 'Sezon ' + sn)} · Bölüm ${esc(en)}${ep.name ? ' — ' + esc(ep.name) : ''}</div></div>
+        <div class="wctl"><input type="hidden" id="wsv" value="2"><a class="nbtn nprev${prev ? '' : ' dis'}" ${link(prev)}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Önceki</span></a><a class="nbtn nnext${next ? '' : ' dis'}" ${link(next)}><span>Sonraki</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a></div></div>
+      <h2 class="sech">${esc(season.name || 'Sezon ' + sn)} bölümleri</h2>
+      <div class="egrid">${season.eps.map(e => epc(id, season.n, e, e.n == en)).join('')}</div></div>`;
+    $('#wsv').onchange = () => watch(id, sn, en);
+    watch(id, sn, en);
+  } catch (e) {
+    console.error(e);
+    if (my === rt) pg.innerHTML = '<div class="msg pad">Bölüm bilgisi alınamadı. <a href="#/" style="color:#ff4b55">Ana sayfaya dön</a></div>';
+  }
+}
+
+function route() {
+  const h = location.hash; let m;
+  allSearch = null; $('#q').placeholder = 'Anime ara…';
+  sugClose();
+  if (h === '#/list') return showFavs();
+  if (h === '#/animes') return showAll();
+  if ((m = h.match(/^#\/anime\/([^/]+)$/))) return showDetail(decodeURIComponent(m[1]));
+  if ((m = h.match(/^#\/watch\/([^/]+)\/(\d+)\/(\d+)$/))) return showWatch(decodeURIComponent(m[1]), +m[2], +m[3]);
+  showHome();
+}
+const mbtn = $('#mbtn'), mmenu = $('#mmenu');
+const mclose = () => { mmenu.hidden = true; mbtn.setAttribute('aria-expanded', 'false'); };
+mbtn.onclick = e => { e.stopPropagation(); mmenu.hidden = !mmenu.hidden; mbtn.setAttribute('aria-expanded', String(!mmenu.hidden)); };
+mmenu.addEventListener('click', () => { mclose(); if (location.hash === '#/' || !location.hash) { $('#search').hidden = true; $('#home').hidden = false; $('#q').value = ''; } });
+document.addEventListener('click', mclose);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') mclose(); });
+addEventListener('hashchange', route);
+favSync();
+route();
+</script>
+</body>
+</html>
