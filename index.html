@@ -565,17 +565,14 @@ footer::before{display:none}
   /* ---- Algılayıcılar ---- */
   const mobil = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
 
-  // 1) Konsol açıkken nesne içeriği okunur -> getter tetiklenir (Image, Error.stack, fonksiyon, regex, tarih)
+  // 1) Konsol açıkken nesne içeriği okunur -> getter tetiklenir (Image, Error.stack)
   const konsolIzi = () => {
     let acik = false;
     const img = new Image();
     Object.defineProperty(img, 'id', { get() { acik = true; return ''; } });
     const err = new Error();
     Object.defineProperty(err, 'stack', { get() { acik = true; return ''; } });
-    const fn = function () {}; fn.toString = () => { acik = true; return ''; };
-    const re = /./; re.toString = () => { acik = true; return ''; };
-    const dt = new Date(); dt.toString = () => { acik = true; return ''; };
-    try { console.log('%c', 'font-size:0', img); console.log(err); console.log(fn); console.log(re); console.log(dt); } catch (_) {}
+    try { console.log('%c', 'font-size:0', img); console.log(err); } catch (_) {}
     try { console.clear(); } catch (_) {}
     return acik;
   };
@@ -586,7 +583,7 @@ footer::before{display:none}
     (function () {}).constructor('debugger')();
     (function () { debugger; })();
     new Function('debugger')();
-    return performance.now() - t > 100;
+    return performance.now() - t;
   };
 
   // 3) Yanda/altta takılı DevTools penceresi boyut farkı yaratır
@@ -603,13 +600,20 @@ footer::before{display:none}
   try {
     const src = 'setInterval(function(){var t=Date.now();debugger;postMessage(Date.now()-t)},250)';
     const w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
-    w.onmessage = e => { wSon = Date.now(); if (e.data > 100) kapat(); };
+    w.onmessage = e => { wSon = Date.now(); if (e.data > 250) kapat(); };
   } catch (_) {}
-  const workerDurdu = () => !document.hidden && Date.now() - wSon > 2500;
+  const basla = Date.now();
+  const workerDurdu = () => !document.hidden && Date.now() - basla > 6000 && Date.now() - wSon > 4000;
 
+  // Yanlış alarmı önlemek için: tuzak/boyut/worker en az 2 ardışık kontrolde görülmeli; debugger ancak belirgin duraksamada anında atar
+  let say = 0;
   const kontrol = () => {
     if (kapali) return;
-    try { if (konsolIzi() || debuggerSuresi() || boyutFarki() || workerDurdu()) kapat(); } catch (_) {}
+    try {
+      const dbg = debuggerSuresi();
+      if (dbg > 250) return kapat();
+      if (konsolIzi() || dbg > 120 || boyutFarki() || workerDurdu()) { if (++say >= 2) kapat(); } else say = 0;
+    } catch (_) {}
   };
 
   kontrol();
