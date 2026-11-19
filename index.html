@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Animhub</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Exo+2:wght@600;700;800&display=swap">
 <style>
 :root{--bg:#050507;--card:#14141a;--red:#e50914;--tx:#f4f4f7;--mut:#9a9aa8}
 *{box-sizing:border-box}
@@ -349,6 +349,154 @@ footer p{margin:0;color:#8a8a9a}
   .sech{font-size:1.3rem;gap:10px}
   .sel{font-size:.95rem;padding:11px 40px 11px 16px}
 }
+
+/* ===== Favoriler, devam et, çift dokunma, öneriler ===== */
+.fav{position:absolute;z-index:3;top:9px;left:9px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;transition:transform .2s,background .2s,border-color .2s}
+.fav svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linejoin:round;transition:fill .2s,stroke .2s}
+.fav:hover{transform:scale(1.12);background:rgba(0,0,0,.65)}.fav:active{transform:scale(.9)}
+.fav.on{background:rgba(255,75,85,.22);border-color:rgba(255,75,85,.6)}
+.fav.on svg{fill:#ff4b55;stroke:#ff4b55;animation:hpop .35s ease}
+@keyframes hpop{40%{transform:scale(1.35)}}
+.dhin .alt svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linejoin:round;flex:none;transition:fill .2s}
+.dhin .alt.on{background:rgba(255,75,85,.18);border-color:rgba(255,75,85,.6)}
+.dhin .alt.on svg{fill:#ff4b55;stroke:#ff4b55}
+.mcount{margin-left:auto;font-style:normal;font-size:.72rem;font-weight:800;min-width:22px;height:22px;padding:0 7px;border-radius:999px;display:grid;place-items:center;background:linear-gradient(135deg,#ff4b55,#d1111d);color:#fff}
+.mmenu a svg path[d^="M12 21.35"]{fill:none}
+.empty{text-align:center;padding:56px 16px 20px;max-width:420px;margin:0 auto}
+.empty .eico{width:76px;height:76px;margin:0 auto 18px;border-radius:24px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(255,75,85,.22),rgba(229,9,20,.06));border:1px solid rgba(255,75,85,.35)}
+.empty .eico svg{width:36px;height:36px;fill:none;stroke:#ff6b74;stroke-width:1.8;stroke-linejoin:round}
+.empty h3{margin:0 0 8px;font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
+.empty p{margin:0 0 22px;color:#9a9aa8}
+/* İzlemeye devam et */
+.all.clr::after{display:none}
+.controw{display:flex;gap:16px;overflow-x:auto;padding:6px 2px 16px;margin:0 -2px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.controw::-webkit-scrollbar{height:6px}
+.cc{flex:none;width:min(310px,78vw);scroll-snap-align:start;color:inherit;text-decoration:none;display:block;transition:transform .3s}
+.cth{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,.08);box-shadow:0 6px 18px rgba(0,0,0,.4);transition:border-color .3s,box-shadow .3s,transform .3s}
+.cth img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.cth::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent 55%)}
+.cplay{position:absolute;z-index:2;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;display:grid;place-items:center;background:rgba(229,9,20,.92);box-shadow:0 8px 24px rgba(229,9,20,.5);transition:transform .25s}
+.cplay svg{width:24px;height:24px;fill:#fff;margin-left:2px}
+.cx{position:absolute;z-index:3;top:8px;right:8px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);cursor:pointer;transition:background .2s}
+.cx svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round}
+.cx:hover{background:rgba(229,9,20,.8)}
+.cbar{position:absolute;z-index:3;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.25)}
+.cbar i{display:block;height:100%;background:linear-gradient(90deg,#ff4b55,#d1111d);border-radius:0 2px 2px 0}
+.cm{padding:10px 4px 0}
+.cm b{display:block;font-weight:700;font-size:.98rem;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cm small{color:#9a9aa8;font-weight:500;font-size:.82rem}
+.cc:hover .cth{border-color:rgba(255,75,85,.5);box-shadow:0 14px 30px rgba(0,0,0,.55);transform:translateY(-4px)}
+.cc:hover .cth img{transform:scale(1.06)}.cc:hover .cplay{transform:scale(1.1)}
+/* Bölüm kartı ilerleme */
+.ebar{position:absolute;z-index:2;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.25)}
+.ebar i{display:block;height:100%;background:#ff4b55}
+.eseen{position:absolute;z-index:2;top:8px;right:8px;padding:2px 10px;border-radius:999px;font-size:.72rem;font-weight:800;background:rgba(34,160,90,.92);box-shadow:0 3px 10px rgba(0,0,0,.4)}
+/* Çift dokunma */
+.pl{user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.dtap{position:absolute;z-index:4;top:0;bottom:0;width:40%;display:grid;place-items:center;pointer-events:none;background:rgba(255,255,255,.16);animation:dtap .7s ease both}
+.dtap.l{left:0;border-radius:0 100% 100% 0/0 50% 50% 0}
+.dtap.r{right:0;border-radius:100% 0 0 100%/50% 0 0 50%}
+.dti{display:flex;flex-direction:column;align-items:center;gap:4px;color:#fff;font-weight:800;font-size:.9rem;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+@keyframes dtap{0%{opacity:0}12%{opacity:1}75%{opacity:1}100%{opacity:0}}
+/* Arama önerileri */
+.sug{position:absolute;z-index:20;top:calc(100% + 8px);right:78px;width:min(460px,calc(100% - 40px));max-height:min(70vh,440px);overflow:auto;padding:8px;border-radius:20px;background:rgba(20,20,27,.92);backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);border:1px solid rgba(255,255,255,.1);box-shadow:0 24px 60px rgba(0,0,0,.7);animation:mpop .2s ease}
+.sgi{display:flex;align-items:center;gap:12px;padding:8px;border-radius:14px;color:#f0f0f5;text-decoration:none;transition:background .15s}
+a.sgi:hover,a.sgi.act{background:rgba(255,75,85,.13)}
+.sgi img{flex:none;width:42px;height:58px;object-fit:cover;border-radius:9px;background:var(--card)}
+.sgt{flex:1;min-width:0}
+.sgt b{display:block;font-weight:700;font-size:.95rem;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sgt small{color:#9a9aa8;font-size:.78rem;font-weight:500}
+.sgb{flex:none;padding:2px 9px;border-radius:999px;font-size:.68rem;font-weight:800;letter-spacing:.4px;background:rgba(255,196,0,.16);border:1px solid rgba(255,196,0,.4);color:#ffd84d}
+.sgm{justify-content:center;color:#9a9aa8;font-weight:500;font-size:.92rem;padding:16px}
+.spin.sm{width:18px;height:18px;border-width:2px}
+.sgall{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:6px;padding:12px;border-radius:14px;border:0;background:rgba(255,255,255,.06);color:#fff;font:inherit;font-weight:700;font-size:.88rem;cursor:pointer;transition:background .2s}
+.sgall:hover{background:rgba(255,75,85,.16)}
+.sgall svg{width:16px;height:16px;fill:none;stroke:#ff6b74;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+/* Genel bildirim */
+#gtoast{position:fixed;z-index:60;left:50%;bottom:28px;transform:translate(-50%,20px);padding:11px 20px;border-radius:999px;background:rgba(24,24,32,.95);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 12px 34px rgba(0,0,0,.6);font-weight:600;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;white-space:nowrap}
+#gtoast.on{opacity:1;transform:translate(-50%,0)}
+@media(max-width:700px){
+  .sug{left:12px;right:12px;width:auto;top:calc(100% + 6px)}
+  .sgi img{width:38px;height:52px}
+  .fav{width:32px;height:32px;top:8px;left:8px}
+}
+
+/* ===== SADE MODERN TEMA (parıltısız) ===== */
+:focus-visible{outline-color:#ff4b55}
+h1,h2,.wt,.sech,.dh h1,.hero h1,.empty h3,footer .fl{font-family:'Exo 2',Inter,system-ui,sans-serif}
+/* Arka plan: çok hafif ızgara, sabit */
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 20%,transparent 75%)}
+body::after{display:none}
+nav input:focus,nav input:focus-visible{border-color:rgba(255,75,85,.6);box-shadow:0 0 0 3px rgba(255,75,85,.12)}
+nav form:focus-within .sico{stroke:#ff6b74}
+.mbtn:hover,.mbtn[aria-expanded=true]{border-color:rgba(255,255,255,.22);box-shadow:none}
+.mmenu,.sug{border-color:rgba(255,255,255,.1);box-shadow:0 20px 50px rgba(0,0,0,.65)}
+.mmenu a:hover,a.sgi:hover,a.sgi.act{background:rgba(255,255,255,.07)}
+.mmenu a svg,.sgall svg{stroke:#ff6b74}
+.sgall:hover{background:rgba(255,255,255,.1)}
+/* Başlıklar */
+h2.h2i{text-transform:uppercase;letter-spacing:.05em;font-size:1.3rem;font-weight:800;background:none;-webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:#fff;color:#fff}
+.hi{border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);box-shadow:none}
+.hi::before,.hi::after{display:none}
+.hi svg{fill:#ff6b74;color:#ff6b74}
+.hd{position:relative;padding-bottom:10px;margin-bottom:16px}
+.hd::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:rgba(255,255,255,.08)}
+.hd .sub{margin-bottom:0}
+.sub{font-size:.85rem;letter-spacing:.2px;color:#8f8fa0}
+.sech{text-transform:uppercase;letter-spacing:.05em;font-size:1.35rem}
+.sech::before{background:#ff4b55;box-shadow:none}
+/* Tümünü gör */
+.all{background:linear-gradient(#14141a,#14141a) padding-box,linear-gradient(135deg,rgba(255,75,85,.7),rgba(255,255,255,.1)) border-box;animation:none;box-shadow:none}
+.all:hover{background:linear-gradient(#1b1b22,#1b1b22) padding-box,linear-gradient(135deg,#ff4b55,rgba(255,255,255,.15)) border-box;box-shadow:none}
+/* Kartlar */
+.c .p{border-color:rgba(255,255,255,.07);box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.c:hover .p,.cc:hover .cth,.ec:hover .th,.ep:hover{border-color:rgba(255,75,85,.45);box-shadow:0 14px 30px rgba(0,0,0,.55)}
+.c .p::after{background:linear-gradient(0deg,rgba(0,0,0,.75),transparent 55%);transition:opacity .3s}
+.c:hover .t{color:#fff}
+.tag{background:#ffc400;box-shadow:0 3px 10px rgba(0,0,0,.4)}
+.fav.on{box-shadow:none}
+.cplay,.c .p::before{box-shadow:0 6px 16px rgba(0,0,0,.5)}
+.cbar i,.ebar i,.plplay{box-shadow:none}
+.ec.on .th{border-color:#ff4b55;box-shadow:0 0 0 2px rgba(255,75,85,.35)}
+.ec .b1,.ec .b2{box-shadow:0 3px 10px rgba(0,0,0,.4)}
+.live{box-shadow:0 3px 10px rgba(0,0,0,.4)}
+/* Hero */
+.hero::before{display:none}
+.hero .in{border-left:0;border-image:none}
+.hero h1,.dh h1{text-shadow:0 4px 24px rgba(0,0,0,.7);letter-spacing:-.02em}
+.pills span{border-color:rgba(255,255,255,.14);background:rgba(255,255,255,.1);color:#f0f0f5}
+.pills span:last-child:not(:only-child){box-shadow:none}
+.hdots button.on{background:#fff;box-shadow:none}
+/* Butonlar */
+.btn::before,.nnext::before{display:none}
+.btn,.nnext{box-shadow:0 6px 18px rgba(229,9,20,.28)}
+.btn:hover,.nnext:hover{box-shadow:0 8px 22px rgba(229,9,20,.38)}
+.nprev:hover,.dhin .alt:hover{border-color:rgba(255,255,255,.3);box-shadow:none}
+.chip.on{box-shadow:none}
+.chip:hover{border-color:rgba(255,255,255,.25)}
+/* Oynatıcı */
+.vwrap{border-color:rgba(255,255,255,.07);box-shadow:0 20px 50px rgba(0,0,0,.55)}
+.plrow button:hover{color:#fff;filter:none}
+.plmenu{border:1px solid rgba(255,255,255,.1);box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.pmi.on{color:#ff6b74}
+.spin{border-top-color:#ff4b55;box-shadow:none}
+.dtap{background:rgba(255,255,255,.14)}
+/* Diğer */
+#gtoast{border-color:rgba(255,255,255,.14);box-shadow:0 10px 28px rgba(0,0,0,.55)}
+.empty .eico{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.05);box-shadow:none}
+.empty .eico svg{stroke:#ff6b74}
+footer{border-top:1px solid rgba(255,255,255,.06);background:none}
+footer::before{display:none}
+::selection{background:rgba(255,75,85,.4);color:#fff}
+::-webkit-scrollbar-thumb{background:#2a2a36}
+@media(max-width:700px){
+  h2.h2i{font-size:1.02rem;letter-spacing:.04em}
+  .sech{font-size:1.1rem}
+  body::before{background-size:34px 34px}
+}
+
+.hi .k4{font-family:'Exo 2',Inter,sans-serif;font-weight:800;font-size:.72rem;letter-spacing:.02em;line-height:1;color:#ff6b74}
+@media(max-width:700px){.hi .k4{font-size:.64rem}}
 </style>
 </head>
 <body>
@@ -357,16 +505,18 @@ footer p{margin:0;color:#8a8a9a}
   <form id="sf"><svg class="sico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Anime ara…" aria-label="Anime ara" autocomplete="off" enterkeyhint="search"></form>
   <div class="mw">
     <button class="mbtn" id="mbtn" type="button" aria-label="Menü" aria-expanded="false"><span class="hb" aria-hidden="true"><i></i><i></i><i></i></span></button>
-    <div class="mmenu" id="mmenu" hidden><a href="#/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span>Ana sayfa</span></a><a href="#/animes"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="3"/><path d="M10 9l5 3-5 3z"/><path d="M8 21h8"/></svg><span>Animeler</span></a></div>
+    <div class="mmenu" id="mmenu" hidden><a href="#/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span>Ana sayfa</span></a><a href="#/list"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span>Listem</span><em class="mcount" id="mcount" hidden>0</em></a><a href="#/animes"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="3"/><path d="M10 9l5 3-5 3z"/><path d="M8 21h8"/></svg><span>Animeler</span></a></div>
   </div>
+  <div class="sug" id="sug" role="listbox" hidden></div>
 </nav>
 
 <div id="main">
   <div class="hero" id="hero"><div class="bg"></div><div class="in"><h1>Yükleniyor…</h1></div></div>
   <div id="search" hidden><section><h2>Arama sonuçları</h2><p class="sub" id="ssub"></p><div class="row" id="sres"></div></section></div>
   <div id="home">
+    <section id="contsec" hidden><div class="hd"><div><h2 class="h2i"><span class="hi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z" fill="currentColor"/></svg></span>İzlemeye devam et</h2><p class="sub">Kaldığın yerden hemen devam et</p></div><button class="all clr" id="contclr" type="button"><span>Temizle</span></button></div><div class="controw" id="cont"></div></section>
     <section><div class="hd"><div><h2 class="h2i"><span class="hi"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg></span>Yeni eklenen animeler</h2><p class="sub">Kataloğa en son eklenen seriler ve filmler</p></div><button class="all" data-all="new"><span>Tümünü gör</span></button></div><div class="row" id="new"></div></section>
-    <section><div class="hd"><div><h2 class="h2i"><span class="hi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M8 9v3.5h3M11 9v6M14.5 9l2.5 3m0 0l-2.5 3m2.5-3h-2.5" stroke-linecap="round"/></svg></span>4K anime</h2><p class="sub">2160p 4K kaynaktan yayınlanan seriler</p></div><button class="all" data-all="k4"><span>Tümünü gör</span></button></div><div class="row" id="k4"></div></section>
+    <section><div class="hd"><div><h2 class="h2i"><span class="hi"><b class="k4">UHD</b></span>4K anime</h2><p class="sub">2160p 4K kaynaktan yayınlanan seriler</p></div><button class="all" data-all="k4"><span>Tümünü gör</span></button></div><div class="row" id="k4"></div></section>
     <section><div class="hd"><div><h2 class="h2i"><span class="hi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></span>Türkçe dublaj</h2><p class="sub">Türkçe seslendirmeli animeler</p></div><button class="all" data-all="dub"><span>Tümünü gör</span></button></div><div class="row" id="dub"></div></section>
   </div>
 </div>
@@ -479,12 +629,86 @@ const ph = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3
 const fmt = n => Number(n).toLocaleString('tr-TR');
 const detail = id => { location.hash = '#/anime/' + encodeURIComponent(id); };
 
+
+/* ===== Depolama: favoriler + izleme geçmişi (tarayıcıda saklanır) ===== */
+const Store = {
+  m: {},
+  get(k, d) { try { const v = localStorage.getItem(k); if (v != null) return JSON.parse(v); } catch (e) {} return k in this.m ? this.m[k] : d; },
+  set(k, v) { this.m[k] = v; try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+};
+const HEART = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+const PLAYI = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>';
+function gtoast(t) {
+  let d = $('#gtoast'); if (!d) { d = document.createElement('div'); d.id = 'gtoast'; document.body.append(d); }
+  d.textContent = t; d.classList.add('on'); clearTimeout(d._t); d._t = setTimeout(() => d.classList.remove('on'), 1800);
+}
+const Fav = {
+  all: () => Store.get('ah_fav', []),
+  has(id) { return this.all().some(x => String(x.id) === String(id)); },
+  toggle(a) {
+    const l = this.all(), i = l.findIndex(x => String(x.id) === String(a.id));
+    if (i >= 0) { l.splice(i, 1); gtoast('Listenden çıkarıldı'); }
+    else { l.unshift({ id: a.id, title: a.title || '', img: a.img || a.banner || '' }); gtoast('Listene eklendi'); }
+    Store.set('ah_fav', l); favSync(true);
+  },
+};
+function favSync(rerender) {
+  const l = Fav.all();
+  document.querySelectorAll('.fav[data-id]').forEach(el => el.classList.toggle('on', Fav.has(el.dataset.id)));
+  const fb = $('#favb'); if (fb) { const on = Fav.has(fb.dataset.id); fb.classList.toggle('on', on); fb.querySelector('span').textContent = on ? 'Listemde' : 'Listeme ekle'; }
+  const c = $('#mcount'); if (c) { c.textContent = l.length; c.hidden = !l.length; }
+  if (rerender) renderFavs();
+}
+const Hist = {
+  all: () => Store.get('ah_hist', {}),
+  list() { return Object.values(this.all()).sort((a, b) => b.ts - a.ts).slice(0, 12); },
+  remove(id) { const h = this.all(); delete h[id]; Store.set('ah_hist', h); },
+  clear() { Store.set('ah_hist', {}); },
+  prog(id, s, e) { return Store.get('ah_prog', {})[`${id}:${s}:${e}`]; },
+  save(W, t, d) {
+    const p = Store.get('ah_prog', {}), k = `${W.id}:${W.sn}:${W.en}`;
+    p[k] = [Math.floor(t), Math.floor(d), Date.now()];
+    const ks = Object.keys(p); if (ks.length > 400) ks.sort((a, b) => p[a][2] - p[b][2]).slice(0, ks.length - 300).forEach(x => delete p[x]);
+    Store.set('ah_prog', p);
+    const h = this.all();
+    if (t / d > .93) {   // bölüm bitti: sıradaki bölümü öner, yoksa listeden kaldır
+      if (W.next) h[W.id] = { id: W.id, title: W.title, img: W.img, s: W.next.s, e: W.next.e, t: 0, d: 0, ts: Date.now(), nextUp: true };
+      else delete h[W.id];
+    } else if (t >= 10) h[W.id] = { id: W.id, title: W.title, img: W.img, s: W.sn, e: W.en, t: Math.floor(t), d: Math.floor(d), ts: Date.now() };
+    Store.set('ah_hist', h);
+  },
+};
+function renderCont() {
+  const sec = $('#contsec'); if (!sec) return;
+  const l = Hist.list(); sec.hidden = !l.length;
+  const row = $('#cont'); row.innerHTML = '';
+  l.forEach(h => {
+    const pct = h.d ? Math.min(100, h.t / h.d * 100) : 0, left = h.d ? Math.max(1, Math.round((h.d - h.t) / 60)) : 0;
+    const a = document.createElement('a'); a.className = 'cc'; a.href = `#/watch/${encodeURIComponent(h.id)}/${h.s}/${h.e}`;
+    a.innerHTML = `<div class="cth"><img loading="lazy" referrerpolicy="no-referrer" alt="" src="${esc(h.img || ph)}" onerror="this.src='${ph}'"><span class="cplay">${PLAYI}</span><span class="cx" role="button" aria-label="Listeden kaldır" data-rm="${esc(h.id)}"><svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></svg></span>${pct ? `<div class="cbar"><i style="width:${pct}%"></i></div>` : ''}</div><div class="cm"><b>${esc(h.title)}</b><small>${h.nextUp ? 'Sıradaki · ' : ''}Sezon ${esc(h.s)} · Bölüm ${esc(h.e)}${left && !h.nextUp ? ' · ' + left + ' dk kaldı' : ''}</small></div>`;
+    row.append(a);
+  });
+}
+document.addEventListener('click', e => {
+  const rm = e.target.closest('[data-rm]'); if (rm) { e.preventDefault(); e.stopPropagation(); Hist.remove(rm.dataset.rm); renderCont(); return; }
+  if (e.target.closest('#contclr')) { Hist.clear(); renderCont(); return; }
+  const fb = e.target.closest('#favb'); if (fb) Fav.toggle({ id: fb.dataset.id, title: fb.dataset.title, img: fb.dataset.img });
+});
+function renderFavs() {
+  const pg = $('#page'); if (location.hash !== '#/list' || pg.hidden) return;
+  const l = Fav.all();
+  pg.innerHTML = `<section><div class="hd"><div><h2 class="h2i"><span class="hi">${HEART}</span>Listem</h2><p class="sub">${l.length ? l.length + ' anime' : 'Henüz anime eklemedin'}</p></div></div>${l.length ? '<div class="row" id="favrow"></div>' : `<div class="empty"><div class="eico">${HEART}</div><h3>Listen henüz boş</h3><p>Beğendiğin animelerin kalp ikonuna dokun, hepsi burada toplansın.</p><a class="btn" href="#/animes"><span>Animelere göz at</span></a></div>`}</section>`;
+  l.forEach(a => $('#favrow').append(poster(a)));
+}
+function showFavs() { rt++; enterPage(); document.title = 'Listem – Animhub'; renderFavs(); }
+
 /* ===== Ana sayfa ===== */
 const autoBadge = (a, fb) => (a.quality === '4k' ? '4K' : a.trdub ? 'TR DUB' : fb);
 function poster(a, badge) {
   badge = autoBadge(a, badge);
   const b = document.createElement('button'); b.className = 'c';
-  b.innerHTML = `<div class="p"><img loading="lazy" referrerpolicy="no-referrer" alt="" src="${esc(a.img || ph)}" onerror="this.src='${ph}'">${badge ? `<span class="tag">${esc(badge)}</span>` : ''}</div><div class="t">${esc(a.title)}</div>`;
+  b.innerHTML = `<div class="p"><img loading="lazy" referrerpolicy="no-referrer" alt="" src="${esc(a.img || ph)}" onerror="this.src='${ph}'">${badge ? `<span class="tag">${esc(badge)}</span>` : ''}<span class="fav${Fav.has(a.id) ? ' on' : ''}" data-id="${esc(a.id)}" role="button" aria-label="Listeme ekle">${HEART}</span></div><div class="t">${esc(a.title)}</div>`;
+  b.querySelector('.fav').onclick = e => { e.stopPropagation(); Fav.toggle(a); };
   b.onclick = () => detail(a.id); return b;
 }
 function epCard(a) {
@@ -601,6 +825,47 @@ $('#sf').onsubmit = async e => {
 };
 $('#q').addEventListener('input', () => { if (allSearch) allSearch($('#q').value); });
 $('#logo').addEventListener('click', () => { $('#search').hidden = true; $('#home').hidden = false; $('#q').value = ''; });
+
+/* ===== Arama önerileri (yazarken açılır liste) ===== */
+const sug = $('#sug'), sugCache = new Map(); let sugTok = 0, sugTm, sugIdx = -1;
+const sugClose = () => { sug.hidden = true; sugIdx = -1; };
+function sugDraw(q, l, loading) {
+  sugIdx = -1; sug.hidden = false;
+  if (loading) { sug.innerHTML = '<div class="sgi sgm"><div class="spin sm"></div><span>Aranıyor…</span></div>'; return; }
+  if (!l.length) { sug.innerHTML = `<div class="sgi sgm"><span>“${esc(q)}” için sonuç bulunamadı</span></div>`; return; }
+  sug.innerHTML = l.map((a, i) => { const bd = autoBadge(a, ''); return `<a class="sgi" role="option" data-i="${i}" href="#/anime/${encodeURIComponent(a.id)}"><img referrerpolicy="no-referrer" alt="" src="${esc(a.img || ph)}" onerror="this.src='${ph}'"><div class="sgt"><b>${esc(a.title)}</b><small>${[a.type, a.year].filter(Boolean).map(esc).join(' · ')}</small></div>${bd ? `<span class="sgb">${esc(bd)}</span>` : ''}</a>`; }).join('')
+    + `<button type="button" class="sgall" id="sgall"><span>“${esc(q)}” için tüm sonuçları gör</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>`;
+}
+$('#q').addEventListener('input', () => {
+  const q = $('#q').value.trim(); clearTimeout(sugTm);
+  if (allSearch || q.length < 2) { sugTok++; sugClose(); return; }
+  const key = nrm(q);
+  if (sugCache.has(key)) { sugTok++; sugDraw(q, sugCache.get(key)); return; }
+  sugDraw(q, [], true);
+  const tok = ++sugTok;
+  sugTm = setTimeout(async () => {
+    try { const l = (await searchAnime(q)).slice(0, 6); sugCache.set(key, l); if (tok === sugTok) sugDraw(q, l); }
+    catch (e) { if (tok === sugTok) sugClose(); }
+  }, 280);
+});
+$('#q').addEventListener('focus', () => { const q = $('#q').value.trim(); if (!allSearch && q.length >= 2 && sugCache.has(nrm(q))) sugDraw(q, sugCache.get(nrm(q))); });
+$('#q').addEventListener('keydown', e => {
+  if (e.key === 'Escape') return sugClose();
+  if (sug.hidden) return;
+  const items = [...sug.querySelectorAll('a.sgi')]; if (!items.length) return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault(); sugIdx = (sugIdx + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+    items.forEach((x, i) => x.classList.toggle('act', i === sugIdx)); items[sugIdx].scrollIntoView({ block: 'nearest' });
+  } else if (e.key === 'Enter' && sugIdx >= 0) { e.preventDefault(); location.hash = items[sugIdx].getAttribute('href'); sugClose(); $('#q').blur(); }
+});
+$('#sf').addEventListener('submit', () => { sugTok++; clearTimeout(sugTm); sugClose(); });
+sug.addEventListener('click', e => {
+  const all = e.target.closest('#sgall'); sugClose();
+  if (all) { $('#sf').requestSubmit ? $('#sf').requestSubmit() : $('#sf').dispatchEvent(new Event('submit', { cancelable: true })); }
+  $('#q').blur();
+});
+document.addEventListener('click', e => { if (!e.target.closest('#sf') && !e.target.closest('#sug')) sugClose(); });
+
 
 /* ===== Site içi oynatıcı ===== */
 const API_ORIGIN = 'https://api.animland.net', VIDEO_ORIGIN = 'https://video.animland.net';
@@ -757,12 +1022,32 @@ function mountControls(box) {
     set: () => { menu.hidden = !menu.hidden; stack = []; drawMenu(); },
     fs: () => document.fullscreenElement ? document.exitFullscreen() : (box.requestFullscreen ? box.requestFullscreen() : v.webkitEnterFullscreen?.()),
   };
+  /* çift dokunma: sol = 10 sn geri, sağ = 10 sn ileri, orta = tam ekran */
+  let tapAt = 0, tapTm, chainUntil = 0, acc = 0, accSide = '', accTm;
+  const skip = (d, side) => {
+    if (isFinite(v.duration)) v.currentTime = Math.max(0, Math.min(v.duration - .5, v.currentTime + d)); else v.currentTime += d;
+    chainUntil = Date.now() + 650;
+    if (accSide !== side) { acc = 0; accSide = side; }
+    acc += Math.abs(d);
+    let el = box.querySelector('.dtap'); if (el && !el.classList.contains(side)) { el.remove(); el = null; }
+    if (!el) { el = document.createElement('div'); el.className = 'dtap ' + side; box.append(el); }
+    el.innerHTML = `<div class="dti">${svg(side === 'l' ? IC.rw : IC.fw, 34)}<span>${acc} sn</span></div>`;
+    el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
+    clearTimeout(accTm); accTm = setTimeout(() => { el.remove(); acc = 0; accSide = ''; }, 700);
+  };
   box.addEventListener('click', e => {
     const b = e.target.closest('[data-a]'); if (b) return act[b.dataset.a]();
     if (e.composedPath().some(n => n.classList && (n.classList.contains('plmenu') || n.classList.contains('plc')))) return;
     if (!menu.hidden) { menu.hidden = true; return; }
+    const tap = e.target === box || e.target === v;
+    if (tap) {
+      const nowT = Date.now(), rc = box.getBoundingClientRect(), fx = (e.clientX - rc.left) / rc.width;
+      if (nowT < chainUntil && (fx < .4 || fx > .6)) { clearTimeout(tapTm); return skip(fx < .5 ? -10 : 10, fx < .5 ? 'l' : 'r'); }
+      if (nowT - tapAt < 320) { clearTimeout(tapTm); tapAt = 0; if (fx < .4) skip(-10, 'l'); else if (fx > .6) skip(10, 'r'); else act.fs(); return; }
+      tapAt = nowT;
+    }
     if (box._wi) return;
-    if (e.target === box || e.target === v) act.pp();
+    if (tap) { clearTimeout(tapTm); tapTm = setTimeout(() => act.pp(), 280); }
   });
   const seekTo = e => { const r = prog.getBoundingClientRect(); if (isFinite(v.duration)) v.currentTime = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * v.duration; };
   prog.onpointerdown = e => { prog.setPointerCapture(e.pointerId); seekTo(e); prog.onpointermove = seekTo; };
@@ -777,6 +1062,21 @@ function mountControls(box) {
     if (k) { e.preventDefault(); act[k](); wake(); }
   };
   document.addEventListener('keydown', kd);
+  /* izleme ilerlemesi + kaldığın yerden devam */
+  const W = window.CURW;
+  if (W) {
+    const sv = Hist.prog(W.id, W.sn, W.en);
+    if (sv && !W.resumed && sv[0] > 15 && sv[1] - sv[0] > 45) {
+      const go = () => { if (W.resumed) return; W.resumed = true; try { v.currentTime = sv[0]; toast('Kaldığın yerden devam ediliyor · ' + fmtT(sv[0])); } catch (e) {} };
+      v.readyState >= 1 ? go() : v.addEventListener('loadedmetadata', go, { once: true });
+    }
+    let lastSave = 0;
+    const save = () => { if (!box.isConnected || !isFinite(v.duration) || v.duration < 60 || !isFinite(v.currentTime)) return; Hist.save(W, v.currentTime, v.duration); };
+    v.addEventListener('timeupdate', () => { const n = Date.now(); if (n - lastSave > 5000) { lastSave = n; save(); } });
+    ['pause', 'ended'].forEach(ev => v.addEventListener(ev, save));
+    const bye = () => { if (!box.isConnected) { document.removeEventListener('visibilitychange', bye); removeEventListener('pagehide', bye); return; } save(); };
+    document.addEventListener('visibilitychange', bye); addEventListener('pagehide', bye);
+  }
 }
 const LDR = '<div class="ldr"><div class="spin"></div><span>Video yükleniyor…</span></div>';
 function toast(t) { const b = $('#wplayer'); if (!b) return; const d = document.createElement('div'); d.className = 'ptoast'; d.textContent = t; b.append(d); setTimeout(() => d.remove(), 5000); }
@@ -880,7 +1180,7 @@ const seasonsOf = a => a.seasonData.length ? a.seasonData : [{ n: 1, name: '1. S
 function epc(id, sn, e, on) {
   return `<a class="ec${on ? ' on' : ''}" href="#/watch/${encodeURIComponent(id)}/${sn}/${e.n}">
     <div class="th">${e.img ? `<img loading="lazy" referrerpolicy="no-referrer" alt="" src="${esc(e.img)}" onerror="this.style.display='none'">` : ''}
-    ${e.sounds.includes('trdub') ? '<span class="b1">TÜRKÇE DUBLAJ</span>' : ''}<span class="b2">Bölüm ${esc(e.n)}</span>${e.min ? `<span class="b3">${esc(e.min)} dakika</span>` : ''}</div>
+    ${e.sounds.includes('trdub') ? '<span class="b1">TÜRKÇE DUBLAJ</span>' : ''}<span class="b2">Bölüm ${esc(e.n)}</span>${e.min ? `<span class="b3">${esc(e.min)} dakika</span>` : ''}${(() => { const p = Hist.prog(id, sn, e.n), r = p && p[1] ? p[0] / p[1] : 0; return (r > .93 ? '<span class="eseen">✓ İzlendi</span>' : '') + (r > .02 ? `<div class="ebar"><i style="width:${Math.min(100, r * 100)}%"></i></div>` : ''); })()}</div>
     <div class="et">${esc(e.name || '')}</div></a>`;
 }
 function enterPage() {
@@ -890,7 +1190,7 @@ function enterPage() {
 function showHome() {
   rt++; stopPlayer();
   $('#page').hidden = true; $('#page').innerHTML = ''; $('#main').hidden = false;
-  document.title = 'Animhub'; scrollTo(0, lastY);
+  document.title = 'Animhub'; renderCont(); scrollTo(0, lastY);
   if (!homeLoaded) { homeLoaded = true; init(); }
 }
 /* Yanıtın şekli ne olursa olsun içindeki anime nesnelerini bul */
@@ -930,175 +1230,4 @@ async function showAll() {
     const g = ++gen;
     if (io) { io.disconnect(); io = null; }
     pg.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.g === key));
-    $('#atitle').textContent = titles[key];
-    grid.innerHTML = ''; msg.textContent = 'Yükleniyor…'; sub.textContent = '';
-    const seen = new Set();
-    const c = cur = { key, items: [], done: key !== 'all', more: null };
-    const add = l => {
-      l.forEach(a => { if (a.id == null || !a.title || seen.has(a.id)) return; seen.add(a.id); c.items.push(a); if (match(a)) grid.append(poster(a)); });
-      count();
-    };
-    const empty = () => { if (!grid.children.length) msg.textContent = q ? 'Sonuç bulunamadı. Başka bir arama dene.' : (c.items.length ? '' : 'Liste boş geldi.'); else msg.textContent = ''; };
-
-    if (key !== 'all') {   // 4K / Türkçe dublaj: hazır tam liste
-      try {
-        const l = asList(await Animland.seo(SEO[key]));
-        if (!alive(g)) return;
-        add(l); empty();
-      } catch (e) { console.error(e); if (alive(g)) retry(() => loadGroup(key)); }
-      return;
-    }
-
-    let p = 1, busy = false;
-    c.more = async () => {
-      if (busy || c.done || !alive(g)) return;
-      busy = true; msg.textContent = q ? 'Aranıyor…' : 'Yükleniyor…';
-      try {
-        const raw = await Animland.all(p);
-        const l = deepAnimes(raw).map(normAnime).filter(a => a.id != null && a.title && !seen.has(a.id));
-        if (!alive(g)) return;
-        console.log('Tüm animeler: page=' + p, '→', l.length, 'yeni');
-        if (!l.length) { c.done = true; if (!c.items.length) sub.textContent = 'Yanıt şekli: ' + shape(raw); }
-        else { add(l); p += 10; }
-        empty();
-      } catch (e) { console.error(e); if (alive(g)) retry(() => c.more()); }
-      finally { busy = false; }
-    };
-    await c.more();
-    if (!alive(g) || c.done) return;
-    io = new IntersectionObserver(es => {
-      if (!alive(g) || c.done) { io.disconnect(); return; }
-      if (es[0].isIntersecting && !q) c.more().then(() => { if (alive(g) && !c.done) { io.unobserve(sent); io.observe(sent); } else io.disconnect(); });
-    }, { rootMargin: '700px' });
-    io.observe(sent);
-  }
-
-  // Arama: bu sayfadaki listeden filtreler (Tümü'nde önce listenin tamamını yükler)
-  allSearch = async text => {
-    q = nrm(text).trim();
-    const c = cur, g = gen; if (!c) return;
-    grid.innerHTML = ''; c.items.filter(match).forEach(a => grid.append(poster(a))); count();
-    if (q && !c.done && c.more) {
-      while (!c.done && alive(g) && q) {
-        const before = c.items.length; await c.more();
-        if (c.items.length === before && !c.done) break;   // hata: dur
-      }
-      if (!alive(g)) return;
-      grid.innerHTML = ''; c.items.filter(match).forEach(a => grid.append(poster(a))); count();
-    }
-    msg.textContent = grid.children.length ? '' : (q ? 'Sonuç bulunamadı. Başka bir arama dene.' : '');
-  };
-  $('#chips').onclick = e => { const b = e.target.closest('.chip'); if (b && !b.classList.contains('on')) loadGroup(b.dataset.g); };
-  loadGroup('all');
-}
-async function loadInfo(id) {
-  const raw = await Animland.info(id);
-  console.log('Detay yanıtı:', raw);
-  const d0 = raw.data || raw;
-  return normAnime(Array.isArray(d0) ? d0[0] : d0);
-}
-
-async function showDetail(id) {
-  const my = ++rt; enterPage();
-  const pg = $('#page'); pg.innerHTML = '<div class="msg pad">Yükleniyor…</div>';
-  try {
-    const a = await loadInfo(id);
-    if (my !== rt) return;
-    const seasons = seasonsOf(a), first = seasons.find(s => s.eps.length) || seasons[0];
-    const hid = encodeURIComponent(id);
-    document.title = a.title + ' – Animhub';
-    const yr = [a.seasons > 0 ? `<b>${a.seasons} Sezon</b>` : esc(a.type || ''), a.year ? esc(a.year) : ''].filter(Boolean).join(' <span>-</span> ');
-    pg.innerHTML = `
-    <div class="dh"><div class="bgi" style="background-image:url('${esc(a.wide || a.img || '')}')"></div>
-      <a class="home" href="#/" aria-label="Ana sayfaya dön"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>Ana sayfa</a>
-      <div class="dhin">
-        ${a.logo ? `<img class="tlogo" referrerpolicy="no-referrer" alt="${esc(a.title)}" src="${esc(a.logo)}">` : `<h1>${esc(a.title)}</h1>`}
-        <div class="mt">${a.score ? `<span class="imdb">${esc(a.score)} <small>IMDb</small></span>` : ''}</div>
-        <div class="gen">${a.genres.map(g => `<span>${esc(g)}</span>`).join('')}</div>
-        <div class="yr">${yr}</div>
-        <p class="ov">${esc(a.desc || 'Özet yok.')}</p>
-        <a class="btn play" href="#/watch/${hid}/${first.n}/${first.eps[0]?.n ?? 1}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span>İlk bölümü izle</span></a>
-        ${a.trailer ? ' <button class="alt" id="tr">Fragman</button>' : ''}
-        ${a.subs.length ? `<div class="grp">Altyazı Grupları:${a.subs.map(x => `<b>${esc(x)}</b>`).join('')}</div>` : ''}
-        ${a.sounds.length ? `<div class="grp">Ses Grupları:${a.sounds.map(x => `<b>${esc(x)}</b>`).join('')}</div>` : ''}
-      </div></div>
-    <div class="trbox" id="trbox" hidden style="max-width:1300px;margin:20px auto 0;padding:0 20px"></div>
-    <section>
-      <select class="sel" id="se" aria-label="Sezon">${seasons.map(s => `<option value="${esc(s.n)}"${s === first ? ' selected' : ''}>${esc(s.name || s.n + '. Sezon')}</option>`).join('')}</select>
-      <h2 class="sech" id="seh"></h2><div class="egrid" id="eg"></div>
-    </section>
-    <section><h2 class="sech" id="simh">Benzer animeler</h2><div class="row" id="sim"></div></section>
-    <div style="height:20px"></div>`;
-    const lg = pg.querySelector('.tlogo');
-    if (lg) lg.onerror = () => { const h = document.createElement('h1'); h.textContent = a.title; lg.replaceWith(h); };
-    const draw = () => {
-      const s = seasons.find(x => String(x.n) === $('#se').value) || first;
-      $('#seh').textContent = `${s.name || s.n + '. Sezon'} - ${s.eps.length} Bölüm`;
-      $('#eg').innerHTML = s.eps.map(e => epc(id, s.n, e)).join('');
-    };
-    $('#se').onchange = draw; draw();
-    if (a.trailer) $('#tr').onclick = () => { const b = $('#trbox'); b.hidden = false; b.innerHTML = `<iframe src="${esc(a.trailer)}" allowfullscreen></iframe>`; b.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
-    const simEl = $('#sim'), simHd = $('#simh');
-    Animland.similar(id).then(r => {
-      if (!simEl.isConnected) return;
-      const l = asList(r).filter(x => String(x.id) !== String(id)).slice(0, 12);
-      l.length ? l.forEach(x => simEl.append(poster(x))) : (simEl.remove(), simHd.remove());
-    }).catch(() => { simEl.remove(); simHd.remove(); });
-  } catch (e) {
-    console.error(e);
-    if (my === rt) pg.innerHTML = '<div class="msg pad">Detay alınamadı. <a href="#/" style="color:#ff4b55">Ana sayfaya dön</a></div>';
-  }
-}
-
-async function showWatch(id, sn, en) {
-  const my = ++rt; enterPage();
-  const pg = $('#page'); pg.innerHTML = '<div class="msg pad">Yükleniyor…</div>';
-  try {
-    const a = await loadInfo(id);
-    if (my !== rt) return;
-    const seasons = seasonsOf(a);
-    const flat = seasons.flatMap(s => s.eps.map(e => ({ s: s.n, e: e.n })));
-    const idx = flat.findIndex(x => x.s == sn && x.e == en);
-    const season = seasons.find(s => s.n == sn) || seasons[0];
-    const ep = season.eps.find(e => e.n == en) || season.eps[0] || {};
-    const hid = encodeURIComponent(id);
-    const link = x => (x ? `href="#/watch/${hid}/${x.s}/${x.e}"` : '');
-    const prev = idx > 0 ? flat[idx - 1] : null, next = idx >= 0 && idx < flat.length - 1 ? flat[idx + 1] : null;
-    document.title = `${a.title} S${sn} B${en} – Animhub`;
-    pg.innerHTML = `<div class="wp">
-      <div class="navrow">
-        <a class="home" href="#/" aria-label="Ana sayfaya dön"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>Ana sayfa</a>
-        <a class="home" href="#/anime/${hid}" aria-label="Anime sayfasına dön"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg><span class="hl">${esc(a.title)}</span></a>
-      </div>
-      <div class="vwrap" id="wplayer"></div>
-      <div class="wbar"><div><h2 class="wt">${esc(a.title)}</h2><div class="ws">${esc(season.name || 'Sezon ' + sn)} · Bölüm ${esc(en)}${ep.name ? ' — ' + esc(ep.name) : ''}</div></div>
-        <div class="wctl"><input type="hidden" id="wsv" value="2"><a class="nbtn nprev${prev ? '' : ' dis'}" ${link(prev)}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Önceki</span></a><a class="nbtn nnext${next ? '' : ' dis'}" ${link(next)}><span>Sonraki</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a></div></div>
-      <h2 class="sech">${esc(season.name || 'Sezon ' + sn)} bölümleri</h2>
-      <div class="egrid">${season.eps.map(e => epc(id, season.n, e, e.n == en)).join('')}</div></div>`;
-    $('#wsv').onchange = () => watch(id, sn, en);
-    watch(id, sn, en);
-  } catch (e) {
-    console.error(e);
-    if (my === rt) pg.innerHTML = '<div class="msg pad">Bölüm bilgisi alınamadı. <a href="#/" style="color:#ff4b55">Ana sayfaya dön</a></div>';
-  }
-}
-
-function route() {
-  const h = location.hash; let m;
-  allSearch = null; $('#q').placeholder = 'Anime ara…';
-  if (h === '#/animes') return showAll();
-  if ((m = h.match(/^#\/anime\/([^/]+)$/))) return showDetail(decodeURIComponent(m[1]));
-  if ((m = h.match(/^#\/watch\/([^/]+)\/(\d+)\/(\d+)$/))) return showWatch(decodeURIComponent(m[1]), +m[2], +m[3]);
-  showHome();
-}
-const mbtn = $('#mbtn'), mmenu = $('#mmenu');
-const mclose = () => { mmenu.hidden = true; mbtn.setAttribute('aria-expanded', 'false'); };
-mbtn.onclick = e => { e.stopPropagation(); mmenu.hidden = !mmenu.hidden; mbtn.setAttribute('aria-expanded', String(!mmenu.hidden)); };
-mmenu.addEventListener('click', () => { mclose(); if (location.hash === '#/' || !location.hash) { $('#search').hidden = true; $('#home').hidden = false; $('#q').value = ''; } });
-document.addEventListener('click', mclose);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') mclose(); });
-addEventListener('hashchange', route);
-route();
-</script>
-</body>
-</html>
+   
