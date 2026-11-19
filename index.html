@@ -525,51 +525,6 @@ footer::before{display:none}
 <footer><div class="fl">ANIM<b>HUB</b></div><p>Animeyi keşfet, izle, hayran ol.</p></footer>
 
 <script>
-/* Kısayol koruması: F12, Ctrl+U, Ctrl+Shift+I/J/C/K, Ctrl+S, sağ tık */
-(() => {
-  const stop = e => { e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); return false; };
-  const yasak = e => {
-    const k = (e.key || '').toLowerCase(), c = e.ctrlKey, m = e.metaKey, sh = e.shiftKey, alt = e.altKey;
-    return e.key === 'F12' || e.keyCode === 123 ||
-      (c && sh && ['i', 'j', 'c', 'k'].includes(k)) ||
-      (c && ['u', 's'].includes(k)) ||
-      (m && alt && ['i', 'j', 'c', 'u'].includes(k)) ||
-      (m && ['u', 's'].includes(k));
-  };
-  ['keydown', 'keyup', 'keypress'].forEach(t => {
-    addEventListener(t, e => { if (yasak(e)) return stop(e); }, true);
-    document.addEventListener(t, e => { if (yasak(e)) return stop(e); }, true);
-  });
-  // sağ tık menüsü (arama kutusunda yapıştırma için açık kalır)
-  addEventListener('contextmenu', e => { if (!e.target.closest('input,textarea')) return stop(e); }, true);
-
-  // Konsol / geliştirici araçları açılırsa siteyi kapat
-  let kapali = false;
-  const kapat = () => {
-    if (kapali) return; kapali = true;
-    try { document.querySelectorAll('video,audio').forEach(v => { v.pause(); v.removeAttribute('src'); v.load(); }); } catch (_) {}
-    try { document.documentElement.innerHTML = '<body style="margin:0;background:#000"></body>'; } catch (_) {}
-    try { window.close(); } catch (_) {}
-    location.replace('about:blank');
-  };
-  const kontrol = () => {
-    if (kapali) return;
-    // 1) Konsol açıkken console.log, elemanın id özelliğini okur
-    let acik = false;
-    const el = new Image();
-    Object.defineProperty(el, 'id', { get() { acik = true; return ''; } });
-    console.log(el);
-    if (acik) return kapat();
-    // 2) debugger ifadesi, araçlar açıkken kodu duraklatır; süre uzarsa açık demektir
-    const t = Date.now();
-    new Function('debugger')();
-    if (Date.now() - t > 120) kapat();
-  };
-  kontrol();
-  setInterval(kontrol, 700);
-})();
-</script>
-<script>
 /* ===== Animland API istemcisi (Cloudflare Worker üzerinden) ===== */
 const ANIM = {
   base: "https://animeapi123.ishakaydin445.workers.dev/api",   // Worker -> api.animland.net
