@@ -523,18 +523,89 @@ footer::before{display:none}
 .amsg2.ok{color:#6dff8a}
 .amail{margin:0 0 6px;font-weight:700;word-break:break-all}
 .abox .alt{width:100%;justify-content:center;margin-top:10px}
+
+/* ---- Profil / Karşılama / İstatistik ---- */
+.navav{flex:none;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;transition:transform .15s,box-shadow .25s}
+.navav:hover{box-shadow:0 0 0 3px rgba(255,75,85,.35)}
+.navav:active{transform:scale(.92)}
+.av{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;color:#fff;font-family:'Exo 2',Inter,sans-serif;font-weight:800;font-size:1.05rem;line-height:1;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 2px 8px rgba(0,0,0,.4);user-select:none}
+.av.em{font-size:1.3rem}
+#hello{max-width:1300px;margin:0 auto;padding:14px 20px 0}
+#hello[hidden]{display:none}
+#hello .hv{display:inline-flex;align-items:center;gap:12px;max-width:100%;padding:6px 18px 6px 6px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.05);color:#fff;font:inherit;text-align:left;cursor:pointer;transition:background .2s,border-color .2s}
+#hello .hv:hover{background:rgba(255,255,255,.09);border-color:rgba(255,75,85,.5)}
+#hello .av{width:42px;height:42px;flex:none}
+#hello .htx{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+#hello .htx b{font-family:'Exo 2',Inter,sans-serif;font-size:1.05rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#hello .hn{color:#ff6b74}
+#hello .htx small{color:#8f8fa0;font-size:.78rem}
+.stc{max-width:1300px;margin:0 auto;padding:26px 20px 0}
+.stg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stt{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0;padding:16px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:inherit;text-decoration:none}
+.stt .sti{width:36px;height:36px;margin-bottom:8px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(255,75,85,.22),rgba(229,9,20,.06));border:1px solid rgba(255,75,85,.3);flex:none}
+.stt .sti svg{width:18px;height:18px;fill:none;stroke:#ff6b74;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.stt b{font-family:'Exo 2',Inter,sans-serif;font-size:1.55rem;font-weight:800;letter-spacing:-.02em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stt small{color:#8f8fa0;font-size:.82rem;font-weight:600;line-height:1.3}
+.stt.stl{grid-column:1/-1;flex-direction:row;align-items:center;gap:14px;padding:12px}
+.stt.stl .sti{margin:0 2px 0 4px;width:44px;height:44px}
+.stt.stl img{width:132px;aspect-ratio:16/9;object-fit:cover;border-radius:12px;background:var(--card);flex:none}
+.stt.stl .stx{display:flex;flex-direction:column;min-width:0;flex:1}
+.stt.stl .stx b{font-size:1.05rem}
+.stt.stl .stx em{font-style:normal;color:#9a9aa8;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stt.stl .stx small{color:#ff6b74;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.72rem}
+a.stt.stl{transition:border-color .25s,background .25s}
+a.stt.stl:hover{border-color:rgba(255,75,85,.5);background:rgba(255,255,255,.07)}
+.apv{display:flex;align-items:center;gap:14px;margin:4px 0 16px;padding-right:30px}
+.apv .av{width:68px;height:68px;font-size:1.9rem}
+.apv .av.em{font-size:2.2rem}
+.apv>span{flex:none;width:68px;height:68px}
+.apv div{min-width:0}
+.apv b{display:block;font-family:'Exo 2',Inter,sans-serif;font-size:1.1rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.apv small{display:block;color:#9a9aa8;font-size:.82rem;word-break:break-all}
+.apl{margin:2px 0 8px;font-size:.8rem;font-weight:600;color:#9a9aa8}
+.avgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+.avgrid button{aspect-ratio:1;border-radius:14px;border:2px solid transparent;background:rgba(255,255,255,.06);font-size:1.45rem;line-height:1;cursor:pointer;color:#fff;font-family:'Exo 2',Inter,sans-serif;font-weight:800;transition:background .2s,border-color .2s,transform .12s}
+.avgrid button:active{transform:scale(.93)}
+.avgrid button.on{border-color:#ff4b55;background:rgba(255,75,85,.16)}
+.avcol{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.avcol button{width:34px;height:34px;padding:0;border-radius:50%;border:2px solid transparent;cursor:pointer;box-shadow:inset 0 0 0 2px rgba(0,0,0,.28);transition:transform .12s}
+.avcol button:active{transform:scale(.9)}
+.avcol button.on{border-color:#fff}
+.abox .pbtn{display:flex;align-items:center;justify-content:center;width:100%;height:46px;margin-top:10px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font:inherit;font-weight:700;cursor:pointer;transition:background .2s}
+.abox .pbtn:hover{background:rgba(255,255,255,.12)}
+.alnk{background:none;border:0;padding:0;color:#ff6b74;font:inherit;font-size:.84rem;font-weight:700;cursor:pointer}
+.alnk:hover{text-decoration:underline}
+.arow{display:flex;justify-content:flex-end;margin:-4px 0 12px}
+@media(max-width:700px){
+  .navav{width:42px;height:42px}
+  #hello{padding:12px 12px 0}
+  .stc{padding:18px 12px 0}
+  .stg{gap:8px}
+  .stt{padding:12px 10px;border-radius:16px}
+  .stt .sti{width:30px;height:30px;margin-bottom:6px;border-radius:10px}
+  .stt .sti svg{width:16px;height:16px}
+  .stt b{font-size:1.1rem}
+  .stt small{font-size:.74rem}
+  .stt.stl{padding:10px}
+  .stt.stl img{width:96px}
+  .stt.stl .sti{display:none}
+  .stt.stl .stx b{font-size:.98rem}
+  .avgrid{grid-template-columns:repeat(5,1fr)}
+}
 </style>
 </head>
 <body>
 <nav>
   <a class="logo" href="#/" id="logo" aria-label="Animhub"><svg class="logosvg" viewBox="0 0 316 64" aria-hidden="true">  <defs><linearGradient id="ah-red" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff2b3a"/><stop offset="1" stop-color="#d4000f"/></linearGradient></defs><g transform="translate(11 0) skewX(-10)"><!-- hub kutusu --><path d="M154 0H292L304 12V64H166L154 52Z" fill="url(#ah-red)"/><!-- ANIM --><g fill="#fff" fill-rule="evenodd" transform="translate(0 10)"><path d="M0 44V10L10 0H24L34 10V44H26V28H8V44ZM8 20H26V13L21 8H13L8 13Z"/><path d="M44 44V0H53L69 30V0H78V44H69L53 14V44Z"/><path d="M88 0H96V44H88Z"/><path d="M106 44V0H116L123 14L130 0H140V44H132V16L125 30H121L114 16V44Z"/></g><!-- HUB --><g fill="#fff" fill-rule="evenodd" transform="translate(168 10)"><path d="M0 0H8V18H26V0H34V44H26V26H8V44H0Z"/><path d="M44 0H52V34H70V0H78V36L70 44H52L44 36Z"/><path d="M88 0H112L120 8V17L116 22L122 27V36L114 44H88ZM96 8H109L112 11V15L109 18H96ZM96 26H111L114 29V33L111 36H96Z"/></g></g></svg></a>
   <form id="sf"><svg class="sico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Anime ara…" aria-label="Anime ara" autocomplete="off" enterkeyhint="search"></form>
+  <button class="navav" id="navav" type="button" aria-label="Profil"></button>
   <div class="mw">
     <button class="mbtn" id="mbtn" type="button" aria-label="Menü" aria-expanded="false"><span class="hb" aria-hidden="true"><i></i><i></i><i></i></span></button>
     <div class="mmenu" id="mmenu" hidden><a href="#/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span>Ana sayfa</span></a><a href="#/list"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span>Listem</span><em class="mcount" id="mcount" hidden>0</em></a><a href="#/animes"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="3"/><path d="M10 9l5 3-5 3z"/><path d="M8 21h8"/></svg><span>Animeler</span></a><a href="#" id="authlink"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span>Giriş yap</span></a></div>
   </div>
   <div class="sug" id="sug" role="listbox" hidden></div>
 </nav>
+<div id="hello" hidden></div>
 
 <div id="main">
   <div class="hero" id="hero"><div class="bg"></div><div class="in"><h1>Yükleniyor…</h1></div></div>
@@ -814,6 +885,71 @@ const Hist = {
     Store.set('ah_hist', h);
   },
 };
+/* ===== Profil + İstatistik ===== */
+const AV_C = [['#ff4b55', '#d1111d'], ['#ff8a3d', '#e0541b'], ['#f5c542', '#d99a0b'], ['#34d399', '#0f9f6e'], ['#38bdf8', '#0b7bc9'], ['#7c83ff', '#4338ca'], ['#c084fc', '#8b2fd1'], ['#f472b6', '#c026d3']];
+const AV_E = ['🦊', '🐱', '🐺', '🐼', '🐲', '🦉', '🐰', '🐯', '🤖', '👻', '🥷', '🧙'];
+const Profile = {
+  email: '',
+  all() { const p = Store.get('ah_profile', null) || {}; return { name: String(p.name || ''), k: p.k === 'e' && p.e ? 'e' : 'i', e: p.e || '', c: Number.isInteger(p.c) ? p.c : null, ts: p.ts || 0 }; },
+  defName() { return this.email ? this.email.split('@')[0].slice(0, 20) : 'Misafir'; },
+  name() { return this.all().name.trim() || this.defName(); },
+  initial(nm) { return ([...String(nm).trim()][0] || '?').toLocaleUpperCase('tr-TR'); },
+  color(p, nm) { if (Number.isInteger(p.c)) return p.c % AV_C.length; return [...nm].reduce((a, ch) => (a * 31 + ch.codePointAt(0)) >>> 0, 7) % AV_C.length; },
+  html(p, nm) {
+    const c = AV_C[this.color(p, nm)], em = p.k === 'e' && p.e;
+    return `<span class="av${em ? ' em' : ''}" style="background:linear-gradient(135deg,${c[0]},${c[1]})">${esc(em ? p.e : this.initial(nm))}</span>`;
+  },
+  save(p) { p.ts = Date.now(); Store.set('ah_profile', p); this.paint(); },
+  paint() {
+    const p = this.all(), nm = this.name(), av = this.html(p, nm);
+    const nb = $('#navav'); if (nb) nb.innerHTML = av;
+    const h = $('#hello'); if (h) h.innerHTML = `<button type="button" class="hv" aria-label="Profili düzenle">${av}<span class="htx"><b>Merhaba, <span class="hn">${esc(nm)}</span></b><small>Bugün ne izliyoruz?</small></span></button>`;
+  },
+};
+const Stat = {
+  blank: () => ({ w: {}, d: {}, last: null, v: 1 }),
+  all() { const s = Store.get('ah_stat', null); return s && s.w ? { w: s.w, d: s.d || {}, last: s.last || null, v: 1 } : this.blank(); },
+  seed() {   // eski izleme verisinden bir kerelik başlangıç
+    if (Store.get('ah_stat', null)) return;
+    const p = Store.get('ah_prog', {}), s = this.blank();
+    for (const k in p) { const x = p[k]; if (!Array.isArray(x)) continue; s.w[k] = x[0] || 0; if (x[1] && x[0] / x[1] > .93) s.d[k] = x[1]; }
+    const h = Hist.list()[0]; if (h) s.last = { id: h.id, title: h.title, img: h.img, s: h.s, e: h.e, ts: h.ts };
+    Store.set('ah_stat', s);
+  },
+  track(W, t, d) {
+    const s = this.all(), k = `${W.id}:${W.sn}:${W.en}`, m = this._m || (this._m = {}), prev = m[k];
+    m[k] = t;
+    if (prev != null && t - prev > 0 && t - prev <= 20) s.w[k] = (s.w[k] || 0) + (t - prev);   // gerçekten oynatılan süre
+    else if (s.w[k] == null) s.w[k] = 0;
+    if (d && t / d > .93) s.d[k] = Math.floor(d);
+    if (t >= 10) s.last = { id: W.id, title: W.title, img: W.img, s: W.sn, e: W.en, ts: Date.now() };
+    Store.set('ah_stat', s);
+  },
+};
+{ const hs = Hist.save; Hist.save = function (W, t, d) { hs.call(this, W, t, d); try { Stat.track(W, t, d); } catch (e) {} }; }
+const fmtDur = sec => {
+  const m = Math.round(sec / 60); if (m < 1) return '0 dk';
+  const h = Math.floor(m / 60), r = m % 60;
+  if (h >= 48) return Math.floor(h / 24) + ' gün ' + (h % 24) + ' sa';
+  return h ? h + ' sa' + (r ? ' ' + r + ' dk' : '') : r + ' dk';
+};
+const agoTr = ts => { const d = Math.floor((Date.now() - ts) / 864e5); return d <= 0 ? 'Bugün' : d === 1 ? 'Dün' : d < 30 ? d + ' gün önce' : new Date(ts).toLocaleDateString('tr-TR'); };
+function statCardHTML() {
+  const s = Stat.all(), n = Fav.all().length, eps = Object.keys(s.d).length;
+  let tot = 0; for (const k in s.w) tot += s.w[k] || 0;
+  const L = s.last;
+  const ICO = {
+    clock: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    eye: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  };
+  const tile = (ico, val, lab) => `<div class="stt"><span class="sti">${ico}</span><b>${val}</b><small>${lab}</small></div>`;
+  const last = L
+    ? `<a class="stt stl" href="#/watch/${encodeURIComponent(L.id)}/${esc(L.s)}/${esc(L.e)}"><img loading="lazy" referrerpolicy="no-referrer" alt="" src="${esc(L.img || ph)}" onerror="this.src='${ph}'"><span class="stx"><small>Son izlenen</small><b>${esc(L.title)}</b><em>Sezon ${esc(L.s)} · Bölüm ${esc(L.e)} · ${agoTr(L.ts)}</em></span></a>`
+    : `<div class="stt stl"><span class="sti">${ICO.eye}</span><span class="stx"><small>Son izlenen</small><b>Henüz bir şey izlemedin</b><em>İzlemeye başladığında burada görünür</em></span></div>`;
+  return `<div class="stc"><div class="stg">${tile(HEART, fmt(n), 'Listedeki anime')}${tile(PLAYI, fmt(eps), 'İzlenen bölüm')}${tile(ICO.clock, fmtDur(tot), 'Toplam izleme süresi')}${last}</div></div>`;
+}
+Stat.seed(); Profile.paint();
+
 function renderCont() {
   const sec = $('#contsec'); if (!sec) return;
   const l = Hist.list(); sec.hidden = !l.length;
@@ -833,7 +969,7 @@ document.addEventListener('click', e => {
 function renderFavs() {
   const pg = $('#page'); if (location.hash !== '#/list' || pg.hidden) return;
   const l = Fav.all();
-  pg.innerHTML = `<section><div class="hd"><div><h2 class="h2i"><span class="hi">${HEART}</span>Listem</h2><p class="sub">${l.length ? l.length + ' anime' : 'Henüz anime eklemedin'}</p></div></div>${l.length ? '<div class="row" id="favrow"></div>' : `<div class="empty"><div class="eico">${HEART}</div><h3>Listen henüz boş</h3><p>Beğendiğin animelerin kalp ikonuna dokun, hepsi burada toplansın.</p><a class="btn" href="#/animes"><span>Animelere göz at</span></a></div>`}</section>`;
+  pg.innerHTML = statCardHTML() + `<section><div class="hd"><div><h2 class="h2i"><span class="hi">${HEART}</span>Listem</h2><p class="sub">${l.length ? l.length + ' anime' : 'Henüz anime eklemedin'}</p></div></div>${l.length ? '<div class="row" id="favrow"></div>' : `<div class="empty"><div class="eico">${HEART}</div><h3>Listen henüz boş</h3><p>Beğendiğin animelerin kalp ikonuna dokun, hepsi burada toplansın.</p><a class="btn" href="#/animes"><span>Animelere göz at</span></a></div>`}</section>`;
   l.forEach(a => $('#favrow').append(poster(a)));
 }
 function showFavs() { rt++; enterPage(); document.title = 'Listem – Animhub'; renderFavs(); }
@@ -1526,6 +1662,7 @@ async function showWatch(id, sn, en) {
 
 function route() {
   const h = location.hash; let m;
+  { const hl = $('#hello'); if (hl) hl.hidden = /^#\/(animes|anime\/|watch\/)/.test(h); }
   allSearch = null; $('#q').placeholder = 'Anime ara…';
   sugClose();
   if (h === '#/list') return showFavs();
@@ -1554,12 +1691,14 @@ route();
 
   const link = $('#authlink'), modal = $('#auth'), view = $('#aview');
   if (!link) return;
-  if (!/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(SB_URL) || SB_KEY.length < 40) { link.remove(); return; }
+  const hasSb = /^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(SB_URL) && SB_KEY.length >= 40;
+  if (!hasSb) link.remove();
+  const RECOV_URL = /[?&#]code=|type=recovery|access_token=/.test(location.search + location.hash);   // şifre sıfırlama bağlantısından dönüş
 
-  const KEYS = ['ah_fav', 'ah_hist', 'ah_prog'];
+  const KEYS = ['ah_fav', 'ah_hist', 'ah_prog', 'ah_stat'];
   const USER_I = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>';
   const G_I = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.5 12.2c0-.8-.1-1.4-.2-2H12v3.9h5.9c-.1 1-.8 2.5-2.2 3.5l3.4 2.6c2-1.8 3.4-4.5 3.4-8z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.4-2.6c-.9.6-2.1 1.1-3.9 1.1-3 0-5.5-2-6.4-4.7l-3.5 2.7C3.9 20.5 7.6 23 12 23z"/><path fill="#FBBC05" d="M5.6 13.9c-.2-.6-.4-1.2-.4-1.9s.1-1.3.4-1.9L2.1 7.4C1.4 8.8 1 10.4 1 12s.4 3.2 1.1 4.6l3.5-2.7z"/><path fill="#EA4335" d="M12 5.4c1.8 0 3.1.8 3.8 1.4l2.8-2.7C16.9 2.6 14.7 1.5 12 1.5 7.6 1.5 3.9 4 2.1 7.4l3.5 2.7C6.5 7.4 9 5.4 12 5.4z"/></svg>';
-  let sb = null, user = null, timer = null, pulling = false, lastPull = 0, mode = 'in';
+  let sb = null, user = null, timer = null, pulling = false, lastPull = 0;
 
   const loadSb = () => window.supabase ? Promise.resolve() : new Promise((ok, no) => {
     const s = document.createElement('script');
@@ -1571,10 +1710,26 @@ route();
   const newer = (x, y, i) => (x && (!y || (x[i] || 0) >= (y[i] || 0)) ? x : y);
   const mergeHist = (a, b) => { const o = { ...b }; for (const k in a) o[k] = newer(a[k], b[k], 'ts'); return o; };
   const mergeProg = (a, b) => { const o = { ...b }; for (const k in a) o[k] = newer(a[k], b[k], 2); return o; };
+  const mergeStat = (a, b) => {
+    a = a || {}; b = b || {};
+    const o = { w: Object.assign({}, b.w || {}), d: Object.assign({}, b.d || {}), last: null, v: 1 };
+    for (const k in (a.w || {})) o.w[k] = Math.max(a.w[k] || 0, o.w[k] || 0);
+    for (const k in (a.d || {})) o.d[k] = Math.max(a.d[k] || 0, o.d[k] || 0);
+    const x = a.last, y = b.last; o.last = x && (!y || (x.ts || 0) >= (y.ts || 0)) ? x : (y || null);
+    return o;
+  };
+  const statAhead = (l, r) => !r || !r.w || Object.keys(l.w).some(k => (r.w[k] || 0) < l.w[k]) || Object.keys(l.d).some(k => !(k in (r.d || {}))) || !!(l.last && (!r.last || (r.last.ts || 0) < l.last.ts));
   async function push() {
     if (!user || !sb) return;
-    const { error } = await sb.from('user_data').upsert({ user_id: user.id, fav: Fav.all(), hist: Hist.all(), prog: Store.get('ah_prog', {}), updated_at: new Date().toISOString() });
+    const { error } = await sb.from('user_data').upsert({ user_id: user.id, fav: Fav.all(), hist: Hist.all(), prog: Object.assign({}, Store.get('ah_prog', {}), { _stat: Store.get('ah_stat', null) }), updated_at: new Date().toISOString() });
     if (error) console.warn('Senkron (gönderme) hatası:', error.message);
+  }
+  async function syncProfile() {   // kullanıcı adı + avatar hesabın meta verisinde saklanır (ek tablo gerekmez)
+    try {
+      const meta = (user.user_metadata || {}).ah_profile, loc = Store.get('ah_profile', null);
+      if (meta && (!loc || (meta.ts || 0) > (loc.ts || 0))) { Store.set('ah_profile', meta); Profile.paint(); }
+      else if (loc && loc.ts && (!meta || loc.ts > (meta.ts || 0))) await sb.auth.updateUser({ data: { ah_profile: loc } });
+    } catch (e) { console.warn('Profil senkron hatası:', e.message || e); }
   }
   async function pull() {
     if (!user || !sb) return;
@@ -1584,15 +1739,19 @@ route();
       if (error) throw error;
       const first = localStorage.getItem('ah_sync_uid') !== user.id;
       const lf = Fav.all(), lh = Hist.all(), lp = Store.get('ah_prog', {});
+      const rp = Object.assign({}, (data && data.prog) || {}), rs = rp._stat; delete rp._stat;
       let fav = lf, hist = lh, prog = lp, need = false;
       if (!data) need = true;
-      else if (first) { fav = unionFav(lf, data.fav || []); hist = mergeHist(lh, data.hist || {}); prog = mergeProg(lp, data.prog || {}); need = true; }
-      else { fav = data.fav || []; hist = data.hist || {}; prog = mergeProg(lp, data.prog || {}); }
-      Store.set('ah_fav', fav); Store.set('ah_hist', hist); Store.set('ah_prog', prog);
+      else if (first) { fav = unionFav(lf, data.fav || []); hist = mergeHist(lh, data.hist || {}); prog = mergeProg(lp, rp); need = true; }
+      else { fav = data.fav || []; hist = data.hist || {}; prog = mergeProg(lp, rp); }
+      const ls = Stat.all(), st = mergeStat(ls, rs);
+      if (statAhead(ls, rs)) need = true;
+      Store.set('ah_fav', fav); Store.set('ah_hist', hist); Store.set('ah_prog', prog); Store.set('ah_stat', st);
       try { localStorage.setItem('ah_sync_uid', user.id); } catch (e) {}
       favSync(true); if (typeof renderCont === 'function' && $('#contsec')) renderCont();
       pulling = false;
       if (need) await push();
+      await syncProfile();
     } catch (e) { console.warn('Senkron (alma) hatası:', e.message || e); }
     pulling = false;
   }
@@ -1605,45 +1764,95 @@ route();
 
   /* ---- arayüz ---- */
   const E = s => esc(s);
-  function menuLabel() {
-    link.innerHTML = USER_I.replace('<svg', '<svg') + `<span>${user ? 'Hesabım' : 'Giriş yap'}</span>`;
-  }
+  let screen = 'in', quiet = false, draft = null, lastEmail = '';
+  const EMAIL_USER = () => !!user && ((user.identities || []).some(i => i.provider === 'email') || (user.app_metadata && user.app_metadata.provider === 'email'));
+  const recPending = () => { try { const t = +localStorage.getItem('ah_recovering'); return !!t && Date.now() - t < 36e5; } catch (e) { return false; } };
+  const recClear = () => { try { localStorage.removeItem('ah_recovering'); } catch (e) {} };
+  function menuLabel() { link.innerHTML = USER_I + `<span>${user ? 'Hesabım' : 'Giriş yap'}</span>`; }
   function msg(t, ok) { const m = $('#amsg2'); if (m) { m.textContent = t || ''; m.className = 'amsg2' + (ok ? ' ok' : ''); } }
   const trErr = m => {
     m = String(m || '');
     if (/invalid login/i.test(m)) return 'E-posta veya şifre hatalı.';
     if (/already registered|already been registered/i.test(m)) return 'Bu e-posta ile zaten hesap var. Giriş yapmayı dene.';
+    if (/same.*password|different from the old/i.test(m)) return 'Yeni şifre eskisiyle aynı olamaz.';
     if (/password/i.test(m) && /(short|least|characters)/i.test(m)) return 'Şifre en az 6 karakter olmalı.';
+    if (/reauthent/i.test(m)) return 'Güvenlik için çıkış yapıp tekrar giriş yaptıktan sonra dene.';
     if (/email not confirmed/i.test(m)) return 'E-postanı doğrulaman gerekiyor. Gelen kutunu kontrol et.';
-    if (/rate limit|too many/i.test(m)) return 'Çok fazla deneme yapıldı. Biraz bekleyip tekrar dene.';
+    if (/rate limit|too many|seconds/i.test(m)) return 'Çok fazla deneme yapıldı. Biraz bekleyip tekrar dene.';
     if (/valid email|invalid email/i.test(m)) return 'Geçerli bir e-posta yaz.';
+    if (/session|jwt|not authenticated/i.test(m)) return 'Oturum süresi dolmuş. Tekrar giriş yap.';
     if (/fetch|network/i.test(m)) return 'Bağlantı hatası. İnternetini kontrol et.';
     return 'Bir hata oluştu: ' + m;
   };
+
   function draw() {
+    if (screen === 'profile' || !hasSb) return drawProfile();
     if (!sb) { view.innerHTML = '<h3 id="atit">Hesap</h3><p class="asub">Yükleniyor…</p>'; return; }
     if (user) {
-      view.innerHTML = `<h3 id="atit">Hesabım</h3><p class="amail">${E(user.email || '')}</p><p class="asub">Listen ve izleme geçmişin bu hesapla tüm cihazlarında senkronlanıyor.</p><button class="btn" id="aout" type="button"><span>Çıkış yap</span></button><p class="amsg2" id="amsg2"></p>`;
-      $('#aout').onclick = async () => { await sb.auth.signOut(); try { localStorage.removeItem('ah_sync_uid'); } catch (e) {} gtoast('Çıkış yapıldı'); modal.hidden = true; };
-      return;
+      if (screen === 'pw') return drawPw();
+      if (screen === 'reset') return drawReset();
+      screen = 'profile'; return drawProfile();
     }
-    view.innerHTML = `<h3 id="atit">${mode === 'in' ? 'Giriş yap' : 'Hesap oluştur'}</h3><p class="asub">Giriş zorunlu değil. Listeni ve geçmişini tüm cihazlarında görmek istersen hesap aç.</p>
-      <div class="atabs"><button type="button" data-m="in" class="${mode === 'in' ? 'on' : ''}">Giriş</button><button type="button" data-m="up" class="${mode === 'up' ? 'on' : ''}">Kayıt ol</button></div>
-      <form id="aform" novalidate><label>E-posta<input id="aem" type="email" autocomplete="email" inputmode="email" required></label>
-      <label>Şifre<input id="apw" type="password" autocomplete="${mode === 'in' ? 'current-password' : 'new-password'}" minlength="6" required></label>
-      <button class="btn" id="asub" type="submit"><span>${mode === 'in' ? 'Giriş yap' : 'Kayıt ol'}</span></button></form>
+    if (screen === 'forgot') return drawForgot();
+    if (screen !== 'up') screen = 'in';
+    drawLogin();
+  }
+
+  function drawProfile() {
+    const p = Profile.all();
+    if (!draft) draft = { name: p.name, k: p.k, e: p.e, c: p.c };
+    view.innerHTML = `<h3 id="atit">${user ? 'Hesabım' : 'Profil'}</h3>
+      <div class="apv"><span id="apav"></span><div><b id="apnm"></b><small>${user ? E(user.email || '') : 'Misafir · bu cihazda saklanır'}</small></div></div>
+      <label>Kullanıcı adı<input id="pname" type="text" maxlength="20" autocomplete="nickname" value="${E(draft.name)}" placeholder="${E(Profile.defName())}"></label>
+      <div class="apl">Avatar</div><div class="avgrid" id="avgrid"></div>
+      <div class="apl">Renk</div><div class="avcol" id="avcol"></div>
+      <button class="btn" id="psave" type="button"><span>Kaydet</span></button>
+      ${user && EMAIL_USER() ? '<button class="pbtn" id="ppw" type="button">Şifre değiştir</button>' : ''}
+      ${user ? '<button class="pbtn" id="aout" type="button">Çıkış yap</button><p class="asub" style="margin:12px 0 0;font-size:.8rem">Listen ve izleme geçmişin bu hesapla tüm cihazlarında senkronlanıyor.</p>'
+             : (hasSb ? '<div class="aor">veya</div><button class="pbtn" id="pgo" type="button" style="margin-top:0">Giriş yap / Kayıt ol</button><p class="asub" style="margin:12px 0 0;font-size:.8rem">Hesap açarsan profilin ve listen tüm cihazlarında senkronlanır.</p>' : '')}
+      <p class="amsg2" id="amsg2"></p>`;
+    const upd = () => {
+      const nm = draft.name.trim() || Profile.defName(), ci = Profile.color(draft, nm), c = AV_C[ci];
+      $('#apav').innerHTML = Profile.html(draft, nm); $('#apnm').textContent = nm;
+      $('#avgrid').innerHTML = `<button type="button" data-k="i" aria-label="Baş harf" class="${draft.k === 'i' ? 'on' : ''}" style="background:linear-gradient(135deg,${c[0]},${c[1]})">${E(Profile.initial(nm))}</button>`
+        + AV_E.slice(0, 9).map(e => `<button type="button" data-k="e" data-e="${e}" class="${draft.k === 'e' && draft.e === e ? 'on' : ''}">${e}</button>`).join('');
+      $('#avcol').innerHTML = AV_C.map((x, i) => `<button type="button" data-c="${i}" aria-label="Renk ${i + 1}" class="${i === ci ? 'on' : ''}" style="background:linear-gradient(135deg,${x[0]},${x[1]})"></button>`).join('');
+    };
+    upd();
+    $('#pname').oninput = e => { draft.name = e.target.value; upd(); };
+    $('#avgrid').onclick = e => { const b = e.target.closest('button'); if (!b) return; draft.k = b.dataset.k; draft.e = b.dataset.e || ''; upd(); };
+    $('#avcol').onclick = e => { const b = e.target.closest('button'); if (!b) return; draft.c = +b.dataset.c; upd(); };
+    $('#psave').onclick = () => {
+      const np = { name: draft.name.trim().replace(/\s+/g, ' ').slice(0, 20), k: draft.k, e: draft.k === 'e' ? draft.e : '', c: Number.isInteger(draft.c) ? draft.c : null };
+      Profile.save(np); draft = null; modal.hidden = true; gtoast('Profil güncellendi');
+      if (user && sb) sb.auth.updateUser({ data: { ah_profile: Store.get('ah_profile', {}) } }).then(r => { if (r.error) gtoast('Hesaba işlenemedi, cihazda saklandı'); }).catch(() => {});
+    };
+    const pw = $('#ppw'); if (pw) pw.onclick = () => { screen = 'pw'; draw(); setTimeout(() => { const i = $('#pcur'); if (i) i.focus(); }, 50); };
+    const go = $('#pgo'); if (go) go.onclick = () => { screen = 'in'; draw(); };
+    const out = $('#aout'); if (out) out.onclick = async () => { await sb.auth.signOut(); try { localStorage.removeItem('ah_sync_uid'); } catch (e) {} screen = 'in'; gtoast('Çıkış yapıldı'); modal.hidden = true; };
+  }
+
+  function drawLogin() {
+    const inn = screen === 'in';
+    view.innerHTML = `<h3 id="atit">${inn ? 'Giriş yap' : 'Hesap oluştur'}</h3><p class="asub">Giriş zorunlu değil. Listeni ve geçmişini tüm cihazlarında görmek istersen hesap aç.</p>
+      <div class="atabs"><button type="button" data-m="in" class="${inn ? 'on' : ''}">Giriş</button><button type="button" data-m="up" class="${!inn ? 'on' : ''}">Kayıt ol</button></div>
+      <form id="aform" novalidate><label>E-posta<input id="aem" type="email" autocomplete="email" inputmode="email" value="${E(lastEmail)}" required></label>
+      <label>Şifre<input id="apw" type="password" autocomplete="${inn ? 'current-password' : 'new-password'}" minlength="6" required></label>
+      ${inn ? '<div class="arow"><button type="button" class="alnk" id="aforgot">Şifremi unuttum</button></div>' : ''}
+      <button class="btn" id="asub" type="submit"><span>${inn ? 'Giriş yap' : 'Kayıt ol'}</span></button></form>
       <div class="aor">veya</div><button class="gbtn" id="agoogle" type="button">${G_I}<span>Google ile devam et</span></button><p class="amsg2" id="amsg2"></p>`;
-    view.querySelectorAll('.atabs button').forEach(b => b.onclick = () => { mode = b.dataset.m; draw(); });
+    view.querySelectorAll('.atabs button').forEach(b => b.onclick = () => { lastEmail = $('#aem').value.trim(); screen = b.dataset.m; draw(); });
+    const fg = $('#aforgot'); if (fg) fg.onclick = () => { lastEmail = $('#aem').value.trim(); screen = 'forgot'; draw(); setTimeout(() => { const i = $('#afem'); if (i) i.focus(); }, 50); };
     $('#aform').onsubmit = async e => {
       e.preventDefault();
-      const em = $('#aem').value.trim(), pw = $('#apw').value;
+      const em = $('#aem').value.trim(), pw = $('#apw').value; lastEmail = em;
       if (!em || pw.length < 6) return msg('E-posta ve en az 6 karakterli şifre yaz.');
       const bt = $('#asub'); bt.disabled = true; msg('');
       try {
-        if (mode === 'in') {
+        if (inn) {
           const { error } = await sb.auth.signInWithPassword({ email: em, password: pw });
           if (error) throw error;
-          modal.hidden = true; gtoast('Giriş yapıldı');
+          recClear(); modal.hidden = true; gtoast('Giriş yapıldı');
         } else {
           const { data, error } = await sb.auth.signUp({ email: em, password: pw, options: { emailRedirectTo: location.origin + location.pathname } });
           if (error) throw error;
@@ -1658,18 +1867,93 @@ route();
       if (error) msg(trErr(error.message));
     };
   }
-  const open = () => { modal.hidden = false; draw(); setTimeout(() => { const i = $('#aem'); if (i) i.focus(); }, 50); };
+
+  function drawForgot() {
+    view.innerHTML = `<h3 id="atit">Şifremi unuttum</h3><p class="asub">E-postanı yaz, sana şifre sıfırlama bağlantısı gönderelim.</p>
+      <form id="fform" novalidate><label>E-posta<input id="afem" type="email" autocomplete="email" inputmode="email" value="${E(lastEmail)}" required></label>
+      <button class="btn" id="fsub" type="submit"><span>Bağlantı gönder</span></button></form>
+      <button class="pbtn" id="fback" type="button">Girişe dön</button><p class="amsg2" id="amsg2"></p>`;
+    $('#fback').onclick = () => { lastEmail = $('#afem').value.trim(); screen = 'in'; draw(); };
+    $('#fform').onsubmit = async e => {
+      e.preventDefault();
+      const em = $('#afem').value.trim(); lastEmail = em;
+      if (!/^\S+@\S+\.\S+$/.test(em)) return msg('Geçerli bir e-posta yaz.');
+      const bt = $('#fsub'); bt.disabled = true; msg('');
+      try {
+        const { error } = await sb.auth.resetPasswordForEmail(em, { redirectTo: location.origin + location.pathname });
+        if (error) throw error;
+        try { localStorage.setItem('ah_recovering', String(Date.now())); } catch (x) {}
+        msg('Sıfırlama bağlantısını gönderdik. E-postanı kontrol et (spam klasörüne de bak).', true);
+      } catch (err) { msg(trErr(err.message)); }
+      bt.disabled = false;
+    };
+  }
+
+  function drawPw() {
+    view.innerHTML = `<h3 id="atit">Şifre değiştir</h3><p class="asub">${E(user.email || '')}</p>
+      <form id="pwform" novalidate><label>Mevcut şifre<input id="pcur" type="password" autocomplete="current-password" required></label>
+      <label>Yeni şifre<input id="pnew" type="password" autocomplete="new-password" minlength="6" required></label>
+      <label>Yeni şifre (tekrar)<input id="pnew2" type="password" autocomplete="new-password" minlength="6" required></label>
+      <button class="btn" id="pwsub" type="submit"><span>Şifreyi güncelle</span></button></form>
+      <button class="pbtn" id="pback" type="button">Geri dön</button><p class="amsg2" id="amsg2"></p>`;
+    $('#pback').onclick = () => { screen = 'profile'; draw(); };
+    $('#pwform').onsubmit = async e => {
+      e.preventDefault();
+      const cur = $('#pcur').value, n1 = $('#pnew').value, n2 = $('#pnew2').value;
+      if (!cur) return msg('Mevcut şifreni yaz.');
+      if (n1.length < 6) return msg('Yeni şifre en az 6 karakter olmalı.');
+      if (n1 !== n2) return msg('Yeni şifreler aynı değil.');
+      if (n1 === cur) return msg('Yeni şifre eskisiyle aynı olamaz.');
+      const bt = $('#pwsub'); bt.disabled = true; msg(''); quiet = true;
+      try {
+        const r = await sb.auth.signInWithPassword({ email: user.email, password: cur });   // mevcut şifreyi doğrula
+        if (r.error) throw new Error(/invalid login/i.test(r.error.message) ? '__cur' : r.error.message);
+        const { error } = await sb.auth.updateUser({ password: n1 });
+        if (error) throw error;
+        gtoast('Şifre güncellendi'); screen = 'profile'; draw(); msg('Şifren güncellendi.', true);
+      } catch (err) { msg(err.message === '__cur' ? 'Mevcut şifre hatalı.' : trErr(err.message)); bt.disabled = false; }
+      setTimeout(() => { quiet = false; }, 1500);
+    };
+  }
+
+  function drawReset() {
+    view.innerHTML = `<h3 id="atit">Yeni şifre belirle</h3><p class="asub">${E(user.email || '')} hesabı için yeni bir şifre yaz.</p>
+      <form id="rform" novalidate><label>Yeni şifre<input id="rnew" type="password" autocomplete="new-password" minlength="6" required></label>
+      <label>Yeni şifre (tekrar)<input id="rnew2" type="password" autocomplete="new-password" minlength="6" required></label>
+      <button class="btn" id="rsub" type="submit"><span>Şifreyi kaydet</span></button></form><p class="amsg2" id="amsg2"></p>`;
+    $('#rform').onsubmit = async e => {
+      e.preventDefault();
+      const n1 = $('#rnew').value, n2 = $('#rnew2').value;
+      if (n1.length < 6) return msg('Şifre en az 6 karakter olmalı.');
+      if (n1 !== n2) return msg('Şifreler aynı değil.');
+      const bt = $('#rsub'); bt.disabled = true; msg('');
+      try {
+        const { error } = await sb.auth.updateUser({ password: n1 });
+        if (error) throw error;
+        recClear(); gtoast('Şifre güncellendi'); modal.hidden = true; screen = 'profile';
+      } catch (err) { msg(trErr(err.message)); bt.disabled = false; }
+    };
+  }
+
+  const open = s => {
+    screen = s || (user ? 'profile' : 'in'); draft = null; modal.hidden = false; draw();
+    setTimeout(() => { const i = $('#aem') || $('#afem') || $('#rnew'); if (i) i.focus(); }, 50);
+  };
+  window.AH = { profile: () => open('profile'), account: () => open() };
   link.addEventListener('click', e => { e.preventDefault(); open(); });
+  document.addEventListener('click', e => { if (e.target.closest('#navav, #hello .hv')) { e.preventDefault(); open('profile'); } });
   modal.addEventListener('click', e => { if (e.target === modal || e.target.closest('.aclose')) modal.hidden = true; });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) modal.hidden = true; });
   menuLabel();
 
-  loadSb().then(() => {
+  if (hasSb) loadSb().then(() => {
     sb = window.supabase.createClient(SB_URL, SB_KEY, { auth: { flowType: 'pkce', persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
     sb.auth.onAuthStateChange((ev, session) => {
       const had = !!user; user = session ? session.user : null;
-      menuLabel(); if (!modal.hidden) draw();
-      if (user && (!had || ev === 'SIGNED_IN')) setTimeout(pull, 0);
+      Profile.email = user ? (user.email || '') : ''; Profile.paint(); menuLabel();
+      if (!modal.hidden && !quiet) draw();
+      if (ev === 'PASSWORD_RECOVERY' || (ev === 'SIGNED_IN' && user && RECOV_URL && recPending())) { recClear(); setTimeout(() => open('reset'), 0); }
+      if (user && (!had || ev === 'SIGNED_IN') && !quiet) setTimeout(pull, 0);
     });
   }).catch(() => { console.warn('Supabase yüklenemedi'); link.addEventListener('click', () => gtoast('Hesap servisine ulaşılamadı')); });
 })();
