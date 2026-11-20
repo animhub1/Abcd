@@ -916,42 +916,20 @@ const Hist = {
 };
 /* ===== Profil + İstatistik ===== */
 const AV_C = [['#ff4b55', '#d1111d'], ['#ff8a3d', '#e0541b'], ['#f5c542', '#d99a0b'], ['#34d399', '#0f9f6e'], ['#38bdf8', '#0b7bc9'], ['#7c83ff', '#4338ca'], ['#c084fc', '#8b2fd1'], ['#f472b6', '#c026d3']];
-const AV_CH = [['17', 'Naruto'], ['13', 'Sasuke'], ['85', 'Kakashi'], ['14', 'Itachi'], ['40', 'Luffy'], ['62', 'Zoro'], ['246', 'Goku'], ['45627', 'Levi'], ['40882', 'Eren'], ['40881', 'Mikasa'], ['80', 'Light'], ['71', 'L'], ['11', 'Edward'], ['417', 'Lelouch'], ['27', 'Killua'], ['30', 'Gon'], ['146156', 'Tanjiro'], ['146157', 'Nezuko'], ['73935', 'Saitama'], ['164470', 'Gojo']];   // MAL karakter kimlikleri
-const Chars = {   // avatarlar: karakter fotoğrafları (Jikan) + sitenin kendi anime posterleri (yedek, Worker üzerinden)
-  busy: false, onload: null,
-  chars() { const l = Store.get('ah_chr', []); return Array.isArray(l) ? l : []; },
-  posters() { const l = Store.get('ah_avs', []); return Array.isArray(l) ? l : []; },
-  list() { return this.chars().concat(this.posters()); },
-  async load() {
-    if (this.busy) return; this.busy = true;
-    try {
-      if (!this.posters().length) {
-        const got = [], seen = new Set();
-        for (const pg of [1, 2]) {
-          let l = []; try { l = asList(await Animland.top('imdb', pg)); } catch (e) {}
-          for (const a of l) { const u = a.img || a.banner; if (u && /^https:\/\//.test(u) && !seen.has(a.id)) { seen.add(a.id); got.push({ id: String(a.id), n: a.title, u }); } }
-          if (got.length >= 12) break;
-        }
-        if (got.length) { Store.set('ah_avs', got.slice(0, 12)); if (this.onload) this.onload(); }
-      }
-      const have = new Set(this.chars().map(x => x.id)); let fails = 0;
-      for (const [k, n] of AV_CH) {   // karakterler tek tek gelir; üst üste hata olursa vazgeç, posterler kalır
-        if (have.has('c' + k) || fails >= 3) continue;
-        let ok = false;
-        for (let t = 0; t < 2 && !ok; t++) {
-          try {
-            const r = await fetch('https://api.jikan.moe/v4/characters/' + k);
-            if (r.status === 429) { await new Promise(x => setTimeout(x, 1200 * (t + 1))); continue; }
-            const j = r.ok ? await r.json() : null, u = j && j.data && j.data.images && j.data.images.jpg && j.data.images.jpg.image_url;
-            if (typeof u === 'string' && u.startsWith('https://')) { Store.set('ah_chr', this.chars().concat([{ id: 'c' + k, n, u }])); ok = true; if (this.onload) this.onload(); }
-            else break;
-          } catch (e) { await new Promise(x => setTimeout(x, 700)); }
-        }
-        fails = ok ? 0 : fails + 1;
-        await new Promise(x => setTimeout(x, 380));
-      }
-    } finally { this.busy = false; }
-  },
+const Chars = {   // avatarlar: hazır karakter fotoğrafları (hiçbir yerden çekilmez, linkler burada sabit)
+  onload: null,
+  _l: [
+  { id: 'a1', n: 'Avatar 1', u: 'https://cdn.myanimelist.net/r/130x130/images/characters/15/422168.webp?s=d49c44e98d3e4abd75fecfe53277eb58' },
+  { id: 'a2', n: 'Avatar 2', u: 'https://cdn.myanimelist.net/r/130x130/images/characters/2/284121.webp?s=58b3ec8dd78f4b9e50c7603833ca62c3' },
+  { id: 'a3', n: 'Avatar 3', u: 'https://cdn.myanimelist.net/r/130x130/images/characters/6/63870.webp?s=168d1d33bc397a58615e583c52ff1653' },
+  { id: 'a4', n: 'Avatar 4', u: 'https://cdn.myanimelist.net/r/130x130/images/characters/3/100534.webp?s=e06c9995fb237aa1094e3d466805be09' },
+  { id: 'a5', n: 'Avatar 5', u: 'https://cdn.myanimelist.net/r/130x130/images/characters/10/249647.webp?s=8fc3a66dc58807d8532accc2f0d36e03' },
+  { id: 'a6', n: 'Avatar 6', u: 'https://cdn.myanimelist.net/r/130x130/images/characters/2/241413.webp?s=5bf42b38d1b407a974435986e64442e0' },
+  { id: 'a7', n: 'Avatar 7', u: 'https://cdn.myanimelist.net/r/130x130/images/characters/9/310307.webp?s=63f268f2848fe2433d5a6465a485477d' },
+  { id: 'a8', n: 'Avatar 8', u: 'https://cdn.myanimelist.net/r/130x130/images/characters/8/406163.webp?s=0260504d9600e75711a47ede290906a5' }
+  ],
+  list() { return this._l; },
+  load() {},
 };
 const Profile = {
   email: '',
