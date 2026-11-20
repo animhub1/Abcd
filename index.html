@@ -916,41 +916,53 @@ const Hist = {
 };
 /* ===== Profil + İstatistik ===== */
 const AV_C = [['#ff4b55', '#d1111d'], ['#ff8a3d', '#e0541b'], ['#f5c542', '#d99a0b'], ['#34d399', '#0f9f6e'], ['#38bdf8', '#0b7bc9'], ['#7c83ff', '#4338ca'], ['#c084fc', '#8b2fd1'], ['#f472b6', '#c026d3']];
-const AV_CH = [{ k: '17', n: 'Naruto' }, { k: '13', n: 'Sasuke' }, { k: '85', n: 'Kakashi' }, { k: '14', n: 'Itachi' }, { k: '40', n: 'Luffy' }, { k: '62', n: 'Zoro' }, { k: '246', n: 'Goku' }, { k: '45627', n: 'Levi' }, { k: '40882', n: 'Eren' }, { k: '40881', n: 'Mikasa' }, { k: '80', n: 'Light' }, { k: '71', n: 'L' }, { k: '11', n: 'Edward' }, { k: '417', n: 'Lelouch' }, { k: '27', n: 'Killua' }, { k: '30', n: 'Gon' }, { k: '146156', n: 'Tanjiro' }, { k: '146157', n: 'Nezuko' }, { k: '73935', n: 'Saitama' }, { k: '164470', n: 'Gojo' }];   // MAL karakter kimlikleri
-const Chars = {   // karakter görselleri Jikan'dan bir kez çekilir, cihazda saklanır
-  m: null, busy: false, onload: null,
-  map() { return this.m || (this.m = Store.get('ah_chars', {}) || {}); },
-  url(k) { return this.map()[k] || ''; },
+const AV_CH = [['17', 'Naruto'], ['13', 'Sasuke'], ['85', 'Kakashi'], ['14', 'Itachi'], ['40', 'Luffy'], ['62', 'Zoro'], ['246', 'Goku'], ['45627', 'Levi'], ['40882', 'Eren'], ['40881', 'Mikasa'], ['80', 'Light'], ['71', 'L'], ['11', 'Edward'], ['417', 'Lelouch'], ['27', 'Killua'], ['30', 'Gon'], ['146156', 'Tanjiro'], ['146157', 'Nezuko'], ['73935', 'Saitama'], ['164470', 'Gojo']];   // MAL karakter kimlikleri
+const Chars = {   // avatarlar: karakter fotoğrafları (Jikan) + sitenin kendi anime posterleri (yedek, Worker üzerinden)
+  busy: false, onload: null,
+  chars() { const l = Store.get('ah_chr', []); return Array.isArray(l) ? l : []; },
+  posters() { const l = Store.get('ah_avs', []); return Array.isArray(l) ? l : []; },
+  list() { return this.chars().concat(this.posters()); },
   async load() {
     if (this.busy) return; this.busy = true;
     try {
-      for (const c of AV_CH) {
-        if (this.url(c.k)) continue;
-        for (let t = 0; t < 3 && !this.url(c.k); t++) {   // 429 / ağ hatasında bekleyip tekrar dene
-          try {
-            const r = await fetch('https://api.jikan.moe/v4/characters/' + c.k);
-            if (r.status === 429) { await new Promise(x => setTimeout(x, 1200 * (t + 1))); continue; }
-            const j = r.ok ? await r.json() : null;
-            const u = j && j.data && j.data.images && j.data.images.jpg && j.data.images.jpg.image_url;
-            if (typeof u === 'string' && u.startsWith('https://')) { this.map()[c.k] = u; Store.set('ah_chars', this.m); Profile.paint(); if (this.onload) this.onload(); }
-            else break;
-          } catch (e) { await new Promise(x => setTimeout(x, 800)); }
+      if (!this.posters().length) {
+        const got = [], seen = new Set();
+        for (const pg of [1, 2]) {
+          let l = []; try { l = asList(await Animland.top('imdb', pg)); } catch (e) {}
+          for (const a of l) { const u = a.img || a.banner; if (u && /^https:\/\//.test(u) && !seen.has(a.id)) { seen.add(a.id); got.push({ id: String(a.id), n: a.title, u }); } }
+          if (got.length >= 12) break;
         }
-        await new Promise(r => setTimeout(r, 380));
+        if (got.length) { Store.set('ah_avs', got.slice(0, 12)); if (this.onload) this.onload(); }
+      }
+      const have = new Set(this.chars().map(x => x.id)); let fails = 0;
+      for (const [k, n] of AV_CH) {   // karakterler tek tek gelir; üst üste hata olursa vazgeç, posterler kalır
+        if (have.has('c' + k) || fails >= 3) continue;
+        let ok = false;
+        for (let t = 0; t < 2 && !ok; t++) {
+          try {
+            const r = await fetch('https://api.jikan.moe/v4/characters/' + k);
+            if (r.status === 429) { await new Promise(x => setTimeout(x, 1200 * (t + 1))); continue; }
+            const j = r.ok ? await r.json() : null, u = j && j.data && j.data.images && j.data.images.jpg && j.data.images.jpg.image_url;
+            if (typeof u === 'string' && u.startsWith('https://')) { Store.set('ah_chr', this.chars().concat([{ id: 'c' + k, n, u }])); ok = true; if (this.onload) this.onload(); }
+            else break;
+          } catch (e) { await new Promise(x => setTimeout(x, 700)); }
+        }
+        fails = ok ? 0 : fails + 1;
+        await new Promise(x => setTimeout(x, 380));
       }
     } finally { this.busy = false; }
   },
 };
 const Profile = {
   email: '',
-  all() { const p = Store.get('ah_profile', null) || {}; return { name: String(p.name || ''), k: p.k === 'c' && p.e ? 'c' : 'i', e: p.e || '', c: Number.isInteger(p.c) ? p.c : null, ts: p.ts || 0 }; },
+  all() { const p = Store.get('ah_profile', null) || {}, u = typeof p.u === 'string' && /^https:\/\//.test(p.u) ? p.u : ''; return { name: String(p.name || ''), k: p.k === 'c' && p.e && u ? 'c' : 'i', e: p.e || '', u, c: Number.isInteger(p.c) ? p.c : null, ts: p.ts || 0 }; },
   defName() { return this.email ? this.email.split('@')[0].slice(0, 20) : 'Misafir'; },
   name() { return this.all().name.trim() || this.defName(); },
   initial(nm) { return ([...String(nm).trim()][0] || '?').toLocaleUpperCase('tr-TR'); },
   color(p, nm) { if (Number.isInteger(p.c)) return p.c % AV_C.length; return [...nm].reduce((a, ch) => (a * 31 + ch.codePointAt(0)) >>> 0, 7) % AV_C.length; },
   html(p, nm) {
-    const c = AV_C[this.color(p, nm)], ch = p.k === 'c' && AV_CH.find(x => x.k === p.e), u = ch && Chars.url(ch.k), ini = this.initial(nm);
-    if (u) return `<span class="av ch" data-i="${esc(ini)}" style="background:linear-gradient(135deg,${c[0]},${c[1]})"><img src="${esc(u)}" alt="${esc(ch.n)}" referrerpolicy="no-referrer" onerror="this.parentNode.textContent=this.parentNode.dataset.i"></span>`;
+    const c = AV_C[this.color(p, nm)], u = p.k === 'c' && p.u, ini = this.initial(nm);
+    if (u) return `<span class="av ch" data-i="${esc(ini)}" style="background:linear-gradient(135deg,${c[0]},${c[1]})"><img src="${esc(u)}" alt="" referrerpolicy="no-referrer" onerror="this.parentNode.textContent=this.parentNode.dataset.i"></span>`;
     return `<span class="av" style="background:linear-gradient(135deg,${c[0]},${c[1]})">${esc(ini)}</span>`;
   },
   save(p) { p.ts = Date.now(); Store.set('ah_profile', p); this.paint(); },
@@ -1002,7 +1014,7 @@ function statCardHTML() {
     : `<div class="stt stl"><span class="sti">${ICO.eye}</span><span class="stx"><small>Son izlenen</small><b>Henüz bir şey izlemedin</b><em>İzlemeye başladığında burada görünür</em></span></div>`;
   return `<div class="stc"><div class="stg">${tile(HEART, fmt(n), 'Listedeki anime')}${tile(PLAYI, fmt(eps), 'İzlenen bölüm')}${tile(ICO.clock, fmtDur(tot), 'Toplam izleme süresi')}${last}</div></div>`;
 }
-Stat.seed(); Profile.paint(); { const q = Profile.all(); if (q.k === 'c' && !Chars.url(q.e)) Chars.load(); }
+Stat.seed(); Profile.paint();
 
 function renderCont() {
   const sec = $('#contsec'); if (!sec) return;
@@ -1863,7 +1875,7 @@ route();
 
   function drawProfile() {
     const p = Profile.all();
-    if (!draft) draft = { name: p.name, k: p.k, e: p.e, c: p.c };
+    if (!draft) draft = { name: p.name, k: p.k, e: p.e, u: p.u, c: p.c };
     view.innerHTML = `<div class="ptop"><button class="phome" id="phome" type="button">${HOME_I}<span style="font-size:.9rem">Ana sayfaya dön</span></button></div><h3 id="atit">${user ? 'Hesabım' : 'Profilim'}</h3>
       <div class="apv"><span id="apav"></span><div><b id="apnm"></b><small>${user ? E(user.email || '') : 'Misafir · bu cihazda saklanır'}</small></div></div>
       <div class="apl">İstatistikler</div>${statCardHTML()}
@@ -1879,7 +1891,9 @@ route();
       const nm = draft.name.trim() || Profile.defName(), ci = Profile.color(draft, nm), c = AV_C[ci];
       $('#apav').innerHTML = Profile.html(draft, nm); $('#apnm').textContent = nm;
       $('#avgrid').innerHTML = `<button type="button" data-k="i" aria-label="Baş harf" class="${draft.k === 'i' ? 'on' : ''}" style="background:linear-gradient(135deg,${c[0]},${c[1]})">${E(Profile.initial(nm))}</button>`
-        + AV_CH.map(c => { const u = Chars.url(c.k); return `<button type="button" data-k="c" data-e="${c.k}" aria-label="${c.n}" title="${c.n}" class="${draft.k === 'c' && draft.e === c.k ? 'on' : ''}${u ? '' : ' sk'}">${u ? `<img src="${E(u)}" alt="${c.n}" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('sk');this.remove()">` : ''}</button>`; }).join('');
+        + (() => { let l = Chars.list(); if (draft.k === 'c' && draft.u && !l.some(x => x.id === draft.e)) l = [{ id: draft.e, n: 'Seçili', u: draft.u }].concat(l);
+          return l.length ? l.map(c => `<button type="button" data-k="c" data-e="${E(c.id)}" data-u="${E(c.u)}" aria-label="${E(c.n)}" title="${E(c.n)}" class="${draft.k === 'c' && draft.e === c.id ? 'on' : ''}"><img src="${E(c.u)}" alt="${E(c.n)}" referrerpolicy="no-referrer" loading="lazy" onerror="this.parentNode.classList.add('sk');this.remove()"></button>`).join('')
+            : Array.from({ length: 8 }, () => '<button type="button" class="sk" tabindex="-1" aria-hidden="true"></button>').join(''); })();
       const cv = draft.k === 'i'; $('#apl2').style.display = cv ? '' : 'none'; $('#avcol').style.display = cv ? '' : 'none';
       $('#avcol').innerHTML = AV_C.map((x, i) => `<button type="button" data-c="${i}" aria-label="Renk ${i + 1}" class="${i === ci ? 'on' : ''}" style="background:linear-gradient(135deg,${x[0]},${x[1]})"></button>`).join('');
     };
@@ -1888,10 +1902,10 @@ route();
     const sl = view.querySelector('a.stl'); if (sl) sl.onclick = () => { modal.hidden = true; };
     $('#phome').onclick = () => { modal.hidden = true; if (location.hash && location.hash !== '#/') location.hash = '#/'; else { const s = $('#search'), h = $('#home'); if (s) s.hidden = true; if (h) h.hidden = false; scrollTo(0, 0); } };
     $('#pname').oninput = e => { dirty = true; draft.name = e.target.value; upd(); };
-    $('#avgrid').onclick = e => { const b = e.target.closest('button'); if (!b || !b.dataset.k) return; if (b.dataset.k === 'c' && !Chars.url(b.dataset.e)) return; dirty = true; draft.k = b.dataset.k; draft.e = b.dataset.e || ''; upd(); };
+    $('#avgrid').onclick = e => { const b = e.target.closest('button'); if (!b || !b.dataset.k) return; dirty = true; draft.k = b.dataset.k; draft.e = b.dataset.e || ''; draft.u = b.dataset.u || ''; upd(); };
     $('#avcol').onclick = e => { const b = e.target.closest('button'); if (!b) return; dirty = true; draft.c = +b.dataset.c; upd(); };
     $('#psave').onclick = () => {
-      const np = { name: draft.name.trim().replace(/\s+/g, ' ').slice(0, 20), k: draft.k, e: draft.k === 'c' ? draft.e : '', c: Number.isInteger(draft.c) ? draft.c : null };
+      const np = { name: draft.name.trim().replace(/\s+/g, ' ').slice(0, 20), k: draft.k, e: draft.k === 'c' ? draft.e : '', u: draft.k === 'c' ? draft.u : '', c: Number.isInteger(draft.c) ? draft.c : null };
       Profile.save(np); draft = null; dirty = false; gtoast('Profil güncellendi'); draw();
       if (user && sb) { clearTimeout(timer); push().then(() => sb.auth.updateUser({ data: { ah_profile: Store.get('ah_profile', {}) } })).then(r => { if (r && r.error) gtoast('Hesaba işlenemedi, cihazda saklandı'); }).catch(() => {}); }
     };
